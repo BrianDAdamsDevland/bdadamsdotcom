@@ -4,18 +4,14 @@
   <span
     class="cursor animate__flash animate__animated"
     v-if="!isComplete && display.length && cursor"
-    >|</span
   >
+    |
+  </span>
 </template>
 
 <script>
-import AnimatedEntrance from "./AnimatedEntrance.vue";
-
 export default {
   name: "Typer",
-  components: {
-    AnimatedEntrance,
-  },
   props: {
     text: String,
     delay: {

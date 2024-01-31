@@ -3,12 +3,14 @@ interface Props {
   title: string;
   heroTitle?: boolean;
   hideMenu?: boolean;
+  sourceLink: string;
 }
 
-const { title, heroTitle, hideMenu } = Astro.props;
+const { title, heroTitle, hideMenu, sourceLink } = Astro.props;
 
 import Title from "../components/Title/Title.astro";
 import Menu from "../components/Menu.vue";
+import Footer from "../components/Footer.astro";
 
 import { ViewTransitions } from "astro:transitions";
 ---
@@ -50,6 +52,9 @@ import { ViewTransitions } from "astro:transitions";
       transition:animate="initial"
     />
     <slot />
+
+    <Footer sourceLink={sourceLink} />
+
     <style is:global>
       :root {
         --color-light-blue-200: #81d4fa;
@@ -146,6 +151,7 @@ import { ViewTransitions } from "astro:transitions";
       h4 {
         color: var(--color-secondary);
       }
+
 
       @media (min-width: 500px) {
         main {

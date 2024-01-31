@@ -1,0 +1,74 @@
+---
+interface Props {
+  sourceLink: string;
+}
+
+const { sourceLink } = Astro.props;
+
+const fullSourceLink = `https://github.com/briandadams85/bdadamsdotcom/blob/main${sourceLink}`;
+---
+
+<footer>
+  <div>
+    <p>Site by Brian D. Adams</p>
+  </div>
+
+  <div>
+    <p>
+      Built with
+      <a href="https://astro.build"> Astro</a> and
+      <a href="https://vuejs.org/">Vue</a>
+    </p>
+    
+    <p>
+      <small>
+        <a href={fullSourceLink}> View Page Source</a>
+      </small>
+      
+    </p>
+    
+  </div>
+</footer>
+
+<style lang="scss">
+  footer {
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    padding: 35px 15px;
+    flex-direction: column;
+    gap: 20px;
+
+    div:first-child {
+      flex-grow: 1;
+    }
+
+    a {
+      text-decoration: none;
+      font-weight: 600;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    p {
+      margin-top: 0;
+      margin-bottom: 5px;
+    }
+    p:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  @media (min-width: 470px) {
+    footer {
+      flex-direction: row;
+      align-items: center;
+
+      div:last-child {
+      text-align: right;
+    }
+    }
+  }
+</style>
