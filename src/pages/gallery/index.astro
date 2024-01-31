@@ -1,0 +1,85 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Typer from "../../components/Typer.vue";
+
+import { getCollection } from "astro:content";
+
+const allGalleryCollection = await getCollection("gallery");
+
+const galleryItems = allGalleryCollection
+  .map((i) => ({ ...i.data, slug: i.slug }))
+  .sort((a, b) => b.year - a.year);
+---
+
+<Layout title="gallery ||| bdadams.com">
+  <main>
+    <div class="card">
+      <h1>
+        <Typer client:load text="Gallery" time={700} />
+      </h1>
+
+      <div class="gallery-block">
+        {
+          galleryItems.map((i) => (
+            <div class="item">
+              <a
+                href={`/gallery/${i.slug}`}
+                class="img"
+                style={`background-image: url('${i.imageSrc}');`}
+                transition:name={`${i.slug}-img`}
+              />
+
+              <div>
+                <strong transition:name={`${i.slug}-title`}>{i.title}</strong>
+                <span transition:name={`${i.slug}-year`}>({i.year})</span>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </main>
+</Layout>
+
+<style lang="scss">
+  .gallery-block {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    transition: all 0.2s;
+
+    .item {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+
+      &:hover {
+      }
+    }
+
+    .img {
+      background-size: cover;
+      background-position-y: 2%;
+      background-position-x: 50%;
+      aspect-ratio: 1;
+      display: block;
+      width: 100%;
+    }
+  }
+
+  main {
+    max-width: 1200px;
+  }
+
+  @media (min-width: 500px) {
+    .gallery-block {
+      gap: 20px;
+    }
+  }
+
+  @media (min-width: 900px) {
+    .gallery-block {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+  }
+</style>

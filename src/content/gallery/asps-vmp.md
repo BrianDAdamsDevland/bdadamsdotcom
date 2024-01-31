@@ -1,0 +1,17 @@
+---
+title: ASPS Virtual Meeting Platform
+year: 2020
+imageSrc: /images/gallery/mvm.jpg
+---
+
+I completed the design and implementation of our internal virtual meeting platform. The front-end is written in Vue.js/Vue Router/Vuex, and I developed a CI/CD pipeline using CodePipeline and CodeBuild in AWS that builds and deploys the front-end artifacts to S3 on commit. Initial request to functioning app was about two weeks due to a late decision to transition to virtual because of COVID-19. App has since been reused for 35+ additional events.
+
+#### Technologies Used
+
+* Vue.js
+* Vue Router
+* Vuex
+* SASS
+* CodePipeline
+* CodeBuild
+* .NET (API)

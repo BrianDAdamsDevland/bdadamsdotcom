@@ -1,0 +1,16 @@
+---
+import Collapser from "../Collapser.vue";
+
+const { entry } = Astro.props;
+
+const { Content } = await entry.render();
+---
+
+<Collapser
+  client:load
+  title-wrapper="h4"
+  title={entry.data.title}
+  subtitle={entry.data.subtitle}
+>
+  <Content />
+</Collapser>

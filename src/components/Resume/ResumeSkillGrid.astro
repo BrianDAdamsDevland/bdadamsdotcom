@@ -1,0 +1,17 @@
+<div>
+    <slot />
+</div>
+
+<style>
+  div {
+    display: grid;
+    gap: 15px;
+    flex-wrap: wrap;
+  }
+
+  @media (min-width: 700px) {
+    div {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+</style>

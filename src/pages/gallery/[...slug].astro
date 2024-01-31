@@ -1,0 +1,83 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+
+export async function getStaticPaths() {
+  const galleryItems = await getCollection("gallery");
+  return galleryItems.map((entry) => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+---
+
+<Layout title={`${entry.data.title} ||| gallery ||| bdadams.com`}>
+  <main>
+    <div class="card">
+      <span>
+        <a href="/gallery" class="back">
+          <i class="fa-sharp fa-solid fa-arrow-left-long"></i>
+          Back to Gallery
+        </a>
+      </span>
+      <h1 transition:name={`${entry.slug}-title`}>
+        {entry.data.title}
+        <small transition:name={`${entry.slug}-year`}>({entry.data.year})</small
+        >
+      </h1>
+
+      <div class="gallery-item-block">
+        <div class="img">
+          <img
+            src={entry.data.imageSrc}
+            transition:name={`${entry.slug}-img`}
+          />
+        </div>
+
+        <div>
+          <Content />
+        </div>
+      </div>
+    </div>
+  </main>
+</Layout>
+
+<style>
+  main {
+    max-width: 1200px;
+  }
+
+  .gallery-item-block {
+    display: flex;
+    gap: 15px;
+    flex-direction: column;
+  }
+
+  img {
+    max-width: 100%;
+    max-height: 130dvh;
+    margin: 0 auto;
+    display: block;
+  }
+
+  :global(p:first-child) {
+    margin-top: 0;
+  }
+
+  a.back {
+    text-decoration: none;
+  }
+
+  @media (min-width: 800px) {
+    .gallery-item-block {
+      flex-direction: row;
+    }
+
+    .img {
+      min-width: 65%;
+    }
+  }
+</style>

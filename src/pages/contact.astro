@@ -1,0 +1,53 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Typer from "../components/Typer.vue";
+---
+
+<Layout title="contact ||| bdadams.com">
+  <main>
+    <div class="card">
+      <h1>
+        <Typer text="Contact" client:load time={600} />
+      </h1>
+
+      <div class="contact-block">
+        <div>
+          <strong>Email</strong>
+          <a href="mailto:brian@bdadams.com" aria-label="Email">
+            <i class="fa-sharp fa-solid fa-envelope fa-4x"></i>
+          </a>
+
+          <a href="mailto:brian@bdadams.com">brian@bdadams.com</a>
+        </div>
+        <div>
+          <strong>LinkedIn</strong>
+          <a
+            href="https://www.linkedin.com/in/brian-d-adams-dev/"
+            aria-label="LinkedIn"
+          >
+            <i class="fa-brands fa-linkedin fa-4x"></i></a
+          >
+
+          <a href="https://www.linkedin.com/in/brian-d-adams-dev/">
+            brian-d-adams-dev
+          </a>
+        </div>
+      </div>
+    </div>
+  </main>
+</Layout>
+
+<style lang="scss">
+  .contact-block {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+
+    > div {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+</style>

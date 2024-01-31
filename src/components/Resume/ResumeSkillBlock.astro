@@ -1,0 +1,45 @@
+---
+import AnimatedEntrance from "../AnimatedEntrance.vue";
+
+const { entry } = Astro.props;
+
+const { Content } = await entry.render();
+---
+
+<AnimatedEntrance client:load>
+<div>
+  <h4>
+    <i class={`${entry.data.icon} fa-lg`}></i>
+    {entry.data.title}
+  </h4>
+
+  <Content />
+</div>
+</AnimatedEntrance>
+
+<style>
+  div {
+    background: rgba(20, 20, 20);
+    padding: 15px;
+    border-radius: 5px;
+  }
+
+  h4 {
+    margin-top: 0;
+    position: sticky;
+    top: 36px;
+    background: rgba(20, 20, 20);
+    z-index: 801;
+    padding: 4px 0;
+  }
+
+  div :global(ul) {
+    list-style-type: none;
+    margin-left: 0;
+    padding-left: 0;
+    display: grid;
+    gap: 5px;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+  }
+</style>

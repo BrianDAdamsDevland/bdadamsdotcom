@@ -1,17 +1,21 @@
 {
-  "name": "",
+  "name": "bdadamsdotcom",
   "type": "module",
   "version": "0.0.1",
   "scripts": {
     "dev": "astro dev",
+    "dev host": "astro dev --host",
     "start": "astro dev",
     "build": "astro check && astro build",
     "preview": "astro preview",
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/check": "^0.4.1",
-    "astro": "^4.2.4",
-    "typescript": "^5.3.3"
+    "@astrojs/check": "0.4.1",
+    "@astrojs/vue": "4.0.8",
+    "astro": "4.2.8",
+    "sass": "1.70.0",
+    "typescript": "5.3.3",
+    "vue": "3.4.15"
   }
 }
