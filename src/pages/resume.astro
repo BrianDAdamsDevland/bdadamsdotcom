@@ -52,7 +52,7 @@ const CertsContent = (await certsEntryRenderPromise).Content;
         <Typer client:load text="Resume" time={600} />
       </h1>
 
-      <ResumeHighlighter client:load :class="wrapperClasses">
+      <ResumeHighlighter client:load>
         <Collapser client:load title={profileEntry.data.title}>
           <ProfileContent />
         </Collapser>
