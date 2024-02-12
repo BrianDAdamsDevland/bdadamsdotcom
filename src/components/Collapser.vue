@@ -68,7 +68,7 @@ export default {
 h3 {
   position: sticky;
   top: 0;
-  background-color: rgb(35, 35, 35);
+  background-color: var(--color-card-background);
   z-index: 800;
   padding: 4px;
 }
@@ -76,7 +76,7 @@ h3 {
 h4 {
   position: sticky;
   top: 30px;
-  background-color: rgb(35, 35, 35);
+  background-color: var(--color-card-background);
   z-index: 800;
   padding: 2px;
   margin-bottom: 0;

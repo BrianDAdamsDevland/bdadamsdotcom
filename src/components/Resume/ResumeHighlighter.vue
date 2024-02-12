@@ -68,7 +68,7 @@ export default {
 <style scoped>
 .highlight ::v-deep(p),
 .highlight ::v-deep(li) {
-  color: rgba(255, 255, 255, 0.15);
+  color: var(--color-text-very-light);
   transition: all 0.3s;
 }
 
@@ -81,7 +81,7 @@ export default {
 .highlight.astro ::v-deep(.astro),
 .highlight.mobile ::v-deep(.mobile),
 .highlight.db ::v-deep(.db) {
-  color: white;
+  color: var(--color-text);
   transition: all 0.3s;
 }
 
@@ -95,18 +95,18 @@ export default {
 
 .highlight-cats div {
   cursor: pointer;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid var(--color-card-border);
   padding: 3px 7px;
   border-radius: 4px;
 }
 
 .highlight-cats div.active {
-  background: var(--color-primary);
-  color: black;
+  background: var(--color-active-selection-background);
+  color: var(--color-active-selection-text);
 }
 
 .highlight-control {
-  background: rgba(0, 0, 0, 0.3);
+  background: var(--color-subcard-background);
   padding: 10px;
   margin: -8px;
   text-align: center;

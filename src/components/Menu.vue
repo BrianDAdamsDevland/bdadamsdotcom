@@ -156,11 +156,6 @@ h2 {
   margin-bottom: 10px;
 }
 
-h3 {
-  color: white;
-  text-align: center;
-}
-
 #menu-link {
   text-align: center;
   margin: 0 auto;
@@ -180,6 +175,8 @@ h3 {
     padding: 10px 40px;
     background: var(--color-menu-link-background);
     border-radius: 20px;
+    color: var(--color-menu-link-text);
+    text-align: center;
 
     font-size: 1.4em;
     line-height: 0;
@@ -195,12 +192,18 @@ h3 {
 
   &.float {
     position: fixed;
-    right: 10px;
-    top: 10px;
+    right: 12px;
+    top: 5px;
     text-shadow: 1px 1px 10px rgba(black, 0.2);
+    font-size: 0.75em;
+    transition: all .2s;
 
     h3 {
       padding: 7px 20px;
+    }
+
+    @media (min-width: 1100px) {
+      font-size: .95em;
     }
   }
 }
@@ -212,7 +215,6 @@ h3 {
   top: 0;
   left: 0;
 
-  background: rgba(0, 0, 0, 0);
   transition: all 0.5s;
   opacity: 0;
   z-index: 1100;
@@ -220,7 +222,7 @@ h3 {
   overflow-y: scroll;
 
   &.animate {
-    background: rgba(0, 0, 0, 0.5);
+    background-color: var(--color-menu-background);
     -webkit-backdrop-filter: blur(15px);
     backdrop-filter: blur(15px);
     opacity: 1;
@@ -276,6 +278,6 @@ h3 {
 }
 
 .spacer {
-  height: 16px;
+  height: 10px;
 }
 </style>

@@ -66,6 +66,6 @@ export default {
 
 <style>
 .cursor {
-  color: white;
+  color: var(--color-text);
 }
 </style>
