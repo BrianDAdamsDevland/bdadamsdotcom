@@ -18,7 +18,7 @@ export default {
       type: Number,
       default: 0,
     },
-    time: {
+    duration: {
       type: Number,
       default: 1000,
     },
@@ -30,11 +30,11 @@ export default {
   data() {
     return {
       display: "",
-      remainingTime: this.time,
+      remainingTime: this.duration,
     };
   },
   beforeMount() {
-    if (!this.time) this.display = this.text;
+    if (!this.duration) this.display = this.text;
   },
   mounted() {
     setTimeout(this.addNextChar, this.delay);
@@ -43,14 +43,14 @@ export default {
     isComplete() {
       return this.display === this.text;
     },
-    charTimes() {
-      const times = [];
+    charDurations() {
+      const durations = [];
 
       for (let index = 0; index < this.text.length; index++) {
-        times.push(this.time / parseFloat(this.text.length));
+        durations.push(this.duration / parseFloat(this.text.length));
       }
 
-      return times;
+      return durations;
     },
   },
   methods: {
@@ -58,7 +58,7 @@ export default {
       if (this.isComplete) return;
       this.display = this.text.slice(0, this.display.length + 1);
       if (this.isComplete) return;
-      setTimeout(this.addNextChar, this.charTimes[this.display.length - 1]);
+      setTimeout(this.addNextChar, this.charDurations[this.display.length - 1]);
     },
   },
 };
