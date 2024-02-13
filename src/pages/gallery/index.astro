@@ -3,12 +3,13 @@ import Layout from "../../layouts/Layout.astro";
 import Typer from "../../components/Typer.vue";
 
 import { getCollection } from "astro:content";
+import Enumerable from "linq";
 
 const allGalleryCollection = await getCollection("gallery");
 
-const galleryItems = allGalleryCollection
-  .map((i) => ({ ...i.data, slug: i.slug }))
-  .sort((a, b) => b.year - a.year);
+const galleryItems = Enumerable.from( allGalleryCollection)
+  .select((i) => ({ ...i.data, slug: i.slug }))
+  .orderByDescending((a) => a.year).toArray();
 ---
 
 <Layout title="gallery ||| bdadams.com" sourceLink="/src/pages/gallery/index.astro">
