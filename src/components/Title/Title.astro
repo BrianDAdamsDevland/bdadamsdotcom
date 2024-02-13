@@ -30,18 +30,10 @@ const heroSpeedAdjustment = 1.3;
           type="fadeInDown"
           delay={3.5 / heroSpeedAdjustment}
         >
-          <img
-            src="/images/headshots/photo2.png"
-            transition:name="title-photo"
-            alt="Brian D. Adams"
-          />
+          <div transition:name="title-photo" class="headshot" />
         </AnimatedEntrance>
       ) : (
-        <img
-          src="/images/headshots/photo2.png"
-          transition:name="title-photo"
-          alt="Brian D. Adams"
-        />
+        <div transition:name="title-photo" class="headshot" />
       )
     }
   </a>
@@ -211,11 +203,29 @@ const heroSpeedAdjustment = 1.3;
     aspect-ratio: 303/260;
   }
 
+  .headshot {
+    background-image: url("/images/headshots/photo3.png");
+    width: 100px;
+    height: 80px;
+    border-radius: 14px;
+    margin-right: 10px;
+    background-size: 150%;
+    background-position: 15% 13%;
+  }
+
   .hero {
     font-size: calc(1em + 4vw);
     min-height: 100dvh;
     justify-content: center;
     flex-direction: column;
+
+    .headshot {
+      height: 250px;
+      width: 350px;
+      border-radius: 20px;
+      background-position: 22% 10%;
+      margin-bottom: 15px;
+    }
 
     img {
       width: 200px;
