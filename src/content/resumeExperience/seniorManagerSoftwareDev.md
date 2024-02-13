@@ -6,7 +6,7 @@ subtitle: Arlington Heights, Illinois - January 2021 to December 2023
 
 Lead a team of three developers to maintain existing applications and undertake new project initiatives, in addition to continuing to develop code and designs for projects.
 
-* <span class='vue mobile'>Continue extending our Vue.js virtual meeting platform, adding support for gamification, on-demand video streams, chat, and designed the front-end for a staff admin interface.</span>
+* <span class='vue mobile'>Continue extending our Vue.js [virtual meeting platform](/gallery/asps-vmp), adding support for gamification, on-demand video streams, chat, and designed the front-end for a staff admin interface.</span>
 * <span class='vue mobile'>Designed and implemented front-end features for a large new in-house registry application using Vue.js.</span>
 * <span class='perf'>Enhanced Asana ETL process for our data warehouse; slashed running time from ~30 minutes to a few minutes (15x improvement) by introducing concurrency and memoization.</span>
 * <span class='manage mobile'>Give UX, design and architecture advice, guidance and specs to development team staff.</span>
