@@ -44,13 +44,34 @@ export default {
     },
     highlightCats() {
       return [
-        { label: "Vue.js", value: "vue" },
-        { label: ".NET", value: "dotnet" },
-        { label: "Management", value: "manage" },
-        { label: "Operations", value: "ops" },
-        { label: "AWS", value: "aws" },
-        { label: "Mobile", value: "mobile" },
-        { label: "React", value: "react" },
+        {
+          label: "Vue.js",
+          value: "vue",
+        },
+        {
+          label: ".NET",
+          value: "dotnet",
+        },
+        {
+          label: "Management",
+          value: "manage",
+        },
+        {
+          label: "Operations",
+          value: "ops",
+        },
+        {
+          label: "AWS",
+          value: "aws",
+        },
+        {
+          label: "Mobile",
+          value: "mobile",
+        },
+        {
+          label: "React",
+          value: "react",
+        },
         {
           label: "Astro",
           value: "astro",
@@ -65,24 +86,31 @@ export default {
 };
 </script>
 
-<style scoped>
-.highlight ::v-deep(p),
-.highlight ::v-deep(li) {
-  color: var(--color-text-very-light);
-  transition: all 0.3s;
-}
+<style scoped lang="scss">
+.highlight {
+  ::v-deep(p),
+  ::v-deep(li),
+  ::v-deep(a) {
+    color: var(--color-text-very-light);
+    transition: all 0.3s;
+  }
 
-.highlight.vue ::v-deep(.vue),
-.highlight.manage ::v-deep(.manage),
-.highlight.ops ::v-deep(.ops),
-.highlight.aws ::v-deep(.aws),
-.highlight.dotnet ::v-deep(.dotnet),
-.highlight.react ::v-deep(.react),
-.highlight.astro ::v-deep(.astro),
-.highlight.mobile ::v-deep(.mobile),
-.highlight.db ::v-deep(.db) {
-  color: var(--color-text);
-  transition: all 0.3s;
+  &.vue ::v-deep(.vue),
+  &.manage ::v-deep(.manage),
+  &.ops ::v-deep(.ops),
+  &.aws ::v-deep(.aws),
+  &.dotnet ::v-deep(.dotnet),
+  &.react ::v-deep(.react),
+  &.astro ::v-deep(.astro),
+  &.mobile ::v-deep(.mobile),
+  &.db ::v-deep(.db) {
+    color: var(--color-text);
+    transition: all 0.3s;
+
+    a {
+      color: var(--color-text);
+    }
+  }
 }
 
 .highlight-cats {
@@ -91,18 +119,18 @@ export default {
   gap: 10px;
   align-items: center;
   justify-content: center;
-}
 
-.highlight-cats div {
-  cursor: pointer;
-  border: 1px solid var(--color-card-border);
-  padding: 3px 7px;
-  border-radius: 4px;
-}
+  div {
+    cursor: pointer;
+    border: 1px solid var(--color-card-border);
+    padding: 3px 7px;
+    border-radius: 4px;
 
-.highlight-cats div.active {
-  background: var(--color-active-selection-background);
-  color: var(--color-active-selection-text);
+    &.active {
+      background: var(--color-active-selection-background);
+      color: var(--color-active-selection-text);
+    }
+  }
 }
 
 .highlight-control {
@@ -110,13 +138,13 @@ export default {
   padding: 10px;
   margin: -8px;
   text-align: center;
-}
 
-.highlight-control h5 {
-  margin-top: 0;
-  margin-bottom: 5px;
-  text-transform: uppercase;
-  font-weight: 900;
-  letter-spacing: 0.5px;
+  h5 {
+    margin-top: 0;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+    font-weight: 900;
+    letter-spacing: 0.5px;
+  }
 }
 </style>
