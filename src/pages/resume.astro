@@ -10,6 +10,7 @@ import ResumeSkillBlock from "../components/Resume/ResumeSkillBlock.astro";
 import ResumeExperienceBlock from "../components/Resume/ResumeExperienceBlock.astro";
 
 import { getEntry, getCollection } from "astro:content";
+import Enumerable from "linq";
 
 const profileEntryPromise = getEntry("resume", "profile");
 const educationEntryPromise = getEntry("resume", "education");
@@ -20,12 +21,10 @@ const experienceCollectionPromise = getCollection("resumeExperience");
 const profileEntry = await profileEntryPromise;
 const educationEntry = await educationEntryPromise;
 const certsEntry = await certsEntryPromise;
-const skillsEntries = (await skillCollectionPromise).sort(
-  (a, b) => a.data.order - b.data.order
-);
-const experienceEntries = (await experienceCollectionPromise).sort((a, b) =>
-  b.data.startDate.localeCompare(a.data.startDate)
-);
+const skillsEntries = Enumerable.from(await skillCollectionPromise)
+  .orderBy((a) => a.data.order);
+const experienceEntries = Enumerable.from(await experienceCollectionPromise)
+  .orderByDescending((a) => a.data.startDate);
 
 const profileEntryRenderPromise = profileEntry.render();
 const educationEntryRenderPromise = educationEntry.render();
@@ -58,7 +57,7 @@ const CertsContent = (await certsEntryRenderPromise).Content;
         </Collapser>
 
         <Collapser client:load title="Experience">
-          {experienceEntries.map((e) => <ResumeExperienceBlock entry={e} />)}
+          {experienceEntries.select((e) => <ResumeExperienceBlock entry={e} />)}
         </Collapser>
 
         <Collapser client:load title={educationEntry.data.title}>
@@ -71,7 +70,7 @@ const CertsContent = (await certsEntryRenderPromise).Content;
 
         <Collapser client:load title="Skills">
           <ResumeSkillGrid>
-            {skillsEntries.map((e) => <ResumeSkillBlock entry={e} />)}
+            {skillsEntries.select((e) => <ResumeSkillBlock entry={e} />)}
           </ResumeSkillGrid>
         </Collapser>
       </ResumeHighlighter>
@@ -80,7 +79,6 @@ const CertsContent = (await certsEntryRenderPromise).Content;
 </Layout>
 
 <style>
-
   :global(a) {
     font-weight: bold;
   }
