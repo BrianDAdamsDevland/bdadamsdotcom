@@ -28,14 +28,22 @@ const { Content } = await entry.render();
       </span>
 
       <div class="title">
-        <h1>{entry.data.title}</h1>
-        {entry.data.subtitle && <h2>{entry.data.subtitle}</h2>}
-        <strong>{entry.data.date.toDateString()}</strong>
+        <h1 transition:name={`${entry.slug}-title`}>{entry.data.title}</h1>
+        {
+          entry.data.subtitle && (
+            <h2 transition:name={`${entry.slug}-subtitle`}>
+              {entry.data.subtitle}
+            </h2>
+          )
+        }
+        <strong transition:name={`${entry.slug}-date`}
+          >{entry.data.date.toDateString()}</strong
+        >
       </div>
 
       {
         entry.data.heroImage && (
-          <div class="hero">
+          <div class="hero" transition:name={`${entry.slug}-hero`}>
             <img class="hero" src={entry.data.heroImage} />
           </div>
         )
@@ -80,6 +88,9 @@ const { Content } = await entry.render();
   .content {
     font-size: 1.1em;
 
+    :global(pre) {
+      padding: 10px;
+    }
     :global(p) {
       margin-bottom: 25px;
     }
@@ -99,6 +110,14 @@ const { Content } = await entry.render();
 
       &.large {
         max-width: 720px;
+      }
+
+      &.small {
+        max-width: 400px;
+      }
+
+      &.extra-small {
+        max-width: 220px;
       }
     }
 
