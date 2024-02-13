@@ -72,7 +72,7 @@ import { ViewTransitions } from "astro:transitions";
       document.addEventListener("astro:after-swap", handleOverrideTheme);
     </script>
 
-    <style is:global>
+    <style is:global lang="scss">
       /* Global Theming */
       :root {
         --color-light-blue-200: #81d4fa;
@@ -109,10 +109,11 @@ import { ViewTransitions } from "astro:transitions";
         --color-background-light: rgb(255, 255, 255);
         --color-text: black;
         --color-text-very-light: rgba(0, 0, 0, 0.15);
+        --color-text-muted: rgba(0, 0, 0, 0.6);
         --color-menu-background: rgba(255, 255, 255, 0.6);
-        --color-card-background: rgb(230, 230, 230);
+        --color-card-background: rgb(240, 240, 240);
         --color-card-border: rgba(0, 0, 0, 0.2);
-        --color-subcard-background: rgb(242, 242, 242);
+        --color-subcard-background: rgb(250, 250, 250);
         --color-active-selection-text: white;
       }
 
@@ -126,6 +127,7 @@ import { ViewTransitions } from "astro:transitions";
           --color-background-light: rgb(95, 95, 95);
           --color-text: white;
           --color-text-very-light: rgba(255, 255, 255, 0.15);
+          --color-text-muted: rgba(255, 255, 255, 0.6);
           --color-menu-background: rgba(0, 0, 0, 0.6);
           --color-card-background: rgb(35, 35, 35);
           --color-card-border: rgba(255, 255, 255, 0.2);
@@ -142,6 +144,7 @@ import { ViewTransitions } from "astro:transitions";
         --color-background-light: rgb(95, 95, 95);
         --color-text: white;
         --color-text-very-light: rgba(255, 255, 255, 0.15);
+        --color-text-muted: rgba(255, 255, 255, 0.6);
         --color-menu-background: rgba(0, 0, 0, 0.6);
         --color-card-background: rgb(35, 35, 35);
         --color-card-border: rgba(255, 255, 255, 0.2);

@@ -1,0 +1,121 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+
+export async function getStaticPaths() {
+  const galleryItems = await getCollection("blog");
+  return galleryItems.map((entry) => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+---
+
+<Layout
+  title={`${entry.data.title.toLowerCase()} ||| blog ||| bdadams.com`}
+  sourceLink="/src/pages/gallery/[...slug].astro"
+>
+  <main>
+    <div class="card">
+      <span>
+        <a href="/blog" class="back">
+          <i class="fa-sharp fa-solid fa-arrow-left-long"></i>
+          Back to All Posts
+        </a>
+      </span>
+
+      <div class="title">
+        <h1>{entry.data.title}</h1>
+        {entry.data.subtitle && <h2>{entry.data.subtitle}</h2>}
+        <strong>{entry.data.date.toDateString()}</strong>
+      </div>
+
+      {
+        entry.data.heroImage && (
+          <div class="hero">
+            <img class="hero" src={entry.data.heroImage} />
+          </div>
+        )
+      }
+
+      <div class="content">
+        <Content />
+      </div>
+    </div>
+  </main>
+</Layout>
+
+<style lang="scss">
+  h1,
+  h2 {
+    margin: 0;
+    padding: 0;
+    line-height: 1;
+  }
+
+  h2 {
+    font-weight: 400;
+  }
+
+  .title {
+    margin-top: 10px;
+    margin-bottom: 25px;
+    display: flex;
+    gap: 15px;
+    flex-direction: column;
+  }
+
+  div.hero {
+    margin-left: -10px;
+    margin-right: -10px;
+
+    img {
+      max-width: 100%;
+    }
+  }
+
+  .content {
+    font-size: 1.1em;
+
+    :global(p) {
+      margin-bottom: 25px;
+    }
+
+    :global(li) {
+      margin-bottom: 10px;
+    }
+
+    :global(img) {
+      width: 100%;
+      max-width: 600px;
+      display: block;
+
+      &.center {
+        margin: 0 auto;
+      }
+
+      &.large {
+        max-width: 720px;
+      }
+    }
+
+    :global(figcaption) {
+      font-size: 0.85em;
+      color: var(--color-text-muted);
+
+      &.center {
+        text-align: center;
+      }
+    }
+  }
+
+  @media (min-width: 500px) {
+    div.hero {
+      margin-left: -20px;
+      margin-right: -20px;
+    }
+  }
+</style>

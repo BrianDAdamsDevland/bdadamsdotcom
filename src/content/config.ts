@@ -34,9 +34,20 @@ const resumeSkillsCollection = defineCollection({
   })
 });
 
+const blogCollection = defineCollection({
+  type: "content",
+  schema: z.object({
+    title: z.string(),
+    subtitle: z.string().optional(),
+    date: z.date(),
+    heroImage: z.string().optional()
+  })
+});
+
 export const collections = {
   gallery: galleryCollection,
   resume: resumeCollection,
   resumeExperience: resumeExperienceCollection,
-  resumeSkills: resumeSkillsCollection
+  resumeSkills: resumeSkillsCollection,
+  blog: blogCollection
 };

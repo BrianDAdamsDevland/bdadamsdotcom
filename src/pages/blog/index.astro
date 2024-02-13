@@ -1,0 +1,52 @@
+---
+import Layout from "../../layouts/Layout.astro";
+
+import Typer from "../../components/Typer.vue";
+
+import { getCollection } from "astro:content";
+
+const allBlogCollection = await getCollection("blog");
+
+const blogItems = allBlogCollection
+  .map((i) => ({ ...i.data, slug: i.slug }))
+  .sort((a, b) => a.date.toDateString().localeCompare(b.date.toDateString()));
+---
+
+<Layout title="blog ||| bdadams.com" sourceLink="/src/pages/blog/index.astro">
+  <main>
+    <div class="card">
+      <h1>
+        <Typer client:load text="Blog" duration={600} />
+      </h1>
+
+      {
+        blogItems.map((i) => (
+          <div>
+            <strong>{i.date.toLocaleDateString()}</strong>
+            <a href={"/blog/" + i.slug}>
+              <h3>
+                {i.title}
+                <small>{i.subtitle}</small>
+              </h3>
+            </a>
+          </div>
+        ))
+      }
+    </div>
+  </main>
+</Layout>
+
+<style lang="scss">
+  h3 {
+    margin-top: 0;
+    font-weight: 800;
+
+    small {
+      font-weight: 400;
+    }
+  }
+
+  a {
+    text-decoration: none;
+  }
+</style>
