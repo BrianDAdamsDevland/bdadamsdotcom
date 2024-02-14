@@ -87,13 +87,13 @@ export default {
           href: "/resume",
         },
         {
+          label: "Blog",
+          href: "/blog"
+        },
+        {
           label: "Contact",
           href: "/contact",
         },
-        {
-          label: "Blog",
-          href: "/blog"
-        }
       ];
     },
     externalLinks() {
@@ -107,11 +107,6 @@ export default {
           label: "GitHub",
           href: "https://github.com/briandadams85",
           icon: "fa-brands fa-github",
-        },
-        {
-          label: "Medium",
-          href: "https://medium.com/@briandadams",
-          icon: "fa-brands fa-medium",
         },
         {
           label: "Mastodon",

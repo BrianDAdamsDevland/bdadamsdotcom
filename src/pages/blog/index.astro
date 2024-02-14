@@ -35,7 +35,14 @@ const blogItems = Enumerable.from(allBlogCollection)
           blogItems.map((i) => (
             <div class="entry">
               <div>
-                <strong>{i.date.toLocaleDateString()}</strong>
+                <strong class="date">
+                  {i.date.toLocaleDateString("en-us", {
+                    weekday: "long",
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                  })}
+                </strong>
                 <a href={`/blog/${i.slug}/`}>
                   <h3>
                     <span transition:name={`${i.slug}-title`}>{i.title}</span>
@@ -46,9 +53,9 @@ const blogItems = Enumerable.from(allBlogCollection)
                 </a>
               </div>
 
-              <div>
+              <div transition:name={`${i.slug}-hero`}>
                 <a href={`/blog/${i.slug}/`}>
-                  <img src={i.heroImage} transition:name={`${i.slug}-hero`} />
+                  <div style={`background-image: url('${i.heroImage}')`}></div>
                 </a>
               </div>
             </div>
@@ -86,12 +93,28 @@ const blogItems = Enumerable.from(allBlogCollection)
     gap: 10px;
     line-height: 1.3;
 
+    .date {
+      text-transform: uppercase;
+      font-size: 0.8em;
+      color: var(--color-text-muted);
+      letter-spacing: 0.2px;
+    }
+
     div:first-child {
       flex-grow: 1;
     }
 
     div:last-child {
-      width: 100px;
+      width: 80px;
+      height: 80px;
+      line-height: 0;
+      background-size: cover;
+      background-position: 50% 50%;
+
+      @media (min-width: 400px) {
+        width: 130px;
+        height: 90px;
+      }
     }
 
     img {

@@ -3,6 +3,7 @@ title: Hack the World
 subtitle: How We Bent Aptify Web to Our Will
 date: 2018-05-08
 heroImage: /images/blog/aptify-web/thanos.jpg
+heroImageAltText: Thanos destroying a moon with his fist from Avengers
 ---
 
 *Note: the concepts explored in this post can potentially cause data loss or other issues if not implemented properly. Any customizations should be well tested in a development system before reaching your production environment. But you knew that already, right?*
@@ -31,7 +32,7 @@ We had a mission: solve these problems, solve them quickly, and solve them in a 
 
 ### Finding a Foothold
 
-<img src="/images/blog/aptify-web/cliffhanger.jpg" class="center small" />
+<img src="/images/blog/aptify-web/cliffhanger.jpg" alt="Cliffhanger film poster" class="center small" />
 
 The first step to doing any Aptify Web hack is to determine where we can augment Aptify Web’s JavaScript code with our own custom logic. This requires three things: (1) some basic skills with Javascript and a JavaScript debugger, (2) some patience and (3) a little luck.
 
@@ -39,7 +40,7 @@ For my examples, I’ll be referencing the [Chrome DevTools](https://developer.c
 
 The first thing I did when I began working on the prompted view issues was to step through the JavaScript that is run when loading a view in Web.
 
-<img src="/images/blog/aptify-web/mouse-click.jpg" class="center extra-small" />
+<img src="/images/blog/aptify-web/mouse-click.jpg" alt="Screenshot showing mouse click event being checked in the Chrome DevTools" class="center extra-small" />
 
 One way to do this is to set the debugger to break whenever you click in the interface using an [Event Listener Breakpoint](https://developers.google.com/web/tools/chrome-devtools/javascript/breakpoints#event-listeners). Turn this on just before you click on a view in the interface, and you’ll be off to the races.
 
@@ -51,12 +52,14 @@ Now that we can focus on Aptify specific code, we can start to identify the meth
 
 After spending a bit of time stepping through the methods that execute after I see the prompt fields appear, I find a promising method in Aptify’s framework JS: *Aptify.framework.views.UI.components.viewContainerByOptions*.
 
-<img src="/images/blog/aptify-web/call-stack.jpg" class="center" />
+<figure>
+<img src="/images/blog/aptify-web/call-stack.jpg" alt="Screenshot of call stack in Chrome DevTools" class="center" />
 <figcaption class="center">Now we’re cooking!</figcaption>
+</figure>
 
 ### Direct Manipulation: Thorns Lie Ahead! Danger, High Voltage! Now Entering The Valley Of Death! (You Get The Idea)
 
-<img src="/images/blog/aptify-web/danger-will.jpg" class="center small" />
+<img src="/images/blog/aptify-web/danger-will.jpg" alt="Lost in Space characters with white Danger Will Robinson text" class="center small" />
 
 Your first thought at this moment might be “hey, let’s start hacking up Aptify’s JavaScript file!” While this is clearly a form of “hacking”, it’s a pretty scary approach, since we are talking about huge JavaScript files that are minified and aren’t designed for human manipulation.
 
@@ -146,7 +149,7 @@ $btns.find("button[data-role='a-reset']").click(function() {
 
 So here, we are actually injecting our own UI into Aptify Web and then adding a click hander to effectively reload the view when it’s clicked.
 
-<img src="/images/blog/aptify-web/reset-btn.jpg" class="center small" />
+<img src="/images/blog/aptify-web/reset-btn.jpg" alt="Screenshot of Aptify Web view buttons with new Reset button" class="center small" />
 <figcaption class="center">Look ma, a third button on prompted views!</figcaption>
 
 ### Where Do We Put This?

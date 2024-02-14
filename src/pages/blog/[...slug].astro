@@ -37,14 +37,16 @@ const { Content } = await entry.render();
           )
         }
         <strong transition:name={`${entry.slug}-date`}
-          >{entry.data.date.toDateString()}</strong
+          >
+          {entry.data.date.toDateString()}
+          </strong
         >
       </div>
 
       {
         entry.data.heroImage && (
           <div class="hero" transition:name={`${entry.slug}-hero`}>
-            <img class="hero" src={entry.data.heroImage} />
+            <img class="hero" src={entry.data.heroImage} alt={entry.data.heroImageAltText} />
           </div>
         )
       }
@@ -93,6 +95,7 @@ const { Content } = await entry.render();
     }
     :global(p) {
       margin-bottom: 25px;
+      overflow-wrap: break-word;
     }
 
     :global(li) {

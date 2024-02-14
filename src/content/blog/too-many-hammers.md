@@ -3,6 +3,7 @@ title: Too Many Hammers
 subtitle: Learning to Live With A Plethora of Communication Tools
 date: 2020-07-28
 heroImage: /images/blog/workshop.jpg
+heroImageAltText: Woodworking shop with many tools on the walls
 ---
 
 As I sit to write this in 2020, we find ourselves with an embarrassment of riches: Slack, Microsoft Teams, Skype, Sharepoint, Asana, Trello, Dropbox, Zoom, Google Hangouts, Yammer, iMessage, WhatsApp, Facebook, Twitter, Snapchat and I could go on and on; we have more rich tools that can be used to communicate and connect with one another today than we’ve ever had in human history.
