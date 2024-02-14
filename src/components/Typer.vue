@@ -26,6 +26,8 @@ export default {
       type: Boolean,
       default: true,
     },
+    name: String,
+    once: Boolean,
   },
   data() {
     return {
@@ -34,7 +36,11 @@ export default {
     };
   },
   beforeMount() {
-    if (!this.duration) this.display = this.text;
+    if (
+      !this.duration ||
+      window.localStorage?.getItem(this.persistenceKey) === "1"
+    )
+      this.display = this.text;
   },
   mounted() {
     setTimeout(this.addNextChar, this.delay);
@@ -52,13 +58,27 @@ export default {
 
       return durations;
     },
+    persistenceKey() {
+      return `typer-${this.name}`;
+    },
   },
   methods: {
     addNextChar() {
-      if (this.isComplete) return;
+      if (this.isComplete) {
+        this.handleComplete();
+        return;
+      }
       this.display = this.text.slice(0, this.display.length + 1);
-      if (this.isComplete) return;
+      if (this.isComplete) {
+        this.handleComplete();
+        return;
+      }
       setTimeout(this.addNextChar, this.charDurations[this.display.length - 1]);
+    },
+    handleComplete() {
+      if (this.once) {
+        window?.localStorage?.setItem(this.persistenceKey, "1");
+      }
     },
   },
 };

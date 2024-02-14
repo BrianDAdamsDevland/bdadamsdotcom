@@ -21,16 +21,21 @@ export default {
     immediate: Boolean,
     infinite: Boolean,
     inline: Boolean,
+    name: String,
+    once: Boolean
   },
   data() {
     return {
       animate: false,
       observer: undefined,
+      playedPreviously: false
     };
   },
   computed: {
     cssClasses() {
       if (!this.animate) return `hidden ${this.cssClass}`;
+
+      if (this.once && this.playedPreviously) return "";
 
       const classes = [
         "animate__animated",
@@ -47,7 +52,11 @@ export default {
       return classes.join(" ");
     },
     style() {
+      if (this.once && this.playedPreviously) return "";
       return `animation-delay: ${this.delay}s`;
+    },
+    persistenceKey() {
+      return `animated-enter-${this.name}`;
     },
   },
   mounted() {
@@ -63,6 +72,8 @@ export default {
 
     this.observer = new IntersectionObserver(this.handleIntersection, options);
     this.observer.observe(this.$refs.container);
+
+    this.playedPreviously = window.localStorage?.getItem(this.persistenceKey) === "1";
   },
   methods: {
     handleIntersection(entries) {
@@ -77,6 +88,13 @@ export default {
   beforeUnmount() {
     this.observer?.disconnect();
   },
+  watch: {
+    animate() {
+      if (this.once) {
+        window.localStorage?.setItem(this.persistenceKey, "1");
+      }
+    }
+  }
 };
 </script>
 
