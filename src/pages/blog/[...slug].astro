@@ -36,17 +36,26 @@ const { Content } = await entry.render();
             </h2>
           )
         }
-        <strong transition:name={`${entry.slug}-date`}
-          >
-          {entry.data.date.toDateString()}
-          </strong
-        >
+        <strong transition:name={`${entry.slug}-date`}>
+          {
+            entry.data.date.toLocaleDateString("en-us", {
+              weekday: "long",
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+            })
+          }
+        </strong>
       </div>
 
       {
         entry.data.heroImage && (
           <div class="hero" transition:name={`${entry.slug}-hero`}>
-            <img class="hero" src={entry.data.heroImage} alt={entry.data.heroImageAltText} />
+            <img
+              class="hero"
+              src={entry.data.heroImage}
+              alt={entry.data.heroImageAltText}
+            />
           </div>
         )
       }

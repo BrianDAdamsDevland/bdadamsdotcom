@@ -17,7 +17,17 @@
 
   <Teleport to="body">
     <div v-if="show" :class="{ 'menu-wrapper': true, animate: shouldAnimate }">
-      <div class="menu" @click="show = false">
+      <div class="menu" @click.self="show = false">
+
+        <div class="close" @click="show = false">
+          <i class="fa-sharp fa-solid fa-x" ></i>
+        </div>
+        
+
+        <div class="top-action">
+          <ThemeToggle />
+        </div>
+        
         <div class="primary">
           <AnimatedEntrance
             v-for="(l, index) in primaryLinks"
@@ -52,6 +62,7 @@
 
 <script>
 import AnimatedEntrance from "./AnimatedEntrance.vue";
+import ThemeToggle from "./ThemeToggle.vue";
 
 export default {
   name: "Menu",
@@ -126,7 +137,7 @@ export default {
       ];
     },
   },
-  components: { AnimatedEntrance },
+  components: { AnimatedEntrance, ThemeToggle },
   methods: {
     handleShow() {
       this.show = true;
@@ -235,6 +246,24 @@ h2 {
   flex-direction: column;
   min-height: 100dvh;
 
+  .close {
+    position: fixed;
+    top: 10px;
+    right: 0;
+    font-size: 1.2em;
+    background: var(--color-text);
+    color: var(--color-active-selection-text);
+    padding: 15px 15px 15px 10px;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    cursor: pointer;
+
+    &:hover {
+      padding: 15px 30px 15px 10px;
+      transition: all .3s;
+    }
+  }
+
   a {
     text-decoration: none;
     transition: all 0.1s;
@@ -245,6 +274,10 @@ h2 {
       border-bottom: 4px solid;
       transition: all 0.1s;
     }
+  }
+
+  .top-action {
+    padding: 10px;
   }
 
   .primary {

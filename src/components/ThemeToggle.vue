@@ -76,8 +76,10 @@ export default {
 
 button {
   border: 1px solid gray;
-  padding: 5px 10px;
-
+  padding: 6px 15px;
+  color: black;
+  background: rgb(230,230,230);
+  font-size: 1em;
 }
 
 button.active {
@@ -93,5 +95,6 @@ button:first-child {
 button:last-child {
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
+  margin-left: -1px;
 }
 </style>

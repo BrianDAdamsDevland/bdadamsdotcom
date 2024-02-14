@@ -35,7 +35,7 @@ const blogItems = Enumerable.from(allBlogCollection)
           blogItems.map((i) => (
             <div class="entry">
               <div>
-                <strong class="date">
+                <strong class="date" transition:name={`${i.slug}-date`}>
                   {i.date.toLocaleDateString("en-us", {
                     weekday: "long",
                     year: "numeric",
