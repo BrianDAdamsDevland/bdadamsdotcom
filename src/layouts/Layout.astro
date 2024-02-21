@@ -19,7 +19,7 @@ import { ViewTransitions } from "astro:transitions";
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="description" content="Astro description" />
+    <meta name="description" content="The home of Brian D. Adams on the Internet." />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/png" href="/favicon-32x32.png" />
     <meta name="generator" content={Astro.generator} />
@@ -51,14 +51,26 @@ import { ViewTransitions } from "astro:transitions";
 
     <link rel="sitemap" href="/sitemap-index.xml" />
 
+    <script type="text/javascript">
+      (function (c, l, a, r, i, t, y) {
+        c[a] =
+          c[a] ||
+          function () {
+            (c[a].q = c[a].q || []).push(arguments);
+          };
+        t = l.createElement(r);
+        t.async = 1;
+        t.src = "https://www.clarity.ms/tag/" + i;
+        y = l.getElementsByTagName(r)[0];
+        y.parentNode.insertBefore(t, y);
+      })(window, document, "clarity", "script", "l1t8b3e7va");
+    </script>
+
     <ViewTransitions />
   </head>
   <body>
     {!hideMenu && <Menu client:load transition:name="menu-link" />}
-    <Title
-      hero={heroTitle}
-      transition:name="title"
-    />
+    <Title hero={heroTitle} transition:name="title" />
     <slot />
 
     <Footer sourceLink={sourceLink} />
