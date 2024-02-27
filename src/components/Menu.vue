@@ -18,16 +18,18 @@
   <Teleport to="body">
     <div v-if="show" :class="{ 'menu-wrapper': true, animate: shouldAnimate }">
       <div class="menu" @click.self="show = false">
-
-        <div class="close" @click="show = false">
-          <i class="fa-sharp fa-solid fa-x" ></i>
-        </div>
-        
-
         <div class="top-action">
-          <ThemeToggle />
+          <AnimatedEntrance type="slideInDown">
+            <ThemeToggle />
+          </AnimatedEntrance>
+
+          <AnimatedEntrance type="slideInDown" :delay=".1">
+            <div class="close" @click="show = false">
+              <i class="fa-sharp fa-solid fa-x"></i>
+            </div>
+          </AnimatedEntrance>
         </div>
-        
+
         <div class="primary">
           <AnimatedEntrance
             v-for="(l, index) in primaryLinks"
@@ -85,10 +87,6 @@ export default {
           label: "Home",
           href: "/",
         },
-        // {
-        //   label: "About",
-        //   href: "/about",
-        // },
         {
           label: "Gallery",
           href: "/gallery",
@@ -99,16 +97,17 @@ export default {
         },
         {
           label: "Blog",
-          href: "/blog"
-        },
-        {
-          label: "Contact",
-          href: "/contact",
-        },
+          href: "/blog",
+        }
       ];
     },
     externalLinks() {
       return [
+        {
+          label: "Email",
+          href: "mailto:brian@bdadams.com",
+          icon: "fas fa-envelope",
+        },
         {
           label: "LinkedIn",
           href: "https://www.linkedin.com/in/brian-d-adams-dev/",
@@ -128,11 +127,6 @@ export default {
           label: "Letterboxd",
           href: "https://letterboxd.com/briandadams/",
           icon: "fa-brands fa-letterboxd",
-        },
-        {
-          label: "Spotify",
-          href: "https://open.spotify.com/user/briandadams",
-          icon: "fa-brands fa-spotify",
         },
       ];
     },
@@ -206,14 +200,14 @@ h2 {
     top: 5px;
     text-shadow: 1px 1px 10px rgba(black, 0.2);
     font-size: 0.75em;
-    transition: all .2s;
+    transition: all 0.2s;
 
     h3 {
       padding: 7px 20px;
     }
 
     @media (min-width: 1100px) {
-      font-size: .95em;
+      font-size: 0.95em;
     }
   }
 }
@@ -247,21 +241,12 @@ h2 {
   min-height: 100dvh;
 
   .close {
-    position: fixed;
-    top: 10px;
-    right: 0;
-    font-size: 1.2em;
     background: var(--color-text);
     color: var(--color-active-selection-text);
-    padding: 15px 15px 15px 10px;
-    border-top-left-radius: 20px;
-    border-bottom-left-radius: 20px;
+    padding: 7px 16px;
+    border-radius: 5px;
     cursor: pointer;
-
-    &:hover {
-      padding: 15px 30px 15px 10px;
-      transition: all .3s;
-    }
+    font-size: 1em;
   }
 
   a {
@@ -278,6 +263,9 @@ h2 {
 
   .top-action {
     padding: 10px;
+    display: flex;
+    gap: 30px;
+    align-items: center;
   }
 
   .primary {
