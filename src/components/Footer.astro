@@ -19,13 +19,12 @@ const fullSourceLink = `https://github.com/briandadams85/bdadamsdotcom/blob/main
       <a href="https://astro.build"> Astro</a> and
       <a href="https://vuejs.org/">Vue</a>
     </p>
-    
+
     <p>
       <small>
         <a href={fullSourceLink}> View Page Source</a>
-      </small>   
+      </small>
     </p>
-    
   </div>
 </footer>
 
@@ -37,10 +36,8 @@ const fullSourceLink = `https://github.com/briandadams85/bdadamsdotcom/blob/main
     padding: 35px 15px;
     flex-direction: column;
     gap: 20px;
-
-    div:first-child {
-      flex-grow: 1;
-    }
+    align-items: center;
+    font-size: 0.9em;
 
     a {
       text-decoration: none;
@@ -54,20 +51,10 @@ const fullSourceLink = `https://github.com/briandadams85/bdadamsdotcom/blob/main
     p {
       margin-top: 0;
       margin-bottom: 5px;
+      text-align: center;
     }
     p:last-child {
       margin-bottom: 0;
-    }
-  }
-
-  @media (min-width: 470px) {
-    footer {
-      flex-direction: row;
-      align-items: center;
-
-      div:last-child {
-      text-align: right;
-    }
     }
   }
 </style>
