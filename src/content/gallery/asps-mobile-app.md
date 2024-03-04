@@ -10,3 +10,4 @@ After internal discussions over years about creating a mobile app for our member
 
 * Xamarin Forms (Front-end)
 * .NET (API)
+* AWS SNS
