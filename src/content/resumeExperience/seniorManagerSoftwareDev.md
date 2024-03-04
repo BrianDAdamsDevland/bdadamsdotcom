@@ -13,5 +13,5 @@ Lead a team of three developers to maintain existing applications and undertake 
 * <span class='manage'>Review pull requests and complete deployments to production environments.</span>
 * <span class='ops aws'>Develop new CI/CD pipeline in AWS using CodePipeline and CodeBuild that is automatically generated when new branches are added to Git.</span>
 * <span class='ops'>Use Let's Encrypt-issued certificates to bring HTTPS support to our internal CMS instances for the first time.</span>
-* <span class='vue mobile astro'>Created website prototype for PSN publication using Astro, Vue.js and Netlify for hosting.</span>
+* <span class='vue mobile astro'>Created [website prototype for PSN publication](/gallery/psn-prototype) using Astro, Vue.js and Netlify for hosting.</span>
 * <span class='manage ops aws'>Manage AWS IAM user groups and roles for freelancers.</span>
