@@ -90,6 +90,10 @@ import { ViewTransitions } from "astro:transitions";
       handleOverrideTheme();
 
       document.addEventListener("astro:after-swap", handleOverrideTheme);
+
+      document.addEventListener("astro:before-swap", e => {
+        sessionStorage.setItem("prevHref", e.from.href);
+      })
     </script>
 
     <style is:global lang="scss">
