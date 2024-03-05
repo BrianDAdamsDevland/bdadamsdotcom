@@ -1,13 +1,14 @@
 <template>
-  <a v-if="hasReferer" href="#" @click.prevent="goBack" class="back">
+  <span @click.prevent="goBack" class="cursor-pointer">
     <i class="fa-sharp fa-solid fa-arrow-left-long"></i>
-    <template v-if="fromGallery">Back to Gallery</template>
-    <template v-else-if="fromResume">Back to Resume</template>
-    <template v-else>Go Back</template>
-  </a>
+    <template v-if="fromResume">Back to Resume</template>
+    <template v-else>Back to Gallery</template>
+  </span>
 </template>
 
 <script>
+import { navigate } from "astro:transitions/client";
+
 export default {
   name: "GoBack",
   computed: {
@@ -18,22 +19,20 @@ export default {
       return !!this.referrer;
     },
     fromResume() {
-      return this.hasReferer && this.referrer.includes("resume");
+      return this.referrer?.includes("resume");
     },
     fromGallery() {
-      return this.hasReferer && this.referrer.includes("gallery");
+      return this.referrer?.includes("gallery");
     },
   },
   methods: {
     goBack() {
-      window.history.back();
+      if (this.hasReferer) {
+        window.history.back();
+        return;
+      }
+      navigate("/gallery");
     },
   },
 };
 </script>
-
-<style scoped>
-a.back {
-  text-decoration: none;
-}
-</style>
