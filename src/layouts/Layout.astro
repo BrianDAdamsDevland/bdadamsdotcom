@@ -69,7 +69,7 @@ import { ViewTransitions } from "astro:transitions";
     <ViewTransitions />
   </head>
   <body>
-    {!hideMenu && <Menu client:load transition:name="menu-link" />}
+    {!hideMenu && <Menu client:only transition:name="menu-link" />}
     <Title hero={heroTitle} transition:name="title" />
     <slot />
 
