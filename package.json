@@ -16,7 +16,7 @@
     "@astrojs/rss": "4.0.5",
     "@astrojs/sitemap": "3.1.1",
     "@astrojs/vue": "4.0.8",
-    "astro": "4.4.10",
+    "astro": "4.4.11",
     "linq": "4.0.2",
     "sass": "1.71.1",
     "typescript": "5.3.3",
