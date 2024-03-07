@@ -102,6 +102,7 @@ const { Content } = await entry.render();
     :global(pre) {
       padding: 10px;
     }
+
     :global(p) {
       margin-bottom: 25px;
       overflow-wrap: break-word;
@@ -140,6 +141,24 @@ const { Content } = await entry.render();
       &.center {
         text-align: center;
       }
+    }
+
+    :global(blockquote) {
+      font-size: 1.15em;
+      font-weight: 800;
+      background: var(--color-subcard-background);
+      padding: 15px;
+      border-radius: 5px;
+      color: var(--color-primary);
+      margin: 0 10px;
+    }
+
+    :global(blockquote p:first-child) {
+      margin-top: 0;
+    }
+
+    :global(blockquote p:last-child) {
+      margin-bottom: 0;
     }
   }
 
