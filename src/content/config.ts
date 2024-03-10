@@ -36,11 +36,11 @@ const resumeSkillsCollection = defineCollection({
 
 const blogCollection = defineCollection({
   type: "content",
-  schema: z.object({
+  schema: ({ image }) => z.object({
     title: z.string(),
     subtitle: z.string().optional(),
     date: z.date(),
-    heroImage: z.string().optional(),
+    heroImage: image(),
     heroImageAltText: z.string().optional()
   })
 });

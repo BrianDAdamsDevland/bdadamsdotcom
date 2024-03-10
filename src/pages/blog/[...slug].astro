@@ -1,4 +1,6 @@
 ---
+import { Image } from "astro:assets";
+
 import { getCollection } from "astro:content";
 import Layout from "../../layouts/Layout.astro";
 
@@ -51,10 +53,10 @@ const { Content } = await entry.render();
       {
         entry.data.heroImage && (
           <div class="hero" transition:name={`${entry.slug}-hero`}>
-            <img
-              class="hero"
+            <Image
               src={entry.data.heroImage}
-              alt={entry.data.heroImageAltText}
+              alt={entry.data.heroImageAltText ?? entry.data.title}
+              width="1800"
             />
           </div>
         )
@@ -93,6 +95,7 @@ const { Content } = await entry.render();
 
     img {
       max-width: 100%;
+      height: inherit;
     }
   }
 

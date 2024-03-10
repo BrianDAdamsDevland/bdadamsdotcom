@@ -1,7 +1,7 @@
 ---
 title: My Favorite Interview Question
 date: 2020-07-28
-heroImage: /images/blog/twenty-questions.jpg
+heroImage: ./images/twenty-questions.jpg
 heroImageAltText: Old photo of contestants on the game show "Twenty Questions"
 ---
 

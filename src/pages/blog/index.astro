@@ -1,4 +1,6 @@
 ---
+import { Image } from "astro:assets";
+
 import Layout from "../../layouts/Layout.astro";
 
 import Typer from "../../components/Typer.vue";
@@ -55,7 +57,11 @@ const blogItems = Enumerable.from(allBlogCollection)
 
               <div transition:name={`${i.slug}-hero`}>
                 <a href={`/blog/${i.slug}/`}>
-                  <div style={`background-image: url('${i.heroImage}')`}></div>
+                  <Image
+                    src={i.heroImage}
+                    alt={i.heroImageAltText ?? i.title}
+                    width="260"
+                  />
                 </a>
               </div>
             </div>
@@ -118,7 +124,11 @@ const blogItems = Enumerable.from(allBlogCollection)
     }
 
     img {
-      max-width: 100px;
+      object-fit: cover;
+      max-width: 130px;
+      aspect-ratio: 10/7;
+      width: inherit;
+      height: inherit;
     }
 
     h3 {
