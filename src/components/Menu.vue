@@ -23,7 +23,7 @@
             <ThemeToggle />
           </AnimatedEntrance>
 
-          <AnimatedEntrance type="slideInDown" :delay=".1">
+          <AnimatedEntrance type="slideInDown" :delay="0.1">
             <div class="close" @click="show = false">
               <i class="fa-sharp fa-solid fa-x"></i>
             </div>
@@ -84,10 +84,6 @@ export default {
     primaryLinks() {
       return [
         {
-          label: "Home",
-          href: "/",
-        },
-        {
           label: "Gallery",
           href: "/gallery",
         },
@@ -98,7 +94,7 @@ export default {
         {
           label: "Blog",
           href: "/blog",
-        }
+        },
       ];
     },
     externalLinks() {
