@@ -6,6 +6,23 @@ heroImage: ./images/lighthouse.jpg
 heroImageAltText: Lighthouse on a hilly shore shining out over a body of water
 ---
 
+import { Image } from "astro:assets";
+
+import starTrekTranslate from "./images/debug-aptify/star-trek-translate.jpg";
+import integrateExplorer from "./images/debug-aptify/integrate-explorer.jpg";
+import browseWithDotPeek from "./images/debug-aptify/browse-with-dotpeek.jpg";
+import assemblyExplorerAptifyApp from "./images/debug-aptify/assembly-explorer-aptify-app.jpg";
+import aptifyAppAssemblyExpanded from "./images/debug-aptify/aptify-app-assembly-expanded.jpg";
+import searchShowRecordHistory from "./images/debug-aptify/search-show-record-history.jpg";
+import usingVb from "./images/debug-aptify/using-vb.jpg";
+import exploreFolder from "./images/debug-aptify/explore-folder.jpg";
+import usagesAptifyApp from "./images/debug-aptify/usages-aptify-app.jpg";
+import dotPeekSymbolServer from "./images/debug-aptify/dotpeek-symbol-server.jpg";
+import vsAddSymbolServer from "./images/debug-aptify/vs-add-symbol-server.jpg";
+import justMyCode from "./images/debug-aptify/just-my-code.jpg";
+import attachAptifyShell from "./images/debug-aptify/attach-aptify-shell.jpg";
+import getRecordFunctionBreakpoint from "./images/debug-aptify/get-record-function-breakpoint.jpg";
+
 The time inevitably comes for any Aptify developer where they run into some sort of inconsistent or undesirable behavior. The question then becomes: “is this a bug in a customization, or is this a bug in the core product?” Of course, one way to figure this out is to turn to a baseline instance of Aptify, repeat the same set of steps, and see if you get the same result.
 
 While this is certainly a reasonable approach to the problem, is comes with drawbacks. For example, what if uncovering the exact issue led to the discovery that there was a workaround? You also are forced into keeping a baseline instance around all the time, or restoring a baseline instance whenever an issue pops up, which can be a time consuming process.
@@ -26,9 +43,10 @@ You might be wondering what all of this has to do with debugging Aptify? As a co
 
 ### Lost in Translation
 
-<img
-  src="/images/blog/debug-aptify/star-trek-translate.jpg"
+<Image
+  src={starTrekTranslate}
   alt="Kirk and Bones Listening to Translation in Star Trek 6"
+  width="1200"
   class="center"
 />
 
@@ -51,9 +69,10 @@ To begin exploring Aptify’s codebase, let’s disassemble our first Aptify ass
 This may not be enabled for you out of the box, but it’s a simple checkbox away inside the dotPeek Options window:
 
 <figure>
-  <img
-    src="/images/blog/debug-aptify/integrate-explorer.jpg"
+  <Image
+    src={integrateExplorer}
     alt="Screenshot of dotPeek Options window showing Integrate with Windows Explorer option"
+    width="1200"
     class="center"
   />
   <figcaption class="center">DotPeek is now at my fingertips!</figcaption>
@@ -61,29 +80,32 @@ This may not be enabled for you out of the box, but it’s a simple checkbox awa
 
 Once you have that enabled, you’ll find a new _Browse with JetBrains dotPeek_ contextual menu item on class libraries and executables in Windows Explorer.
 
-<img
-  src="/images/blog/debug-aptify/browse-with-dotpeek.jpg"
+<Image
+  src={browseWithDotPeek}
   alt="Screenshot of Windows Explorer file context menu with Browse with dotPeek option."
+  width="1200"
   class="center"
 />
 
 Now that we have an easy way to get these into dotPeek, let’s actually open our first Aptify assembly! Open up the _Aptify_ folder in _Program Files_, and find the _AptifyApplication.dll_ class library. Right click it, and select the _Browse with dotPeek_ option. It will take a moment for dotPeek to launch and decompile the assembly, but once it finishes, you’ll find AptifyApplication in the _Assembly Explorer_.
 
-<img
-  src="/images/blog/debug-aptify/assembly-explorer-aptify-app.jpg"
-  alt="Screenshot of dotPeek Assembly Explorer showing AptifyApplication assembly"
-  class="center"
-/>
-<figcaption class="center">
-  Our first assembly decompiled and ready to be explored!
-</figcaption>
+<figure>
+  <Image
+    src={assemblyExplorerAptifyApp}
+    alt="Screenshot of dotPeek Assembly Explorer showing AptifyApplication assembly"
+    class="center"
+  />
+  <figcaption class="center">
+    Our first assembly decompiled and ready to be explored!
+  </figcaption>
+</figure>
 
 ### Exploring AptifyApplication.dll
 
 Now that we have the assembly loaded into dotPeek, we can start to explore its contents. To start, let’s use the tree view inside the _Assembly Explorer_ to inspect the structures of the library.
 
-<img
-  src="/images/blog/debug-aptify/aptify-app-assembly-expanded.jpg"
+<Image
+  src={aptifyAppAssemblyExpanded}
   alt="Screenshot of dotPeek Assembly Explorer showing AptifyApplication expanded wth various class names"
   class="center"
 />
@@ -95,8 +117,8 @@ To view the decompiled C# code for any of these constructs, just double click it
 dotPeek also has robust search functionality that makes it easy to jump to just about anything within an assembly. Pressing Ctrl+T will bring up the _Search Everywhere_ floating window, which shows relevant search results as you type (this is also accessible from the _Navigate_ menu if you’re more of a pointer fan).
 
 <figure>
-  <img
-    src="/images/blog/debug-aptify/search-show-record-history.jpg"
+  <Image
+    src={searchShowRecordHistory}
     alt="Screenshot of Search Everywhere with show record history in the search field and results below"
     class="center"
   />
@@ -117,8 +139,8 @@ This is a result of a bit of fidelity being lost between the original source, th
 4. Some form of _obfuscation_ has been used to attempt to make stealing or reverse engineering of the code more difficult. Since the virtual machine has to eventually interpret all the code, this simply acts as a deterrent, but it can still cause at least some bumps in the road and stop casual thievery. In the case of Aptify, older versions employed a rudimentary string obfuscation schema that was fairly easy to defeat. Recent versions have ended this practice, which I for one applaud (and you should too!).
 
 <figure>
-  <img
-    src="/images/blog/debug-aptify/using-vb.jpg"
+  <Image
+    src={usingVb}
     alt="Screenshot of class file in dotPeek showing using Microsoft.VisualBasic"
     class="center"
   />
@@ -134,8 +156,8 @@ So far, we’ve taken a look at a single Aptify assembly. While just being able 
 
 Luckily, dotPeek has us covered here too: not only can we load up a single assembly, we can point at an entire folder and dotPeek will crawl it and decompile all the CLI assemblies and executables within.
 
-<img
-  src="/images/blog/debug-aptify/explore-folder.jpg"
+<Image
+  src={exploreFolder}
   alt="Screenshot of dotPeek showing Explore Folder action button in Assembly Explorer"
   class="center"
 />
@@ -147,10 +169,11 @@ As an important note, since this loads in a large number of assemblies, you’ll
 Another really neat feature is the ability to quickly view all usages of a particular construct. For example, if we use _Search Everywhere_ to jump back to the _AptifyApplication_ class, we can right click on the class name and select _Find Usages_ to get a list of of all usages across all the assemblies (which for our Aptify install is over 1,800 usages!).
 
 <figure>
-  <img
-    src="/images/blog/debug-aptify/usages-aptify-app.jpg"
+  <Image
+    src={usagesAptifyApp}
     alt="Screenshot of dotPeek showing many usages of AptifyApplication"
     class="center"
+    width="1200"
   />
   <figcaption class="center">
     AptifyApplication is a <strong>very</strong> widely used class (no surprises
@@ -166,47 +189,56 @@ dotPeek ships with a **Symbol Server** that, when tied with Visual Studio, gives
 
 To begin, we need to make sure the Symbol Server is enabled and running in dotPeek. First, open the _Options_ dialog and select the _Symbol Server_ section from the sidebar. Make sure _All assemblies_ is selected from the radio list. Since we are here, let’s copy the Server address to the clipboard by using the _copy to clipboard_ link (you’ll also want to change the port if there are any conflicts with existing local services… for me, the default provided value wasn’t in use). Lastly in dotPeek, make sure to start the Symbol Server by clicking _Tools_ > _Start Symbol Server_ from the dotPeek menus.
 
-<img
-  src="/images/blog/debug-aptify/dotpeek-symbol-server.jpg"
+<Image
+  src={dotPeekSymbolServer}
   alt="Screenshot of dotPeek options Symbol Server panel"
   class="center"
+  width="1200"
 />
 
 Now, let’s make some changes in Visual Studio to get it working with the server.
 
 First, we need to add the Symbol Server into the list of locations that Visual Studio will query for debug symbols. Keen observers will actually find the instructions for this right above the dotPeek Server URL we just copied. In case you missed it, open _Options_ in VS and select _Debugging_ > _Symbols_ from the sidebar menu. Then click the green plus icon and paste the server URL.
 
-<img
-  src="/images/blog/debug-aptify/vs-add-symbol-server.jpg"
+<Image
+  src={vsAddSymbolServer}
   alt="Screenshot of Visual Studio options Debugging Symbols panel"
   class="center"
+  width="1200"
 />
 
 By default, Visual Studio will only debug code that you have open inside VS. This feature is called “Just My Code”, and we’ll want to turn that off so we can debug code we don’t have… you’ll find this option under the _General_ section of _Debugging_.
 
-<img src="/images/blog/debug-aptify/just-my-code.jpg" alt="Screenshot of Visual Studio options General Debugging panel showing the Enable Just My Code option" class="center" />
+<Image
+  src={justMyCode}
+  alt="Screenshot of Visual Studio options General Debugging panel showing the Enable Just My Code option"
+  class="center"
+  width="1200"
+/>
 
 Now we are ready to start debugging Aptify internals! From a fresh VS instance, go to the _Debug_ menu and select _Attach To Process…_ (or type Ctrl+Alt+P). From this dialog, I’ll attach to the Aptify Shell.exe process I already have running (I could also attach to an IIS web worker process running the SOA or e-business). Once you attach, you’ll need to wait for a bit as VS runs through each of the loaded libraries in the process and attempts to download symbols for them. You can watch the progress of these operations in dotPeek by referring to the _Project/Pdb Generation Status_ window.
 
-<img
-  src="/images/blog/debug-aptify/attach-aptify-shell.jpg"
+<Image
+  src={attachAptifyShell}
   alt="Screenshot of Attach window in Visual Studio displaying a list of running processes including Aptify Shell.exe"
   class="center"
+  width="1200"
 />
 
 Once symbol loading is complete, we just need to set a breakpoint. We can set a _Function Breakpoint_ by typing Ctrl+B. Type the name of a function you are interested in breaking on, and then you should find that as you use the process you attached into, you will be dropped into decompiled code. From here, the sky really is the limit: step into functions, inspect and watch variable values, and even get performance and timing details!
 
 <figure>
-<img
-  src="/images/blog/debug-aptify/get-record-function-breakpoint.jpg"
-  alt="Screenshot of Visual Studio showing breakpoint being hit"
-  class="center large"
-/>
+  <Image
+    src={getRecordFunctionBreakpoint}
+    alt="Screenshot of Visual Studio showing breakpoint being hit"
+    class="center large"
+    width="1200"
+  />
 
-<figcaption class="center">
-  Here, I’ve added a function breakpoint for “GetRecord”, and opened a web user
-  record.
-</figcaption>
+  <figcaption class="center">
+    Here, I’ve added a function breakpoint for “GetRecord”, and opened a web user
+    record.
+  </figcaption>
 </figure>
 
 ### Go Forth and Debug!
