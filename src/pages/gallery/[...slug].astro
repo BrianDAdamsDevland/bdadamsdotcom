@@ -1,5 +1,7 @@
 ---
+import { Image } from "astro:assets";
 import { getCollection } from "astro:content";
+
 import Layout from "../../layouts/Layout.astro";
 import GoBack from "../../components/Gallery/GoBack.vue";
 
@@ -15,8 +17,10 @@ const { entry } = Astro.props;
 const { Content } = await entry.render();
 ---
 
-<Layout title={`${entry.data.title.toLowerCase()} ||| gallery ||| bdadams.com`} sourceLink="/src/pages/gallery/[...slug].astro">
-  
+<Layout
+  title={`${entry.data.title.toLowerCase()} ||| gallery ||| bdadams.com`}
+  sourceLink="/src/pages/gallery/[...slug].astro"
+>
   <main>
     <div class="card">
       <span>
@@ -24,15 +28,17 @@ const { Content } = await entry.render();
       </span>
       <h1 transition:name={`${entry.slug}-title`}>
         {entry.data.title}
-        <small transition:name={`${entry.slug}-year`}>({entry.data.year})</small
-        >
+        <small transition:name={`${entry.slug}-year`}>
+          ({entry.data.year})
+        </small>
       </h1>
 
       <div class="gallery-item-block">
         <div class="img">
-          <img
-            src={entry.data.imageSrc}
+          <Image
+            src={entry.data.image}
             transition:name={`${entry.slug}-img`}
+            alt={entry.data.title}
           />
         </div>
 
@@ -60,6 +66,8 @@ const { Content } = await entry.render();
     max-height: 130vh;
     margin: 0 auto;
     display: block;
+    width: inherit;
+    height: inherit;
   }
 
   :global(p:first-child) {

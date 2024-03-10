@@ -1,7 +1,7 @@
 ---
 title: ASPS Shop
 year: 2014
-imageSrc: /images/gallery/webshop.jpg
+image: ./asps-shop.jpg
 ---
 
 The new version of our online shop added a number of new features that staff had been clarmering for, including adding products to multiple categories, special automated categories (new products, education credit products, etc), and collection of additional information like meal choices as part of the check out process.

@@ -1,4 +1,6 @@
 ---
+import { Image } from "astro:assets";
+
 import Layout from "../../layouts/Layout.astro";
 import Typer from "../../components/Typer.vue";
 
@@ -27,12 +29,16 @@ const galleryItems = Enumerable.from(allGalleryCollection)
         {
           galleryItems.map((i) => (
             <div class="item">
-              <a
-                href={`/gallery/${i.slug}`}
-                class="img"
-                style={`background-image: url('${i.imageSrc}');`}
-                transition:name={`${i.slug}-img`}
-              />
+              <a href={`/gallery/${i.slug}`}>
+                <Image
+                  src={i.image}
+                  alt={i.title}
+                  height="800"
+                  width="800"
+                  transition:name={`${i.slug}-img`}
+                  decoding="async"
+                />
+              </a>
 
               <div>
                 <a href={`/gallery/${i.slug}`}>
@@ -61,13 +67,13 @@ const galleryItems = Enumerable.from(allGalleryCollection)
       gap: 8px;
     }
 
-    .img {
-      background-size: cover;
-      background-position-y: 2%;
-      background-position-x: 50%;
-      aspect-ratio: 1;
+    img {
+      object-fit: cover;
+      object-position: 50% 10%;
       display: block;
+      aspect-ratio: 1 / 1;
       width: 100%;
+      height: auto;
     }
 
     a {
