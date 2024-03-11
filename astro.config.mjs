@@ -1,16 +1,33 @@
-import { defineConfig } from 'astro/config';
+import { defineConfig } from "astro/config";
 import vue from "@astrojs/vue";
 import mdx from "@astrojs/mdx";
-
 import sitemap from "@astrojs/sitemap";
+
+import sentry from "@sentry/astro";
+import spotlightjs from "@spotlightjs/astro";
+
+import { loadEnv } from "vite";
+const { SENTRY_AUTH_TOKEN } = loadEnv(process.env.NODE_ENV, process.cwd(), "");
 
 // https://astro.build/config
 export default defineConfig({
   site: "https://www.bdadams.com",
-  integrations: [vue(), mdx(), sitemap()],
+  integrations: [
+    vue(),
+    mdx(),
+    sitemap(),
+    sentry({
+      dsn: "https://c0923b76e81cff946429e3533e2a3ff1@o4506892850233344.ingest.us.sentry.io/4506892851806208",
+      sourceMapsUploadOptions: {
+        project: "javascript-astro",
+        authToken: SENTRY_AUTH_TOKEN,
+      },
+    }),
+    spotlightjs(),
+  ],
   markdown: {
     shikiConfig: {
-      wrap: true
-    }
-  }
+      wrap: true,
+    },
+  },
 });
