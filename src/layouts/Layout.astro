@@ -85,7 +85,7 @@ import { SEO, type Props as SEOProps } from "astro-seo";
       })(window, document, "clarity", "script", "l1t8b3e7va");
     </script>
 
-    <ViewTransitions />
+    <ViewTransitions fallback="none" />
   </head>
   <body>
     {!hideMenu && <Menu client:only transition:name="menu-link" />}
