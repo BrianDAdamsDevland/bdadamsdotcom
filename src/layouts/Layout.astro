@@ -110,9 +110,9 @@ import { SEO, type Props as SEOProps } from "astro-seo";
 
       document.addEventListener("astro:after-swap", handleOverrideTheme);
 
-      document.addEventListener("astro:before-swap", e => {
+      document.addEventListener("astro:before-swap", (e) => {
         sessionStorage.setItem("prevHref", e.from.href);
-      })
+      });
     </script>
 
     <style is:global lang="scss">
