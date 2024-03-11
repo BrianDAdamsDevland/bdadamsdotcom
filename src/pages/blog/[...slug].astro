@@ -55,7 +55,7 @@ const { Content } = await entry.render();
           <div class="hero" transition:name={`${entry.slug}-hero`}>
             <Image
               src={entry.data.heroImage}
-              alt={entry.data.heroImageAltText ?? entry.data.title}
+              alt={entry.data.heroImageAltText}
               width="1800"
             />
           </div>
