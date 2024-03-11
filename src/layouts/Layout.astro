@@ -20,7 +20,11 @@ import { SEO } from "astro-seo";
 <!doctype html>
 <html lang="en">
   <head>
-    <SEO title={title} description={description} />
+    <SEO
+      title={title}
+      titleTemplate="%s | bdadams.com"
+      description={description}
+    />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/png" href="/favicon-32x32.png" />
