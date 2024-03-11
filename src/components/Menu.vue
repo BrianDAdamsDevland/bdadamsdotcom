@@ -202,7 +202,7 @@ h2 {
       padding: 7px 20px;
     }
 
-    @media (min-width: 1100px) {
+    @media screen and (min-width: 1100px) {
       font-size: 0.95em;
     }
   }

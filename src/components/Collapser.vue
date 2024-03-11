@@ -82,7 +82,7 @@ h4 {
   margin-bottom: 0;
 }
 
-@media (min-width: 500px) {
+@media screen and (min-width: 500px) {
   .content {
     margin-left: 24px;
   }
