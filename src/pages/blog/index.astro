@@ -110,25 +110,15 @@ const blogItems = Enumerable.from(allBlogCollection)
       flex-grow: 1;
     }
 
-    div:last-child {
-      width: 80px;
-      height: 80px;
-      line-height: 0;
-      background-size: cover;
-      background-position: 50% 50%;
-
-      @media (min-width: 400px) {
-        width: 130px;
-        height: 90px;
-      }
-    }
-
     img {
       object-fit: cover;
-      max-width: 130px;
       aspect-ratio: 10/7;
-      width: inherit;
+      width: 80px;
       height: inherit;
+
+      @media screen and (min-width: 400px) {
+        width: 130px;
+      }
     }
 
     h3 {
