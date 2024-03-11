@@ -102,7 +102,7 @@ export default {
         {
           label: "Email",
           href: "mailto:brian@bdadams.com",
-          icon: "fas fa-envelope",
+          icon: "fa-sharp fa-solid fa-envelope",
         },
         {
           label: "LinkedIn",
