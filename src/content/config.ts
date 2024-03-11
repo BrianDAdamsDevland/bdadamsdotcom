@@ -4,6 +4,7 @@ const galleryCollection = defineCollection({
   type: "content",
   schema: ({ image }) => z.object({
     title: z.string(),
+    description: z.string(),
     year: z.number(),
     image: image(),
   }),

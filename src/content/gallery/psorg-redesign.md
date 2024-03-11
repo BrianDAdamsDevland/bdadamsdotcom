@@ -1,5 +1,6 @@
 ---
 title: PlasticSurgery.org Redesign
+description: PlasticSurgery.org redesign using ASP.NET MVC and Ingeniux CMS.
 year: 2016
 image: ./psorg-redesign.jpg
 ---

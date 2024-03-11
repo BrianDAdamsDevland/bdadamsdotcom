@@ -1,5 +1,6 @@
 ---
 title: PSF Website Redesign
+description: Plastic Surgery Foundation website redesign using ASP.NET MVC.
 year: 2017
 image: ./psf-redesign.jpg
 ---

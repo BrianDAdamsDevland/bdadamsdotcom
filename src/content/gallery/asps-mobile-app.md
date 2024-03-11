@@ -1,5 +1,6 @@
 ---
 title: ASPS Mobile App
+description: ASPS Mobile App for members using Xamarin Forms and .NET.
 year: 2018
 image: ./asps-mobile-app.jpg
 ---

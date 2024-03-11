@@ -1,5 +1,6 @@
 ---
 title: PSTM Meeting App
+description: Plastic Surgery The Meeting app using Xamarin Forms, .NET and RDS SQL Server.
 year: 2019
 image: ./pstm-app.jpg
 ---

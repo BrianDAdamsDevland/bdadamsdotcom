@@ -1,5 +1,6 @@
 ---
 title: ASPS Virtual Meeting Platform
+description: American Society of Plastic Surgeons Virtual Meeting Platform using Vue.js.
 year: 2020
 image: ./asps-vmp.jpg
 ---

@@ -1,5 +1,6 @@
 ---
 title: ASPS Shop
+description: American Society of Plastic Surgeons web shop using ASP.NET and Bootstrap.
 year: 2014
 image: ./asps-shop.jpg
 ---
