@@ -19,6 +19,7 @@
     "@sentry/astro": "7.106.0",
     "@spotlightjs/astro": "1.0.16",
     "astro": "4.5.0",
+    "astro-seo": "0.8.3",
     "linq": "4.0.2",
     "sass": "1.71.1",
     "typescript": "5.4.2",
