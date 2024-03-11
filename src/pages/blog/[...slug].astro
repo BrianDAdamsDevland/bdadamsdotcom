@@ -29,7 +29,7 @@ const openGraphImage = await getImage({
     basic: {
       title: entry.data.title,
       type: "article",
-      image: openGraphImage.src,
+      image: new URL(openGraphImage.src, Astro.site).href,
     },
   }}
   sourceLink="/src/pages/blog/[...slug].astro"
