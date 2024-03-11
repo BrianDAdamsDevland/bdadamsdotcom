@@ -21,10 +21,12 @@ const experienceCollectionPromise = getCollection("resumeExperience");
 const profileEntry = await profileEntryPromise;
 const educationEntry = await educationEntryPromise;
 const certsEntry = await certsEntryPromise;
-const skillsEntries = Enumerable.from(await skillCollectionPromise)
-  .orderBy((a) => a.data.order);
-const experienceEntries = Enumerable.from(await experienceCollectionPromise)
-  .orderByDescending((a) => a.data.startDate);
+const skillsEntries = Enumerable.from(await skillCollectionPromise).orderBy(
+  (a) => a.data.order
+);
+const experienceEntries = Enumerable.from(
+  await experienceCollectionPromise
+).orderByDescending((a) => a.data.startDate);
 
 const profileEntryRenderPromise = profileEntry.render();
 const educationEntryRenderPromise = educationEntry.render();
@@ -35,7 +37,11 @@ const EducationContent = (await educationEntryRenderPromise).Content;
 const CertsContent = (await certsEntryRenderPromise).Content;
 ---
 
-<Layout title="resume ||| bdadams.com" sourceLink="/src/pages/resume.astro">
+<Layout
+  title="resume ||| bdadams.com"
+  description="Brian D. Adams' electronic resume."
+  sourceLink="/src/pages/resume.astro"
+>
   <main>
     <div class="card">
       <a

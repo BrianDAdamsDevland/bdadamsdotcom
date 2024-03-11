@@ -18,6 +18,7 @@ const { Content } = await entry.render();
 
 <Layout
   title={`${entry.data.title.toLowerCase()} ||| blog ||| bdadams.com`}
+  description={entry.data.description}
   sourceLink="/src/pages/blog/[...slug].astro"
 >
   <main>
