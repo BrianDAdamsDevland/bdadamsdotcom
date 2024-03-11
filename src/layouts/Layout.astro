@@ -1,29 +1,30 @@
 ---
 interface Props {
   title: string;
+  description: string;
   heroTitle?: boolean;
   hideMenu?: boolean;
   sourceLink: string;
 }
 
-const { title, heroTitle, hideMenu, sourceLink } = Astro.props;
+const { title, description, heroTitle, hideMenu, sourceLink } = Astro.props;
 
 import Title from "../components/Title/Title.astro";
 import Menu from "../components/Menu.vue";
 import Footer from "../components/Footer.astro";
 
 import { ViewTransitions } from "astro:transitions";
+import { SEO } from "astro-seo";
 ---
 
 <!doctype html>
 <html lang="en">
   <head>
+    <SEO title={title} description={description} />
     <meta charset="UTF-8" />
-    <meta name="description" content="The home of Brian D. Adams on the Internet." />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/png" href="/favicon-32x32.png" />
     <meta name="generator" content={Astro.generator} />
-    <title>{title}</title>
 
     <link
       rel="stylesheet"
