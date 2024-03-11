@@ -1,5 +1,6 @@
 ---
 title: My Favorite Interview Question
+description: My favorite interview question for technical interviews.
 date: 2020-07-28
 heroImage: ./images/twenty-questions.jpg
 heroImageAltText: Old photo of contestants on the game show "Twenty Questions"

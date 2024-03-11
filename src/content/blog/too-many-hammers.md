@@ -1,6 +1,7 @@
 ---
 title: Too Many Hammers
 subtitle: Learning to Live With A Plethora of Communication Tools
+description: How do we communicate well with an explosion of different tools to do so?
 date: 2020-07-28
 heroImage: ./images/workshop.jpg
 heroImageAltText: Woodworking shop with many tools on the walls
