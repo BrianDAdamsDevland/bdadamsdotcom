@@ -41,14 +41,6 @@ const blogItems = Enumerable.from(allBlogCollection)
           blogItems.map((i) => (
             <div class="entry">
               <div>
-                <strong class="date" transition:name={`${i.slug}-date`}>
-                  {i.date.toLocaleDateString("en-us", {
-                    weekday: "long",
-                    year: "numeric",
-                    month: "long",
-                    day: "numeric",
-                  })}
-                </strong>
                 <a href={`/blog/${i.slug}/`}>
                   <h3>
                     <span transition:name={`${i.slug}-title`}>{i.title}</span>
@@ -57,6 +49,21 @@ const blogItems = Enumerable.from(allBlogCollection)
                     </small>
                   </h3>
                 </a>
+
+                <div>
+                  <strong class="date" transition:name={`${i.slug}-date`}>
+                    {i.date.toLocaleDateString("en-us", {
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                    })}
+                  </strong>
+
+                  &middot;
+                  <small>{i.description}</small>
+
+                  
+                </div>
               </div>
 
               <div transition:name={`${i.slug}-hero`}>
@@ -106,12 +113,14 @@ const blogItems = Enumerable.from(allBlogCollection)
     .date {
       text-transform: uppercase;
       font-size: 0.8em;
-      color: var(--color-text-muted);
       letter-spacing: 0.2px;
     }
 
     div:first-child {
       flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      color: var(--color-text-muted);
     }
 
     img {

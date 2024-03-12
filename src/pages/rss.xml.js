@@ -12,6 +12,7 @@ export function GET(context) {
         title: post.data.title,
         pubDate: post.data.date,
         link: `/blog/${post.slug}/`,
+        description: post.data.description
       })),
     // (optional) inject custom xml
     customData: `<language>en-us</language>`,
