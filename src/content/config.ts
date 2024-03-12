@@ -7,6 +7,7 @@ const galleryCollection = defineCollection({
     description: z.string(),
     year: z.number(),
     image: image(),
+    tags: z.array(z.string())
   }),
 });
 

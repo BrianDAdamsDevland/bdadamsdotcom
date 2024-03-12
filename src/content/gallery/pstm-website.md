@@ -3,6 +3,7 @@ title: PSTM Meeting Website
 description: Plastic Surgery The Meeting website using ASP.NET MVC, Bootstrap and Ingeniux CMS.
 year: 2017
 image: ./pstm-website.jpg
+tags: ["ASP.NET MVC", "Web"]
 ---
 
 For many years, the website for our annual meeting was simply a turnkey solution from our registration vendor. While this provided essential features, both our members and staff wanted something that was both easier to manage, and offered more deep features. Building on top of our existing MVC codebase for our primary organization website, I moved this website in-house and integrated with our AMS to display schedule and speaker information.
