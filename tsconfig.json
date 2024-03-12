@@ -1,8 +1,9 @@
 {
   "extends": "astro/tsconfigs/strict",
   "compilerOptions": {
-    "jsx": "preserve",
+    "jsx": "react-jsx",
     "strictNullChecks": true,
-    "allowJs": true
+    "allowJs": true,
+    "jsxImportSource": "preact"
   }
 }

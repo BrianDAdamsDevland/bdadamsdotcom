@@ -1,0 +1,51 @@
+---
+interface Props {
+  data: Array<string>;
+}
+
+const { data } = Astro.props;
+---
+
+<div
+  x-data={`{
+    query: '',
+    data: ${JSON.stringify(data).replaceAll("\"", "'")},
+    filteredData() {
+      if (!this.query.trim()) return this.data;
+
+      const queryTerms = this.query.toLowerCase().split(' ');
+
+      return this.data.filter((d) =>
+        queryTerms.every(
+          (qt) =>
+            d.firstName.toLowerCase().includes(qt) ||
+            d.lastName.toLowerCase().includes(qt)
+        )
+      );
+    }
+}`}
+>
+  <div class="demo-card">
+    <h4>Test Component (Alpine.js)</h4>
+
+    <input type="search" placeholder="Filter Table" x-model="query" />
+
+    <table>
+      <thead>
+        <tr>
+          <th>First Name</th>
+          <th>Last Name</th>
+        </tr>
+      </thead>
+      <tbody>
+        <template x-for="d in filteredData">
+            <tr>
+                <td x-text="d.firstName"></td>
+                <td x-text="d.lastName"></td>
+            </tr>
+          
+        </template>
+      </tbody>
+    </table>
+  </div>
+</div>
