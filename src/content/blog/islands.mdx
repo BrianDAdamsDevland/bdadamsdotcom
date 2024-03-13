@@ -17,6 +17,7 @@ import AlpineComponent from '../../components/Blog/Islands/AlpineExperiment.astr
 import { LitExperiment as LitComponent } from '../../components/Blog/Islands/LitExperiment.js'
 import PreactComponent from '../../components/Blog/Islands/preact/PreactExperiment.jsx'
 import SolidComponent from '../../components/Blog/Islands/solid/SolidExperiment.jsx'
+import SvelteComponent from '../../components/Blog/Islands/SvelteExperiment.svelte'
 
 export const testData = [
     {
@@ -43,12 +44,13 @@ the server side for server side rendered sites.
 
 Astro also embraces a concept called
 [Islands](https://docs.astro.build/en/concepts/islands/), which was popularized
-by Katie Sylor-Miller. By default, components in Astro are *only* rendered server
-side, and only the resulting HTML/CSS is sent down to the server. This means that
-unless you specify otherwise, components won't include any of their JavaScript
-when loaded client side. This means that for components that don't have
-interactivity, end users aren't penalized with larger payloads, and they don't
-have to spend extra time waiting for the browser to parse JavaScript needlessly.
+by [Katie Sylor-Miller](https://sylormiller.com/). By default, components in Astro
+are *only* rendered server side, and only the resulting HTML/CSS is sent down to
+the server. This means that unless you specify otherwise, components won't include
+any of their JavaScript when loaded client side. This means that for components
+that don't have interactivity, end users aren't penalized with larger payloads, and
+they don't have to spend extra time waiting for the browser to parse JavaScript
+needlessly.
 
 For the times when a component *does* have interactivity, you can add a
 [client directive](https://docs.astro.build/en/reference/directives-reference/#client-directives)
@@ -60,8 +62,9 @@ view (this can be especially useful for components deep in an article or in a
 footer, since users may never get to them).
 
 This post has a small test component I wrote in Vue, and then converted to other
-UI libraries with the help of ChatGPT. The data visible in each component is the
-same array of items defined just once, and passed down into each component.
+UI libraries with the help of [ChatGPT](https://chat.openai.com/). The data visible in
+each component is the same array of items defined just once, and passed down into each
+component.
 
 [View This Post's Code](https://github.com/briandadams85/bdadamsdotcom/blob/main/src/content/blog/islands.mdx)
 
@@ -93,6 +96,12 @@ same array of items defined just once, and passed down into each component.
 
 <small>
 [View Solid Component Code](https://github.com/briandadams85/bdadamsdotcom/blob/main/src/components/Blog/Islands/solid/SolidExperiment.jsx)
+</small>
+
+<SvelteComponent client:visible data={testData} />
+
+<small>
+[View Svelte Component Code](https://github.com/briandadams85/bdadamsdotcom/blob/main/src/components/Blog/Islands/SvelteExperiment.svelte)
 </small>
 
 <AlpineComponent data={testData} />
