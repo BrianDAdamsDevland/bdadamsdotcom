@@ -3,7 +3,7 @@ title: My Favorite Interview Question
 description: My favorite interview question for technical interviews.
 date: 2020-07-28
 heroImage: ./images/twenty-questions.jpg
-heroImageAltText: Old photo of contestants on the game show "Twenty Questions"
+heroImageAltText: Contestants on the classic game show "Twenty Questions"
 ---
 
 While I wouldn’t consider myself a master interviewer (I feel like I need to do just fifty or sixty more to really start getting into a groove), I have landed on what I think is my favorite question to ask potential software developers:
