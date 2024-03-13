@@ -10,6 +10,7 @@ import alpinejs from "@astrojs/alpinejs";
 import lit from "@astrojs/lit";
 import preact from "@astrojs/preact";
 import solidJs from "@astrojs/solid-js";
+import svelte from "@astrojs/svelte";
 const { SENTRY_AUTH_TOKEN } = loadEnv(process.env.NODE_ENV, process.cwd(), "");
 
 // https://astro.build/config
@@ -38,6 +39,7 @@ export default defineConfig({
     solidJs({
       include: ["**/solid/*"],
     }),
+    svelte(),
   ],
   markdown: {
     shikiConfig: {
