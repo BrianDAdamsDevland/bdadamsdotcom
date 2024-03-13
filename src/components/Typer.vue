@@ -28,10 +28,11 @@ export default {
     },
     name: String,
     once: Boolean,
+    hiddenOnStart: Boolean
   },
   data() {
     return {
-      display: " ",
+      display: this.hiddenOnStart ? "" : " ",
       remainingTime: this.duration,
     };
   },
