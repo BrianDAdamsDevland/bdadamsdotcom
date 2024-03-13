@@ -1,4 +1,4 @@
-import { createSignal, createEffect, createMemo } from "solid-js";
+import { createSignal, createMemo } from "solid-js";
 
 const SolidExperiment = ({ data }) => {
   const [query, setQuery] = createSignal("");
