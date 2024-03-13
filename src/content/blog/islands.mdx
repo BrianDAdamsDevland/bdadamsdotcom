@@ -16,6 +16,7 @@ import ReactComponent from '../../components/Blog/Islands/react/ReactExperiment.
 import AlpineComponent from '../../components/Blog/Islands/AlpineExperiment.astro'
 import { LitExperiment as LitComponent } from '../../components/Blog/Islands/LitExperiment.js'
 import PreactComponent from '../../components/Blog/Islands/preact/PreactExperiment.jsx'
+import SolidComponent from '../../components/Blog/Islands/solid/SolidExperiment.jsx'
 
 export const testData = [
     {
@@ -86,6 +87,12 @@ same array of items defined just once, and passed down into each component.
 
 <small>
 [View Preact Component Code](https://github.com/briandadams85/bdadamsdotcom/blob/main/src/components/Blog/Islands/preact/PreactExperiment.jsx)
+</small>
+
+<SolidComponent client:visible data={testData} />
+
+<small>
+[View Solid Component Code](https://github.com/briandadams85/bdadamsdotcom/blob/main/src/components/Blog/Islands/solid/SolidExperiment.jsx)
 </small>
 
 <AlpineComponent data={testData} />
