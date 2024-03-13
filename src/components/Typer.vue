@@ -31,7 +31,7 @@ export default {
   },
   data() {
     return {
-      display: "",
+      display: " ",
       remainingTime: this.duration,
     };
   },
