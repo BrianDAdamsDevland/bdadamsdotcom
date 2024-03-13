@@ -55,7 +55,7 @@ needlessly.
 For the times when a component *does* have interactivity, you can add a
 [client directive](https://docs.astro.build/en/reference/directives-reference/#client-directives)
 to instruct Astro to include the JavaScript. This creates *islands* of interactive
-components, and since it's opt-in, pages only incur extra costs when absolutly
+components, and since it's opt-in, pages only incur extra costs when absolutely
 necessary.  Even better, non-critical components can use directives like
 ``client:visible`` to have the component only hydrated client side if it comes into
 view (this can be especially useful for components deep in an article or in a
