@@ -26,11 +26,10 @@ const fullContentLink = `https://github.com/BrianDAdamsDevland/bdadamsdotcom/blo
         <a href={fullSourceLink}> View Page Source</a>
         {
           contentLink && (
-            <span>
-              {" "}
+            <Fragment>
               &middot;
               <a href={fullContentLink}>View Content Source</a>
-            </span>
+            </Fragment>
           )
         }
       </small>
