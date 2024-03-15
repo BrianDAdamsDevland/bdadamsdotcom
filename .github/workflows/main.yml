@@ -26,12 +26,12 @@ jobs:
       - name: configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: arn:aws:iam::103952535738:role/github-actions-bdadamsdotcom-main
+          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME_ARN }}
           role-session-name: github-cd
           aws-region: us-west-1
 
       - name: deploy to s3
-        run: aws s3 sync ./dist/ s3://www.bdadams.com/
+        run: aws s3 sync ./dist/ ${{ secrets.AWS_S3_BUCKET }}
 
       - name: invalidate cloudfront cache
         run: aws cloudfront create-invalidation --distribution-id ${{ secrets.AWS_CLOUDFRONT_DISTRO_ID }} --paths "/*" "/"
