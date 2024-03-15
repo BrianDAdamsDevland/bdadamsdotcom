@@ -30,7 +30,7 @@ const galleryItems = Enumerable.from(allGalleryCollection)
         {
           galleryItems.map((i) => (
             <div class="item">
-              <a href={`/gallery/${i.slug}`}>
+              <a href={`/gallery/${i.slug}/`}>
                 <Image
                   src={i.image}
                   alt={i.title}
@@ -42,7 +42,7 @@ const galleryItems = Enumerable.from(allGalleryCollection)
               </a>
 
               <div class="title">
-                <a href={`/gallery/${i.slug}`}>
+                <a href={`/gallery/${i.slug}/`}>
                   <strong transition:name={`${i.slug}-title`}>{i.title}</strong>
                   <span transition:name={`${i.slug}-year`}>{i.year}</span>
                 </a>
