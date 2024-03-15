@@ -85,15 +85,15 @@ export default {
       return [
         {
           label: "Gallery",
-          href: "/gallery",
+          href: "/gallery/",
         },
         {
           label: "Resume",
-          href: "/resume",
+          href: "/resume/",
         },
         {
           label: "Blog",
-          href: "/blog",
+          href: "/blog/",
         },
       ];
     },
