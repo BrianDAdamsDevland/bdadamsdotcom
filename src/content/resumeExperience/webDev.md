@@ -1,7 +1,7 @@
 ---
-startDate: 2008-01
+startDate: 2008-10
 title: Web Developer, Coilcraft Inc
-subtitle: Cary, Illinois — 2008-2013
+subtitle: Cary, Illinois — October 2008 - March 2013
 ---
 
 Develop and maintain intranet applications. Assemble requirements from users and design back- and front-ends.
