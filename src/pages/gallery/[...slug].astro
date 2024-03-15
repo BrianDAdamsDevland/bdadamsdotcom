@@ -41,6 +41,9 @@ const { Content } = await entry.render();
             src={entry.data.image}
             transition:name={`${entry.slug}-img`}
             alt={entry.data.title}
+            width={800}
+            widths={[240, 540, 720, entry.data.image.width]}
+            sizes="(min-width: 1320px) 753px, (min-width: 800px) 58.2vw, (min-width: 500px) calc(100vw - 90px), calc(100vw - 46px)"
           />
         </div>
 

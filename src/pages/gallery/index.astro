@@ -34,8 +34,8 @@ const galleryItems = Enumerable.from(allGalleryCollection)
                 <Image
                   src={item.image}
                   alt={item.title}
-                  height="800"
-                  width="800"
+                  width={300}
+                  densities={[1.5, 2, 2.5]}
                   transition:name={`${item.slug}-img`}
                   decoding="async"
                   loading={i < 6 ? "eager" : "lazy"}
