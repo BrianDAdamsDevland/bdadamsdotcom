@@ -28,23 +28,26 @@ const galleryItems = Enumerable.from(allGalleryCollection)
 
       <div class="gallery-block">
         {
-          galleryItems.map((i) => (
+          galleryItems.map((item, i) => (
             <div class="item">
-              <a href={`/gallery/${i.slug}/`}>
+              <a href={`/gallery/${item.slug}/`}>
                 <Image
-                  src={i.image}
-                  alt={i.title}
+                  src={item.image}
+                  alt={item.title}
                   height="800"
                   width="800"
-                  transition:name={`${i.slug}-img`}
+                  transition:name={`${item.slug}-img`}
                   decoding="async"
+                  loading={i < 6 ? "eager" : "lazy"}
                 />
               </a>
 
               <div class="title">
-                <a href={`/gallery/${i.slug}/`}>
-                  <strong transition:name={`${i.slug}-title`}>{i.title}</strong>
-                  <span transition:name={`${i.slug}-year`}>{i.year}</span>
+                <a href={`/gallery/${item.slug}/`}>
+                  <strong transition:name={`${item.slug}-title`}>
+                    {item.title}
+                  </strong>
+                  <span transition:name={`${item.slug}-year`}>{item.year}</span>
                 </a>
               </div>
             </div>
