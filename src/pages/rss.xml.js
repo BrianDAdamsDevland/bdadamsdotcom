@@ -11,7 +11,7 @@ export function GET(context) {
     site: context.site,
     items: blog.map((post) => ({
       title: post.data.title,
-      pubDate: post.data.date,
+      pubDate: post.data.pubDate,
       link: `/blog/${post.slug}/`,
       description: post.data.description,
     })),

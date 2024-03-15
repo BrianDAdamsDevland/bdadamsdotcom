@@ -58,7 +58,7 @@ const openGraphImage = await getImage({
         }
         <strong transition:name={`${entry.slug}-date`}>
           {
-            entry.data.date.toLocaleDateString("en-us", {
+            entry.data.pubDate.toLocaleDateString("en-us", {
               weekday: "long",
               year: "numeric",
               month: "long",

@@ -12,7 +12,7 @@ const allBlogCollection = await getCollection("blog");
 
 const blogItems = Enumerable.from(allBlogCollection)
   .select((i) => ({ ...i.data, slug: i.slug }))
-  .orderByDescending((a) => a.date)
+  .orderByDescending((a) => a.pubDate)
   .toArray();
 ---
 
@@ -52,7 +52,7 @@ const blogItems = Enumerable.from(allBlogCollection)
 
                 <div>
                   <strong class="date" transition:name={`${i.slug}-date`}>
-                    {i.date.toLocaleDateString("en-us", {
+                    {i.pubDate.toLocaleDateString("en-us", {
                       year: "numeric",
                       month: "long",
                       day: "numeric",

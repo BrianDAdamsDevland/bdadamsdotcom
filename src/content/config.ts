@@ -39,13 +39,13 @@ const resumeSkillsCollection = defineCollection({
 });
 
 const blogCollection = defineCollection({
-  type: "content",
+  type: "content", 
   schema: ({ image }) =>
     rssSchema.extend({
       title: z.string(),
       subtitle: z.string().optional(),
       description: z.string(),
-      date: z.date(),
+      pubDate: z.date(),
       heroImage: image(),
       heroImageAltText: z.string(),
     }),
