@@ -29,13 +29,14 @@ const openGraphImage = await getImage({
     basic: {
       title: entry.data.title,
       type: "article",
-      image: new URL(openGraphImage.src, Astro.site).href
+      image: new URL(openGraphImage.src, Astro.site).href,
     },
     optional: {
-      description: entry.data.description
-    }
+      description: entry.data.description,
+    },
   }}
   sourceLink="/src/pages/blog/[...slug].astro"
+  contentLink={`/src/content/blog/${entry.id}`}
 >
   <main>
     <div class="card">

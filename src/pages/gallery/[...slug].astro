@@ -21,6 +21,7 @@ const { Content } = await entry.render();
   title={`${entry.data.title} | Gallery`}
   description={entry.data.description}
   sourceLink="/src/pages/gallery/[...slug].astro"
+  contentLink={`/src/content/gallery/${entry.id}`}
 >
   <main>
     <div class="card">

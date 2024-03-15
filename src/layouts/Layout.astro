@@ -6,10 +6,18 @@ interface Props {
   heroTitle?: boolean;
   hideMenu?: boolean;
   sourceLink: string;
+  contentLink?: string;
 }
 
-const { title, description, openGraph, heroTitle, hideMenu, sourceLink } =
-  Astro.props;
+const {
+  title,
+  description,
+  openGraph,
+  heroTitle,
+  hideMenu,
+  sourceLink,
+  contentLink,
+} = Astro.props;
 
 import Title from "../components/Title/Title.astro";
 import Menu from "../components/Menu.vue";
@@ -92,7 +100,7 @@ import { SEO, type Props as SEOProps } from "astro-seo";
     <Title hero={heroTitle} transition:name="title" />
     <slot />
 
-    <Footer sourceLink={sourceLink} />
+    <Footer sourceLink={sourceLink} contentLink={contentLink} />
 
     <!-- Based on: https://www.kevinzunigacuellar.com/blog/dark-mode-in-astro/ -->
     <script is:inline>
@@ -270,8 +278,6 @@ import { SEO, type Props as SEOProps } from "astro-seo";
         cursor: pointer;
       }
 
-
-
       @media screen and (min-width: 500px) {
         main {
           padding: 1rem;
@@ -282,6 +288,5 @@ import { SEO, type Props as SEOProps } from "astro-seo";
         }
       }
     </style>
-
   </body>
 </html>
