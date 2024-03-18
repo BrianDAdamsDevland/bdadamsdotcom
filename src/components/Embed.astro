@@ -1,0 +1,60 @@
+---
+interface Props {
+  url: string;
+  useCardStyle: boolean;
+  autoplay: boolean;
+  small: boolean;
+}
+
+const { url, useCardStyle, autoplay, small } = Astro.props;
+
+const embedUrl = encodeURI(url);
+
+const apiKey = import.meta.env.IFRAMELY_API_KEY;
+
+let apiUrl = `https://iframe.ly/api/iframely?url=${embedUrl}&api_key=${apiKey}&ssl=1`;
+
+if (useCardStyle) {
+  apiUrl += "&card=1&media=0";
+}
+
+if (autoplay) {
+  apiUrl += "&autoplay=1";
+}
+
+const response = await fetch(apiUrl);
+
+const data = await response.json();
+---
+
+<div class:list={["embed", { small: small }]}>
+  <Fragment set:html={data.html} />
+</div>
+
+<style lang="scss">
+  .embed.small :global(iframe) {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 350px !important;
+    display: block;
+  }
+
+  @media (min-width: 600px) {
+    .small {
+      width: 350px;
+      float: left;
+      margin-right: 15px;
+    }
+  }
+
+  @media (min-width: 1290px) {
+    .embed {
+      width: calc(100% + 70px);
+      margin-left: -70px;
+    }
+
+    .small {
+      width: 350px;
+    }
+  }
+</style>

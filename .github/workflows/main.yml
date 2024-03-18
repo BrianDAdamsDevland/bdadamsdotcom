@@ -19,6 +19,8 @@ jobs:
         uses: actions/checkout@v4
 
       - name: setup
+        env:
+          IFRAMELY_API_KEY: ${{ secrets.IFRAMELY_API_KEY }}
         run: |
           npm install
           npm run build

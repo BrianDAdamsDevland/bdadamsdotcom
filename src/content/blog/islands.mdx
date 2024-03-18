@@ -7,35 +7,35 @@ heroImage: ./images/island.jpg
 heroImageAltText: An island with palms on a sunny day
 ---
 
-import demoStyles from "../../assets/demo-component.scss"
+import demoStyles from "../../assets/demo-component.scss";
 
-import Video from "../../components/Video.astro"
+import Embed from "../../components/Embed.astro";
 
-import VueComponent from '../../components/Blog/Islands/VueExperiment.vue'
-import ReactComponent from '../../components/Blog/Islands/react/ReactExperiment.jsx'
-import AlpineComponent from '../../components/Blog/Islands/AlpineExperiment.astro'
-import { LitExperiment as LitComponent } from '../../components/Blog/Islands/LitExperiment.js'
-import PreactComponent from '../../components/Blog/Islands/preact/PreactExperiment.jsx'
-import SolidComponent from '../../components/Blog/Islands/solid/SolidExperiment.jsx'
-import SvelteComponent from '../../components/Blog/Islands/SvelteExperiment.svelte'
+import VueComponent from "../../components/Blog/Islands/VueExperiment.vue";
+import ReactComponent from "../../components/Blog/Islands/react/ReactExperiment.jsx";
+import AlpineComponent from "../../components/Blog/Islands/AlpineExperiment.astro";
+import { LitExperiment as LitComponent } from "../../components/Blog/Islands/LitExperiment.js";
+import PreactComponent from "../../components/Blog/Islands/preact/PreactExperiment.jsx";
+import SolidComponent from "../../components/Blog/Islands/solid/SolidExperiment.jsx";
+import SvelteComponent from "../../components/Blog/Islands/SvelteExperiment.svelte";
 
 export const testData = [
-    {
-        id: 1,
-        firstName: "Brian",
-        lastName: "Adams"
-    },
-    {
-        id: 2,
-        firstName: "John",
-        lastName: "Doe"
-    },
-    {
-        id: 3,
-        firstName: "Jane",
-        lastName: "Doe"
-    }
-]
+  {
+    id: 1,
+    firstName: "Brian",
+    lastName: "Adams",
+  },
+  {
+    id: 2,
+    firstName: "John",
+    lastName: "Doe",
+  },
+  {
+    id: 3,
+    firstName: "Jane",
+    lastName: "Doe",
+  },
+];
 
 One of the coolest features of [Astro](https://astro.build) is that you can use
 many of the most popular UI libraries to build components. These components will
@@ -45,19 +45,19 @@ the server side for server side rendered sites.
 Astro also embraces a concept called
 [Islands](https://docs.astro.build/en/concepts/islands/), which was popularized
 by [Katie Sylor-Miller](https://sylormiller.com/). By default, components in Astro
-are *only* rendered server side, and only the resulting HTML/CSS is sent down to
+are _only_ rendered server side, and only the resulting HTML/CSS is sent down to
 the server. This means that unless you specify otherwise, components won't include
 any of their JavaScript when loaded client side. This means that for components
 that don't have interactivity, end users aren't penalized with larger payloads, and
 they don't have to spend extra time waiting for the browser to parse JavaScript
 needlessly.
 
-For the times when a component *does* have interactivity, you can add a
+For the times when a component _does_ have interactivity, you can add a
 [client directive](https://docs.astro.build/en/reference/directives-reference/#client-directives)
-to instruct Astro to include the JavaScript. This creates *islands* of interactive
+to instruct Astro to include the JavaScript. This creates _islands_ of interactive
 components, and since it's opt-in, pages only incur extra costs when absolutely
-necessary.  Even better, non-critical components can use directives like
-``client:visible`` to have the component only hydrated client side if it comes into
+necessary. Even better, non-critical components can use directives like
+`client:visible` to have the component only hydrated client side if it comes into
 view (this can be especially useful for components deep in an article or in a
 footer, since users may never get to them).
 
@@ -71,43 +71,50 @@ component.
 <VueComponent client:visible data={testData} />
 
 <small>
-[View Vue Component Code](https://github.com/briandadams85/bdadamsdotcom/blob/main/src/components/Blog/Islands/VueExperiment.vue)
+  [View Vue Component
+  Code](https://github.com/briandadams85/bdadamsdotcom/blob/main/src/components/Blog/Islands/VueExperiment.vue)
 </small>
 
 <ReactComponent client:visible data={testData} />
 
 <small>
-[View React Component Code](https://github.com/briandadams85/bdadamsdotcom/blob/main/src/components/Blog/Islands/react/ReactExperiment.jsx)
+  [View React Component
+  Code](https://github.com/briandadams85/bdadamsdotcom/blob/main/src/components/Blog/Islands/react/ReactExperiment.jsx)
 </small>
 
 <LitComponent client:visible data={testData} />
 
 <small>
-[View Lit Component Code](https://github.com/briandadams85/bdadamsdotcom/blob/main/src/components/Blog/Islands/LitExperiment.js)
+  [View Lit Component
+  Code](https://github.com/briandadams85/bdadamsdotcom/blob/main/src/components/Blog/Islands/LitExperiment.js)
 </small>
 
 <PreactComponent client:visible data={testData} />
 
 <small>
-[View Preact Component Code](https://github.com/briandadams85/bdadamsdotcom/blob/main/src/components/Blog/Islands/preact/PreactExperiment.jsx)
+  [View Preact Component
+  Code](https://github.com/briandadams85/bdadamsdotcom/blob/main/src/components/Blog/Islands/preact/PreactExperiment.jsx)
 </small>
 
 <SolidComponent client:visible data={testData} />
 
 <small>
-[View Solid Component Code](https://github.com/briandadams85/bdadamsdotcom/blob/main/src/components/Blog/Islands/solid/SolidExperiment.jsx)
+  [View Solid Component
+  Code](https://github.com/briandadams85/bdadamsdotcom/blob/main/src/components/Blog/Islands/solid/SolidExperiment.jsx)
 </small>
 
 <SvelteComponent client:visible data={testData} />
 
 <small>
-[View Svelte Component Code](https://github.com/briandadams85/bdadamsdotcom/blob/main/src/components/Blog/Islands/SvelteExperiment.svelte)
+  [View Svelte Component
+  Code](https://github.com/briandadams85/bdadamsdotcom/blob/main/src/components/Blog/Islands/SvelteExperiment.svelte)
 </small>
 
 <AlpineComponent data={testData} />
 
 <small>
-[View Alpine Component Code](https://github.com/briandadams85/bdadamsdotcom/blob/main/src/components/Blog/Islands/AlpineExperiment.astro)
+  [View Alpine Component
+  Code](https://github.com/briandadams85/bdadamsdotcom/blob/main/src/components/Blog/Islands/AlpineExperiment.astro)
 </small>
 
-<Video videoSrc="https://www.youtube.com/embed/erG5rgNYSdk?si=mJHzUT2-rR5xL-tx" />
+<Embed url="https://www.youtube.com/embed/erG5rgNYSdk?si=mJHzUT2-rR5xL-tx" />
