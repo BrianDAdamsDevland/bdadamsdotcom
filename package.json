@@ -22,6 +22,7 @@
     "@astrojs/solid-js": "4.0.1",
     "@astrojs/svelte": "5.2.0",
     "@astrojs/vue": "4.0.9",
+    "@fontsource/ibm-plex-mono": "5.0.12",
     "@sentry/astro": "7.107.0",
     "@spotlightjs/astro": "1.0.17",
     "@types/alpinejs": "3.13.9",
