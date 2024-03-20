@@ -3,11 +3,11 @@ import { Image } from "astro:assets";
 import { getCollection } from "astro:content";
 
 import Layout from "../../layouts/Layout.astro";
-import GoBack from "../../components/Gallery/GoBack.vue";
+import GoBack from "../../components/Portfolio/GoBack.vue";
 
 export async function getStaticPaths() {
-  const galleryItems = await getCollection("gallery");
-  return galleryItems.map((entry) => ({
+  const portfolioItems = await getCollection("portfolio");
+  return portfolioItems.map((entry) => ({
     params: { slug: entry.slug },
     props: { entry },
   }));
@@ -18,10 +18,10 @@ const { Content } = await entry.render();
 ---
 
 <Layout
-  title={`${entry.data.title} | Gallery`}
+  title={`${entry.data.title} | Portfolio`}
   description={entry.data.description}
-  sourceLink="/src/pages/gallery/[...slug].astro"
-  contentLink={`/src/content/gallery/${entry.id}`}
+  sourceLink="/src/pages/portfolio/[...slug].astro"
+  contentLink={`/src/content/portfolio/${entry.id}`}
 >
   <main>
     <div class="card">
@@ -35,7 +35,7 @@ const { Content } = await entry.render();
         </small>
       </h1>
 
-      <div class="gallery-item-block">
+      <div class="portfolio-item-block">
         <div class="img">
           <Image
             src={entry.data.image}
@@ -60,7 +60,7 @@ const { Content } = await entry.render();
     max-width: 1200px;
   }
 
-  .gallery-item-block {
+  .portfolio-item-block {
     display: flex;
     gap: 15px;
     flex-direction: column;
@@ -80,7 +80,7 @@ const { Content } = await entry.render();
   }
 
   @media screen and (min-width: 800px) {
-    .gallery-item-block {
+    .portfolio-item-block {
       flex-direction: row;
     }
 

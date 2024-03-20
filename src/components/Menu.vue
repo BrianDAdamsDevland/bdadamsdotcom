@@ -84,12 +84,12 @@ export default {
     primaryLinks() {
       return [
         {
-          label: "Gallery",
-          href: "/gallery/",
-        },
-        {
           label: "Resume",
           href: "/resume/",
+        },
+        {
+          label: "Portfolio",
+          href: "/portfolio/",
         },
         {
           label: "Blog",

@@ -7,30 +7,30 @@ import Typer from "../../components/Typer.vue";
 import { getCollection } from "astro:content";
 import Enumerable from "linq";
 
-const allGalleryCollection = await getCollection("gallery");
+const allPortfolioCollection = await getCollection("portfolio");
 
-const galleryItems = Enumerable.from(allGalleryCollection)
+const portfolioItems = Enumerable.from(allPortfolioCollection)
   .select((i) => ({ ...i.data, slug: i.slug }))
   .orderByDescending((a) => a.year)
   .toArray();
 ---
 
 <Layout
-  title="Gallery"
+  title="Portfolio"
   description="Brian D. Adams portfolio of past application work."
-  sourceLink="/src/pages/gallery/index.astro"
+  sourceLink="/src/pages/portfolio/index.astro"
 >
   <main>
     <div class="card">
       <h1>
-        <Typer client:load text="Gallery" duration={700} />
+        <Typer client:load text="Portfolio" duration={700} />
       </h1>
 
-      <div class="gallery-block">
+      <div class="portfolio-block">
         {
-          galleryItems.map((item, i) => (
+          portfolioItems.map((item, i) => (
             <div class="item">
-              <a href={`/gallery/${item.slug}/`}>
+              <a href={`/portfolio/${item.slug}/`}>
                 <Image
                   src={item.image}
                   alt={item.title}
@@ -43,7 +43,7 @@ const galleryItems = Enumerable.from(allGalleryCollection)
               </a>
 
               <div class="title">
-                <a href={`/gallery/${item.slug}/`}>
+                <a href={`/portfolio/${item.slug}/`}>
                   <strong transition:name={`${item.slug}-title`}>
                     {item.title}
                   </strong>
@@ -59,7 +59,7 @@ const galleryItems = Enumerable.from(allGalleryCollection)
 </Layout>
 
 <style lang="scss">
-  .gallery-block {
+  .portfolio-block {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
@@ -101,13 +101,13 @@ const galleryItems = Enumerable.from(allGalleryCollection)
   }
 
   @media screen and (min-width: 500px) {
-    .gallery-block {
+    .portfolio-block {
       gap: 30px;
     }
   }
 
   @media screen and (min-width: 900px) {
-    .gallery-block {
+    .portfolio-block {
       grid-template-columns: repeat(3, 1fr);
     }
   }

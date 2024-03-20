@@ -1,7 +1,7 @@
 import { z, defineCollection } from "astro:content";
 import { rssSchema } from "@astrojs/rss";
 
-const galleryCollection = defineCollection({
+const portfolioCollection = defineCollection({
   type: "content",
   schema: ({ image }) =>
     z.object({
@@ -52,7 +52,7 @@ const blogCollection = defineCollection({
 });
 
 export const collections = {
-  gallery: galleryCollection,
+  portfolio: portfolioCollection,
   resume: resumeCollection,
   resumeExperience: resumeExperienceCollection,
   resumeSkills: resumeSkillsCollection,

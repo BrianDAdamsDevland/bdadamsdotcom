@@ -2,7 +2,7 @@
   <span @click.prevent="goBack" class="cursor-pointer">
     <i class="fa-sharp fa-solid fa-arrow-left-long"></i>
     <template v-if="fromResume">Back to Resume</template>
-    <template v-else>Back to Gallery</template>
+    <template v-else>Back to Portfolio</template>
   </span>
 </template>
 
@@ -20,10 +20,7 @@ export default {
     },
     fromResume() {
       return this.referrer?.includes("resume");
-    },
-    fromGallery() {
-      return this.referrer?.includes("gallery");
-    },
+    }
   },
   methods: {
     goBack() {
@@ -31,7 +28,7 @@ export default {
         window.history.back();
         return;
       }
-      navigate("/gallery");
+      navigate("/portfolio");
     },
   },
 };

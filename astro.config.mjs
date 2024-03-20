@@ -46,4 +46,8 @@ export default defineConfig({
       wrap: true,
     },
   },
+  redirects: {
+    "/gallery": "/portfolio",
+    "/gallery/[...slug]": "/portfolio/[...slug]",
+  },
 });

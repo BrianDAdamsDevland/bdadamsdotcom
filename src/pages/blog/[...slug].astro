@@ -5,8 +5,8 @@ import { getCollection } from "astro:content";
 import Layout from "../../layouts/Layout.astro";
 
 export async function getStaticPaths() {
-  const galleryItems = await getCollection("blog");
-  return galleryItems.map((entry) => ({
+  const blogItems = await getCollection("blog");
+  return blogItems.map((entry) => ({
     params: { slug: entry.slug },
     props: { entry },
   }));
