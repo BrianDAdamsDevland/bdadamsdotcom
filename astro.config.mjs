@@ -47,6 +47,7 @@ export default defineConfig({
     },
   },
   redirects: {
+    "/cv": "/resume",
     "/gallery": "/portfolio",
     "/gallery/[...slug]": "/portfolio/[...slug]",
   },
