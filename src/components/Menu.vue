@@ -23,7 +23,7 @@
             <ThemeToggle />
           </AnimatedEntrance>
 
-          <AnimatedEntrance type="slideInDown" :delay="0.1">
+          <AnimatedEntrance type="slideInDown" :delay="0.07">
             <div class="close" @click="show = false">
               <i class="fa-sharp fa-solid fa-x"></i>
             </div>
