@@ -1,5 +1,5 @@
 <template>
-  <span @click.prevent="goBack" class="cursor-pointer">
+  <span @click.prevent="goBack" class="cursor-pointer back">
     <i class="fa-sharp fa-solid fa-arrow-left-long"></i>
     <template v-if="fromResume">Back to Resume</template>
     <template v-else>Back to Portfolio</template>
@@ -33,3 +33,11 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+
+span {
+  text-decoration: underline;
+}
+
+</style>
