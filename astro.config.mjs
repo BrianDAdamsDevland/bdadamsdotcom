@@ -11,6 +11,7 @@ import lit from "@astrojs/lit";
 import preact from "@astrojs/preact";
 import solidJs from "@astrojs/solid-js";
 import svelte from "@astrojs/svelte";
+import pagefind from "astro-pagefind";
 const { SENTRY_AUTH_TOKEN } = loadEnv(process.env.NODE_ENV, process.cwd(), "");
 
 // https://astro.build/config
@@ -40,6 +41,7 @@ export default defineConfig({
       include: ["**/solid/*"],
     }),
     svelte(),
+    pagefind()
   ],
   markdown: {
     shikiConfig: {

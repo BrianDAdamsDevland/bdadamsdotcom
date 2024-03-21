@@ -1,0 +1,22 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+import Typer from "../components/Typer.vue";
+import SearchComponent from "astro-pagefind/components/Search";
+---
+
+<Layout
+  title="Search"
+  description="Search BDADAMS.com."
+  sourceLink="/src/pages/search.astro"
+>
+  <main>
+    <div class="card">
+      <h1 aria-label="Search">
+        <Typer client:load text="Search" duration={600} />
+      </h1>
+
+      <SearchComponent id="search" />
+    </div>
+  </main>
+</Layout>
