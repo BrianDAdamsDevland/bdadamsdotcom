@@ -75,8 +75,8 @@ export default {
 }
 
 button {
-  border: 1px solid gray;
-  padding: 4px 12px;
+  border: 1px solid rgba(150 150 150 / 60%);
+  padding: 5px 14px;
   color: black;
   background: rgb(230,230,230);
   font-size: 1em;
