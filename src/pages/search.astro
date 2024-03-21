@@ -16,7 +16,10 @@ import SearchComponent from "astro-pagefind/components/Search";
         <Typer client:load text="Search" duration={600} />
       </h1>
 
-      <SearchComponent id="search" />
+      <SearchComponent
+        id="search"
+        uiOptions={{ showImages: false, autofocus: true, showSubResults: true }}
+      />
     </div>
   </main>
 </Layout>
