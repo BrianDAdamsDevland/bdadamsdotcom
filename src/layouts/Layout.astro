@@ -27,11 +27,11 @@ import { Head } from "astro-capo";
 import { ViewTransitions } from "astro:transitions";
 import { SEO, type Props as SEOProps } from "astro-seo";
 
-import '@fontsource/ibm-plex-mono/400.css';
-import '@fontsource/ibm-plex-mono/700.css';
-import '@fontsource/ibm-plex-mono/400-italic.css';
+import "@fontsource/ibm-plex-mono/400.css";
+import "@fontsource/ibm-plex-mono/700.css";
+import "@fontsource/ibm-plex-mono/400-italic.css";
 
-import 'animate.css/animate.min.css';
+import "animate.css/animate.min.css";
 ---
 
 <!doctype html>
@@ -65,6 +65,8 @@ import 'animate.css/animate.min.css';
       }}
     />
 
+    <meta data-pagefind-meta={"title:" + title} />
+
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/png" href="/favicon-32x32.png" />
 
@@ -73,7 +75,7 @@ import 'animate.css/animate.min.css';
       href="https://kit.fontawesome.com/d39a110d2c.css"
       crossorigin="anonymous"
     />
-    
+
     <script is:inline type="text/javascript">
       (function (c, l, a, r, i, t, y) {
         c[a] =
