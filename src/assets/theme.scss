@@ -1,0 +1,78 @@
+/* Global Theming */
+:root {
+  --color-light-blue-200: #81d4fa;
+  --color-light-blue-50: #e1f5fe;
+  --color-light-blue-700: #0288d1;
+  --color-light-blue-800: #0277bd;
+  --color-amber-100: #ffecb3;
+  --color-amber-200: #ffe082;
+  --color-amber-800: #ff8f00;
+  --color-amber-900: #ff6f00;
+
+  --color-menu-link-background: var(--color-light-blue-700);
+  --color-menu-link-text: white;
+
+  --color-link: var(--color-text);
+  --color-card-shadow: rgba(0, 0, 0, 0.1);
+
+  --color-active-selection-background: var(--color-primary);
+
+  --background: linear-gradient(
+    331deg,
+    var(--color-background-dark) 0%,
+    var(--color-background-light) 100%
+  );
+}
+
+/* Light Theme */
+:root,
+:root.light {
+  --color-primary: var(--color-light-blue-800);
+  --color-secondary: var(--color-amber-900);
+  --color-ternary: var(--color-light-blue-700);
+  --color-background-dark: rgb(240, 240, 240);
+  --color-background-light: rgb(255, 255, 255);
+  --color-text: black;
+  --color-text-very-light: rgba(0, 0, 0, 0.15);
+  --color-text-muted: rgba(0, 0, 0, 0.6);
+  --color-menu-background: rgba(255, 255, 255, 0.6);
+  --color-card-background: rgb(240, 240, 240);
+  --color-card-border: rgba(0, 0, 0, 0.2);
+  --color-subcard-background: rgb(250, 250, 250);
+  --color-active-selection-text: white;
+}
+
+/* Dark Theme */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-primary: var(--color-light-blue-200);
+    --color-secondary: var(--color-amber-200);
+    --color-ternary: var(--color-light-blue-50);
+    --color-background-dark: rgb(22, 22, 22);
+    --color-background-light: rgb(95, 95, 95);
+    --color-text: white;
+    --color-text-very-light: rgba(255, 255, 255, 0.15);
+    --color-text-muted: rgba(255, 255, 255, 0.6);
+    --color-menu-background: rgba(0, 0, 0, 0.6);
+    --color-card-background: rgb(35, 35, 35);
+    --color-card-border: rgba(255, 255, 255, 0.2);
+    --color-subcard-background: rgb(20, 20, 20);
+    --color-active-selection-text: black;
+  }
+}
+
+:root.dark {
+  --color-primary: var(--color-light-blue-200);
+  --color-secondary: var(--color-amber-200);
+  --color-ternary: var(--color-light-blue-50);
+  --color-background-dark: rgb(22, 22, 22);
+  --color-background-light: rgb(95, 95, 95);
+  --color-text: white;
+  --color-text-very-light: rgba(255, 255, 255, 0.15);
+  --color-text-muted: rgba(255, 255, 255, 0.6);
+  --color-menu-background: rgba(0, 0, 0, 0.6);
+  --color-card-background: rgb(35, 35, 35);
+  --color-card-border: rgba(255, 255, 255, 0.2);
+  --color-subcard-background: rgb(20, 20, 20);
+  --color-active-selection-text: black;
+}
