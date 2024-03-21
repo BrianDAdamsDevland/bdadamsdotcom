@@ -22,6 +22,7 @@ const {
 import Title from "../components/Title/Title.astro";
 import Menu from "../components/Menu.vue";
 import Footer from "../components/Footer.astro";
+import { Head } from "astro-capo";
 
 import { ViewTransitions } from "astro:transitions";
 import { SEO, type Props as SEOProps } from "astro-seo";
@@ -35,7 +36,7 @@ import 'animate.css/animate.min.css';
 
 <!doctype html>
 <html lang="en">
-  <head>
+  <Head>
     <SEO
       title={title}
       titleTemplate="%s | bdadams.com"
@@ -89,7 +90,7 @@ import 'animate.css/animate.min.css';
     </script>
 
     <ViewTransitions fallback="swap" />
-  </head>
+  </Head>
   <body>
     {!hideMenu && <Menu client:only transition:name="menu-link" />}
     <Title hero={heroTitle} transition:name="title" />
