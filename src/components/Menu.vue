@@ -19,8 +19,10 @@
     <div v-if="show" :class="{ 'menu-wrapper': true, animate: shouldAnimate }">
       <div class="menu" @click.self="show = false">
         <div class="top-action">
-          <AnimatedEntrance type="slideInDown">
-            <ThemeToggle />
+          <AnimatedEntrance type="slideInDown" :delay="0.05">
+            <a class="search" href="/search/">
+              <i class="fa-sharp fa-solid fa-magnifying-glass"></i>
+            </a>
           </AnimatedEntrance>
 
           <AnimatedEntrance type="slideInDown" :delay="0.07">
@@ -55,6 +57,12 @@
               <i :class="`${l.icon} fa-fw`"></i>
               {{ l.label }}
             </a>
+          </AnimatedEntrance>
+        </div>
+
+        <div class="theme-toggle">
+          <AnimatedEntrance type="slideInUp">
+            <ThemeToggle />
           </AnimatedEntrance>
         </div>
       </div>
@@ -236,13 +244,17 @@ h2 {
   flex-direction: column;
   min-height: 100dvh;
 
-  .close {
-    background: var(--color-text);
-    color: var(--color-active-selection-text);
-    padding: 7px 16px;
-    border-radius: 5px;
+  .close,
+  .search {
     cursor: pointer;
-    font-size: 1em;
+    font-size: 1.25em;
+    border-bottom: 0;
+
+    &:hover {
+      color: black;
+      text-decoration: none;
+      border-bottom: 0;
+    }
   }
 
   a {
@@ -278,7 +290,7 @@ h2 {
     gap: 15px;
     margin-top: 20px;
     flex-shrink: 1;
-    padding: 35px 0;
+    padding: 20px 0;
 
     a {
       display: flex;
@@ -295,5 +307,9 @@ h2 {
 
 .spacer {
   height: 10px;
+}
+
+.theme-toggle {
+  padding-bottom: 15px;
 }
 </style>
