@@ -251,7 +251,7 @@ h2 {
     border-bottom: 0;
 
     &:hover {
-      color: black;
+      color: var(--color-primary);
       text-decoration: none;
       border-bottom: 0;
     }
