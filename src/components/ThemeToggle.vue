@@ -1,24 +1,13 @@
 <template>
-  <div class="wrapper">
-    <div>
-      <button
-        type="button"
-        @click="setTheme('light')"
-        :class="{ active: currentTheme === 'light' }"
-        title="Light Theme"
-      >
-        <i class="fa-sharp fa-solid fa-sun-bright fa-fw"></i>
-      </button>
-      <button
-        type="button"
-        @click="setTheme('dark')"
-        :class="{ active: currentTheme === 'dark' }"
-        title="Dark Theme"
-      >
-        <i class="fa-sharp fa-solid fa-sunglasses fa-fw"></i>
-      </button>
-    </div>
-  </div>
+  <i
+    @click="toggleTheme"
+    :class="{
+      'fa-sharp fa-solid fa-fw': true,
+      'fa-sun-bright': currentTheme === 'dark',
+      'fa-sunglasses': currentTheme === 'light',
+    }"
+    :title="`${currentTheme === 'dark' ? 'Light' : 'Dark'} Theme`"
+  ></i>
 </template>
 
 <script>
@@ -57,44 +46,6 @@ export default {
       document.documentElement.classList.add(newTheme);
       this.storageTheme = newTheme;
     },
-    setTheme(mode) {
-      window.localStorage?.setItem("theme", mode);
-      document.documentElement.classList.remove("dark", "light");
-      document.documentElement.classList.add(mode);
-      this.storageTheme = mode;
-    },
   },
 };
 </script>
-
-<style scoped lang="scss">
-.wrapper {
-  display: flex;
-  gap: 5px;
-  align-items: center;
-}
-
-button {
-  border: 1px solid rgba(150 150 150 / 60%);
-  padding: 5px 14px;
-  color: black;
-  background: rgb(230,230,230);
-  font-size: 1em;
-}
-
-button.active {
-  background: var(--color-active-selection-background);
-  color: var(--color-active-selection-text);
-}
-
-button:first-child {
-  border-top-left-radius: 5px;
-  border-bottom-left-radius: 5px;
-}
-
-button:last-child {
-  border-top-right-radius: 5px;
-  border-bottom-right-radius: 5px;
-  margin-left: -1px;
-}
-</style>

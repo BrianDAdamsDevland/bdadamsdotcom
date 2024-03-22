@@ -19,15 +19,21 @@
     <div v-if="show" :class="{ 'menu-wrapper': true, animate: shouldAnimate }">
       <div class="menu" @click.self="show = false">
         <div class="top-action">
+          <AnimatedEntrance type="slideInDown" :delay="0.03">
+            <div class="accessory">
+              <ThemeToggle />
+            </div>
+          </AnimatedEntrance>
+
           <AnimatedEntrance type="slideInDown" :delay="0.05">
-            <a class="search" href="/search/">
+            <a class="accessory" href="/search/" title="Search">
               <i class="fa-sharp fa-solid fa-magnifying-glass"></i>
             </a>
           </AnimatedEntrance>
 
           <AnimatedEntrance type="slideInDown" :delay="0.07">
-            <div class="close" @click="show = false">
-              <i class="fa-sharp fa-solid fa-x"></i>
+            <div class="accessory" @click="show = false" title="Close Menu">
+              <i class="fa-sharp fa-solid fa-circle-xmark"></i>
             </div>
           </AnimatedEntrance>
         </div>
@@ -61,9 +67,7 @@
         </div>
 
         <div class="theme-toggle">
-          <AnimatedEntrance type="slideInUp">
-            <ThemeToggle />
-          </AnimatedEntrance>
+          <AnimatedEntrance type="slideInUp"> </AnimatedEntrance>
         </div>
       </div>
     </div>
@@ -244,10 +248,9 @@ h2 {
   flex-direction: column;
   min-height: 100dvh;
 
-  .close,
-  .search {
+  .accessory {
     cursor: pointer;
-    font-size: 1.25em;
+    font-size: 1.35em;
     border-bottom: 0;
 
     &:hover {
