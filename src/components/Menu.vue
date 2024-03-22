@@ -231,7 +231,7 @@ h2 {
   opacity: 0;
   z-index: 1100;
   font-size: 17px;
-  overflow-y: scroll;
+  overflow-y: auto;
 
   &.animate {
     background-color: var(--color-menu-background);
