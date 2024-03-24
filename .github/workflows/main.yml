@@ -21,6 +21,7 @@ jobs:
       - name: setup
         env:
           IFRAMELY_API_KEY: ${{ secrets.IFRAMELY_API_KEY }}
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
         run: |
           npm install
           npm run build

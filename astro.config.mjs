@@ -26,6 +26,7 @@ export default defineConfig({
       sourceMapsUploadOptions: {
         project: "bdadamsdotcom",
         authToken: SENTRY_AUTH_TOKEN,
+        org: "brian-d-adams",
       },
     }),
     spotlightjs(),
@@ -41,7 +42,7 @@ export default defineConfig({
       include: ["**/solid/*"],
     }),
     svelte(),
-    pagefind()
+    pagefind(),
   ],
   markdown: {
     shikiConfig: {
