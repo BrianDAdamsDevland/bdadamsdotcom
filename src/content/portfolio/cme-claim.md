@@ -6,11 +6,11 @@ image: ./cme-claim.png
 tags: ["Vue", "ASP.NET", "Web"]
 ---
 
-Create a Vue SPA for managing Continuing Medical Education (CME) credits for Plastic Surgery The Meeting.
+Create a Vue.js SPA for managing Continuing Medical Education (CME) credits for Plastic Surgery The Meeting.
 Includes the ability to evaluation individual sessions and the entire meeting. Logic was added to
 find overlapping sessions or over-issuance of credits.
 
 #### Technologies Used
 
-* Vue (Front-end)
+* Vue.js (Front-end)
 * ASP.NET (API)
