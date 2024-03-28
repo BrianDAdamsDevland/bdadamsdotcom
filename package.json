@@ -27,7 +27,7 @@
     "@spotlightjs/astro": "1.0.18",
     "@types/alpinejs": "3.13.10",
     "@types/react": "18.2.73",
-    "@types/react-dom": "18.2.22",
+    "@types/react-dom": "18.2.23",
     "@webcomponents/template-shadowroot": "0.2.1",
     "alpinejs": "3.13.7",
     "animate.css": "4.1.1",
