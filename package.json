@@ -1,7 +1,7 @@
 {
   "name": "bdadamsdotcom",
   "type": "module",
-  "version": "0.8.7",
+  "version": "0.8.8",
   "scripts": {
     "dev": "astro dev",
     "dev host": "astro dev --host",
@@ -23,7 +23,7 @@
     "@astrojs/svelte": "5.2.0",
     "@astrojs/vue": "4.0.9",
     "@fontsource/ibm-plex-mono": "5.0.12",
-    "@sentry/astro": "7.108.0",
+    "@sentry/astro": "7.109.0",
     "@spotlightjs/astro": "1.0.19",
     "@types/alpinejs": "3.13.10",
     "@types/react": "18.2.73",
