@@ -107,6 +107,10 @@ export default {
           label: "Blog",
           href: "/blog/",
         },
+        {
+          label: "Recommended",
+          href: "/recommended/"
+        }
       ];
     },
     externalLinks() {
