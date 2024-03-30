@@ -39,7 +39,7 @@ const resumeSkillsCollection = defineCollection({
 });
 
 const blogCollection = defineCollection({
-  type: "content", 
+  type: "content",
   schema: ({ image }) =>
     rssSchema.extend({
       title: z.string(),
@@ -51,10 +51,24 @@ const blogCollection = defineCollection({
     }),
 });
 
+const mediaRecommendationsCollection = defineCollection({
+  type: "content",
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      image: image(),
+      tags: z.array(z.string()).optional(),
+      type: z.enum(["podcast", "movie", "tv", "music"]),
+      link: z.string().url(),
+      date: z.date()
+    }),
+});
+
 export const collections = {
   portfolio: portfolioCollection,
   resume: resumeCollection,
   resumeExperience: resumeExperienceCollection,
   resumeSkills: resumeSkillsCollection,
   blog: blogCollection,
+  mediaRecommendations: mediaRecommendationsCollection
 };
