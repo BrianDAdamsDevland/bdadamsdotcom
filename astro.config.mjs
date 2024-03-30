@@ -17,6 +17,9 @@ const { SENTRY_AUTH_TOKEN } = loadEnv(process.env.NODE_ENV, process.cwd(), "");
 // https://astro.build/config
 export default defineConfig({
   site: "https://www.bdadams.com",
+  prefetch: {
+    prefetchAll: true
+  },
   integrations: [
     vue(),
     mdx(),
