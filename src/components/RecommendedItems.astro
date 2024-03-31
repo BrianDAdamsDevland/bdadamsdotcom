@@ -1,0 +1,168 @@
+---
+const { type } = Astro.props;
+
+import { Image } from "astro:assets";
+import { getCollection } from "astro:content";
+import Enumerable from "linq";
+
+const allMediaCollection = await getCollection("mediaRecommendations");
+
+import { getTypeTitle } from "../utils/recommended";
+
+const items = Enumerable.from(allMediaCollection)
+  .select((i) => ({ ...i.data, slug: i.slug }))
+  .toArray();
+
+const types = Enumerable.from(items)
+  .groupBy((i) => i.type)
+  .select((i) => i.first().type)
+  .toArray();
+
+function getTypeIcon(type: string) {
+  switch (type) {
+    case "podcast":
+      return "fa-podcast";
+    default:
+      return "fa-film";
+  }
+}
+---
+
+<div class="filter-bar">
+  <a class:list={["badge", { active: !type }]} href="./">
+    <i class={"fa-sharp fa-solid fa-circle-star"}></i>
+    All Types
+  </a>
+  {
+    types.map((i) => (
+      <a
+        class:list={["badge", { active: i === type }]}
+        href={"./" + getTypeTitle(i).toLowerCase()}
+      >
+        <i class={"fa-sharp fa-solid " + getTypeIcon(i)} />
+        {getTypeTitle(i)}
+      </a>
+    ))
+  }
+</div>
+
+<div class="items">
+  {
+    items
+      .filter((i) => !type || i.type === type)
+      .map((i) => (
+        <div class="item">
+          <a href={i.link} target="_blank" class="art">
+            <Image
+              transition:name={"recommend-item-image-" + i.title}
+              src={i.image}
+              alt={i.title}
+              width={80}
+              densities={[1.5, 2]}
+            />
+          </a>
+          <div class="content">
+            <a
+              href={i.link}
+              target="_blank"
+              transition:name={"recommend-item-title-" + i.title}
+            >
+              <strong>{i.title}</strong>
+            </a>
+            <div
+              class="badges"
+              transition:name={"recommend-item-badges-" + i.title}
+            >
+              {!type && (
+                <span class="badge type">
+                  <i class={"fa-sharp fa-solid " + getTypeIcon(i.type)} />
+                  {i.type}
+                </span>
+              )}
+
+              {i.tags?.map((t: string) => (
+                <span class="badge">{t}</span>
+              ))}
+            </div>
+          </div>
+        </div>
+      ))
+  }
+</div>
+
+<style lang="scss">
+  .items {
+    display: grid;
+    gap: 25px;
+    transition: 200ms;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  }
+
+  .item {
+    display: flex;
+    gap: 10px;
+    align-items: stretch;
+
+    .content {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      justify-content: space-between;
+
+      strong {
+        line-height: 1.2;
+        display: block;
+      }
+    }
+
+    .badges {
+      display: flex;
+      gap: 6px;
+    }
+
+    img {
+      aspect-ratio: 1/1;
+      height: inherit;
+      object-fit: cover;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    .art {
+      line-height: 0;
+    }
+  }
+
+  .badge {
+    border-radius: 15px;
+    padding: 3px 8px;
+    background: var(--color-subcard-background);
+    font-size: 0.7em;
+    font-weight: 400;
+    text-decoration: none;
+  }
+
+  .badge.type {
+    font-weight: 800;
+  }
+
+  .badge.active {
+    background: var(--color-secondary);
+    color: var(--color-card-background);
+  }
+
+  .filter-bar {
+    margin-bottom: 20px;
+    display: flex;
+    gap: 6px;
+    font-size: 1.4em;
+    justify-content: center;
+
+    .badge {
+      padding: 5px 13px;
+      border-radius: 20px;
+    }
+  }
+</style>

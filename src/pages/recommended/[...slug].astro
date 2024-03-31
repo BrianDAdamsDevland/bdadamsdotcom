@@ -1,0 +1,39 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+import RecommendedItems from "../../components/RecommendedItems.astro";
+import Enumerable from "linq";
+
+import { getTypeTitle } from "../../utils/recommended";
+
+export async function getStaticPaths() {
+  const items = await getCollection("mediaRecommendations");
+
+  return Enumerable.from(items)
+    .groupBy((i) => i.data.type)
+    .select((i) => i.first().data.type)
+    .select((i) => ({
+      params: { slug: getTypeTitle(i).toLowerCase() },
+      props: { type: i },
+    }))
+    .toArray();
+}
+
+const { type } = Astro.props;
+
+const typeTitle = getTypeTitle(type);
+---
+
+<Layout
+  title={`${typeTitle} | Recommended`}
+  description={`Brian D. Adams recommendations for ${typeTitle}`}
+  sourceLink="/src/pages/recommended/[...slug].astro"
+>
+  <main>
+    <div class="card">
+      <h1>Recommended</h1>
+
+      <RecommendedItems type={type} />
+    </div>
+  </main>
+</Layout>
