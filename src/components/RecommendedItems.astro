@@ -25,11 +25,13 @@ function getTypeIcon(type: string) {
     case "tv":
       return "fa-sharp fa-tv";
     case "music":
-        return "fa-sharp fa-music-note";
-      case "app":
-        return "fa-brands fa-app-store";
+      return "fa-sharp fa-music-note";
+    case "app":
+      return "fa-brands fa-app-store";
+    case "movie":
+      return "fa-sharp fa-camera-movie";
     default:
-      return "fa-sharp fa-film";
+      return "";
   }
 }
 ---
@@ -52,11 +54,11 @@ function getTypeIcon(type: string) {
   }
 </div>
 
-<div class="items">
+<div class:list={["items", type]}>
   {
     Enumerable.from(items)
       .where((i) => !type || i.type === type)
-      .orderByDescending(i => i.date)
+      .orderByDescending((i) => i.date)
       .toArray()
       .map((i) => (
         <div class="item">
@@ -76,11 +78,12 @@ function getTypeIcon(type: string) {
               transition:name={`recommend-item-title-${i.slug}`}
             >
               <strong>{i.title}</strong>
-              {
-                (i.subtitle || i.year) && <small>{i.subtitle}
-              {i.year && <>({i.year})</>}</small>
-              }
-              
+              {(i.subtitle || i.year) && (
+                <small>
+                  {i.subtitle}
+                  {i.year && <>({i.year})</>}
+                </small>
+              )}
             </a>
             <div
               class="badges"
@@ -106,14 +109,25 @@ function getTypeIcon(type: string) {
 <style lang="scss">
   .items {
     display: grid;
-    gap: 35px;
+    gap: 15px;
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+
+    &.movie .item img {
+      aspect-ratio: 1/1.5;
+    }
+
+    &.music .item img {
+      aspect-ratio: 1;
+    }
   }
 
   .item {
     display: flex;
     gap: 10px;
     align-items: stretch;
+    background: var(--color-subcard-background);
+    padding: 10px;
+    border-radius: 10px;
 
     .content {
       display: flex;
@@ -121,7 +135,8 @@ function getTypeIcon(type: string) {
       gap: 5px;
       justify-content: space-between;
 
-      strong, small {
+      strong,
+      small {
         line-height: 1.2;
         display: block;
       }
@@ -141,6 +156,8 @@ function getTypeIcon(type: string) {
       aspect-ratio: 1/1.05;
       height: inherit;
       object-fit: cover;
+      transition: all 0.2s;
+      border-radius: 6px;
     }
 
     a {
@@ -155,10 +172,11 @@ function getTypeIcon(type: string) {
   .badge {
     border-radius: 15px;
     padding: 3px 8px;
-    background: var(--color-subcard-background);
-    font-size: 0.7em;
+    background: var(--color-background-light);
+    font-size: 0.65em;
     font-weight: 400;
     text-decoration: none;
+    border: 1px solid var(--color-background-dark);
   }
 
   .badge.type {
@@ -174,13 +192,24 @@ function getTypeIcon(type: string) {
     margin-bottom: 20px;
     display: flex;
     gap: 8px;
-    font-size: 1.4em;
+    font-size: 1.45em;
     justify-content: center;
     flex-wrap: wrap;
 
+    i {
+      font-size: 1.5em;
+    }
+
     .badge {
-      padding: 5px 13px;
+      padding: 7px 13px;
       border-radius: 20px;
+      box-shadow: 0 0 2px var(--color-text-very-light);
+      display: flex;
+      gap: 6px;
+    }
+
+    .badge.active {
+      box-shadow: 0 0 2px var(--color-text-muted);
     }
   }
 </style>
