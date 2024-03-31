@@ -22,6 +22,10 @@ function getTypeIcon(type: string) {
   switch (type) {
     case "podcast":
       return "fa-podcast";
+    case "tv":
+      return "fa-tv";
+    case "music":
+        return "fa-music-note";
     default:
       return "fa-film";
   }
@@ -48,13 +52,15 @@ function getTypeIcon(type: string) {
 
 <div class="items">
   {
-    items
-      .filter((i) => !type || i.type === type)
+    Enumerable.from(items)
+      .where((i) => !type || i.type === type)
+      .orderByDescending(i => i.date)
+      .toArray()
       .map((i) => (
         <div class="item">
           <a href={i.link} target="_blank" class="art">
             <Image
-              transition:name={"recommend-item-image-" + i.title}
+              transition:name={`recommend-item-image-${i.slug}`}
               src={i.image}
               alt={i.title}
               width={80}
@@ -65,13 +71,18 @@ function getTypeIcon(type: string) {
             <a
               href={i.link}
               target="_blank"
-              transition:name={`recommend-item-title-${i.title}`}
+              transition:name={`recommend-item-title-${i.slug}`}
             >
               <strong>{i.title}</strong>
+              {
+                (i.subtitle || i.year) && <small>{i.subtitle}
+              {i.year && <>({i.year})</>}</small>
+              }
+              
             </a>
             <div
               class="badges"
-              transition:name={`recommend-item-badges-${i.title}`}
+              transition:name={`recommend-item-badges-${i.slug}`}
             >
               {!type && (
                 <span class="badge type">
@@ -93,7 +104,7 @@ function getTypeIcon(type: string) {
 <style lang="scss">
   .items {
     display: grid;
-    gap: 25px;
+    gap: 30px;
     transition: 200ms;
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   }
@@ -156,9 +167,10 @@ function getTypeIcon(type: string) {
   .filter-bar {
     margin-bottom: 20px;
     display: flex;
-    gap: 6px;
+    gap: 8px;
     font-size: 1.4em;
     justify-content: center;
+    flex-wrap: wrap;
 
     .badge {
       padding: 5px 13px;

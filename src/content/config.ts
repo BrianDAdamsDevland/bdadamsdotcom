@@ -60,7 +60,9 @@ const mediaRecommendationsCollection = defineCollection({
       tags: z.array(z.string()).optional(),
       type: z.enum(["podcast", "movie", "tv", "music"]),
       link: z.string().url(),
-      date: z.date()
+      date: z.date(),
+      year: z.number().optional(),
+      subtitle: z.string().optional()
     }),
 });
 

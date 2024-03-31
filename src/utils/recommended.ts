@@ -4,6 +4,10 @@ export function getTypeTitle(type: string) {
       return "Podcasts";
     case "movie":
       return "Movies";
+    case "tv":
+      return "TV";
+    case "music":
+      return "Music";
     default:
       return type;
   }
