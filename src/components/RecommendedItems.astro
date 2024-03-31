@@ -191,25 +191,33 @@ function getTypeIcon(type: string) {
   .filter-bar {
     margin-bottom: 20px;
     display: flex;
-    gap: 8px;
-    font-size: 1.45em;
+    gap: 6px;
+    font-size: calc(1em + 1.25vw);
     justify-content: center;
     flex-wrap: wrap;
 
     i {
-      font-size: 1.5em;
+      font-size: 1.4em;
     }
 
     .badge {
-      padding: 7px 13px;
+      padding: 6px 13px;
       border-radius: 20px;
       box-shadow: 0 0 2px var(--color-text-very-light);
       display: flex;
       gap: 6px;
+      align-items: center;
+      line-height: 0;
     }
 
     .badge.active {
       box-shadow: 0 0 2px var(--color-text-muted);
+    }
+  }
+
+  @media screen and (min-width: 950px) {
+    .filter-bar {
+      font-size: 1.75em;
     }
   }
 </style>
