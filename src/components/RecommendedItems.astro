@@ -45,7 +45,7 @@ function getTypeIcon(type: string) {
     types.map((i) => (
       <a
         class:list={["badge", { active: i === type }]}
-        href={`/recommended/${getTypeTitle(i).toLowerCase()}`}
+        href={`/recommended/${getTypeTitle(i).toLowerCase()}/`}
       >
         <i class:list={["fa-solid", getTypeIcon(i)]} />
         {getTypeTitle(i)}
