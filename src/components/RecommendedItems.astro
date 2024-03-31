@@ -60,14 +60,15 @@ function getTypeIcon(type: string) {
       .where((i) => !type || i.type === type)
       .orderByDescending((i) => i.date)
       .toArray()
-      .map((i) => (
-        <div class="item">
+      .map((i, index) => {
+        const featured = index < 6;
+        return <div class:list={["item", { featured }]}>
           <a href={i.link} target="_blank" class="art">
             <Image
               transition:name={`recommend-item-image-${i.slug}`}
               src={i.image}
               alt={i.title}
-              width={80}
+              width={featured ? 250 : 80}
               densities={[1.5, 2]}
             />
           </a>
@@ -102,7 +103,7 @@ function getTypeIcon(type: string) {
             </div>
           </div>
         </div>
-      ))
+      })
   }
 </div>
 
@@ -166,6 +167,14 @@ function getTypeIcon(type: string) {
 
     .art {
       line-height: 0;
+    }
+
+    &.featured {
+      flex-direction: column;
+
+      img {
+        width: 100%;
+      }
     }
   }
 
