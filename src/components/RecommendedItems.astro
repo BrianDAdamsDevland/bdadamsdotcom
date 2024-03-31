@@ -29,7 +29,7 @@ function getTypeIcon(type: string) {
 ---
 
 <div class="filter-bar">
-  <a class:list={["badge", { active: !type }]} href="./">
+  <a class:list={["badge", { active: !type }]} href="/recommended/">
     <i class={"fa-sharp fa-solid fa-circle-star"}></i>
     All Types
   </a>
@@ -37,9 +37,9 @@ function getTypeIcon(type: string) {
     types.map((i) => (
       <a
         class:list={["badge", { active: i === type }]}
-        href={"./" + getTypeTitle(i).toLowerCase()}
+        href={`/recommended/${getTypeTitle(i).toLowerCase()}`}
       >
-        <i class={"fa-sharp fa-solid " + getTypeIcon(i)} />
+        <i class:list={["fa-sharp fa-solid", getTypeIcon(i)]} />
         {getTypeTitle(i)}
       </a>
     ))
@@ -65,17 +65,17 @@ function getTypeIcon(type: string) {
             <a
               href={i.link}
               target="_blank"
-              transition:name={"recommend-item-title-" + i.title}
+              transition:name={`recommend-item-title-${i.title}`}
             >
               <strong>{i.title}</strong>
             </a>
             <div
               class="badges"
-              transition:name={"recommend-item-badges-" + i.title}
+              transition:name={`recommend-item-badges-${i.title}`}
             >
               {!type && (
                 <span class="badge type">
-                  <i class={"fa-sharp fa-solid " + getTypeIcon(i.type)} />
+                  <i class:list={["fa-sharp fa-solid", getTypeIcon(i.type)]} />
                   {i.type}
                 </span>
               )}
