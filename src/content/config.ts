@@ -61,7 +61,7 @@ const recommendationsCollection = defineCollection({
       type: z.enum(["podcast", "movie", "tv", "music", "app"]),
       link: z.string().url(),
       date: z.date(),
-      year: z.number().optional(),
+      year: z.coerce.string().optional(),
       subtitle: z.string().optional()
     }),
 });

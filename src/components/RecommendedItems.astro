@@ -62,47 +62,49 @@ function getTypeIcon(type: string) {
       .toArray()
       .map((i, index) => {
         const featured = index < 6;
-        return <div class:list={["item", { featured }]}>
-          <a href={i.link} target="_blank" class="art">
-            <Image
-              transition:name={`recommend-item-image-${i.slug}`}
-              src={i.image}
-              alt={i.title}
-              width={featured ? 250 : 80}
-              densities={[1.5, 2]}
-            />
-          </a>
-          <div class="content">
-            <a
-              href={i.link}
-              target="_blank"
-              transition:name={`recommend-item-title-${i.slug}`}
-            >
-              <strong>{i.title}</strong>
-              {(i.subtitle || i.year) && (
-                <small>
-                  {i.subtitle}
-                  {i.year && <>({i.year})</>}
-                </small>
-              )}
+        return (
+          <div class:list={["item", { featured }]}>
+            <a href={i.link} target="_blank" class="art">
+              <Image
+                transition:name={`recommend-item-image-${i.slug}`}
+                src={i.image}
+                alt={i.title}
+                width={featured ? 250 : 80}
+                densities={[1.5, 2]}
+              />
             </a>
-            <div
-              class="badges"
-              transition:name={`recommend-item-badges-${i.slug}`}
-            >
-              {!type && (
-                <span class="badge type">
-                  <i class:list={["fa-solid", getTypeIcon(i.type)]} />
-                  {i.type}
-                </span>
-              )}
+            <div class="content">
+              <a
+                href={i.link}
+                target="_blank"
+                transition:name={`recommend-item-title-${i.slug}`}
+              >
+                <strong>{i.title}</strong>
+                {(i.subtitle || i.year) && (
+                  <small>
+                    {i.subtitle}
+                    {i.year && <>({i.year})</>}
+                  </small>
+                )}
+              </a>
+              <div
+                class="badges"
+                transition:name={`recommend-item-badges-${i.slug}`}
+              >
+                {!type && (
+                  <span class="badge type">
+                    <i class:list={["fa-solid", getTypeIcon(i.type)]} />
+                    {i.type}
+                  </span>
+                )}
 
-              {i.tags?.map((t: string) => (
-                <span class="badge">{t}</span>
-              ))}
+                {i.tags?.map((t: string) => (
+                  <span class="badge">{t}</span>
+                ))}
+              </div>
             </div>
           </div>
-        </div>
+        );
       })
   }
 </div>
@@ -119,6 +121,17 @@ function getTypeIcon(type: string) {
 
     &.music .item img {
       aspect-ratio: 1;
+    }
+
+    &.app {
+      .item img {
+        border-radius: 20px;
+        aspect-ratio: 1;
+      }
+
+      .item.featured img {
+        border-radius: 35px;
+      }
     }
   }
 
