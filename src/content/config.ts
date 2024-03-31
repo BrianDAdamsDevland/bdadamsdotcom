@@ -51,14 +51,14 @@ const blogCollection = defineCollection({
     }),
 });
 
-const mediaRecommendationsCollection = defineCollection({
+const recommendationsCollection = defineCollection({
   type: "content",
   schema: ({ image }) =>
     z.object({
       title: z.string(),
       image: image(),
       tags: z.array(z.string()).optional(),
-      type: z.enum(["podcast", "movie", "tv", "music"]),
+      type: z.enum(["podcast", "movie", "tv", "music", "app"]),
       link: z.string().url(),
       date: z.date(),
       year: z.number().optional(),
@@ -72,5 +72,5 @@ export const collections = {
   resumeExperience: resumeExperienceCollection,
   resumeSkills: resumeSkillsCollection,
   blog: blogCollection,
-  mediaRecommendations: mediaRecommendationsCollection
+  recommendations: recommendationsCollection
 };

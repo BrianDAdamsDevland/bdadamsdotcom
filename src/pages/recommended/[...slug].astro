@@ -7,7 +7,7 @@ import Enumerable from "linq";
 import { getTypeTitle } from "../../utils/recommended";
 
 export async function getStaticPaths() {
-  const items = await getCollection("mediaRecommendations");
+  const items = await getCollection("recommendations");
 
   return Enumerable.from(items)
     .groupBy((i) => i.data.type)

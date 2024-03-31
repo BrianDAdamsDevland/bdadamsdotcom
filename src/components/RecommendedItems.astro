@@ -5,7 +5,7 @@ import { Image } from "astro:assets";
 import { getCollection } from "astro:content";
 import Enumerable from "linq";
 
-const allMediaCollection = await getCollection("mediaRecommendations");
+const allMediaCollection = await getCollection("recommendations");
 
 import { getTypeTitle } from "../utils/recommended";
 
@@ -21,13 +21,15 @@ const types = Enumerable.from(items)
 function getTypeIcon(type: string) {
   switch (type) {
     case "podcast":
-      return "fa-podcast";
+      return "fa-sharp fa-podcast";
     case "tv":
-      return "fa-tv";
+      return "fa-sharp fa-tv";
     case "music":
-        return "fa-music-note";
+        return "fa-sharp fa-music-note";
+      case "app":
+        return "fa-brands fa-app-store";
     default:
-      return "fa-film";
+      return "fa-sharp fa-film";
   }
 }
 ---
@@ -43,7 +45,7 @@ function getTypeIcon(type: string) {
         class:list={["badge", { active: i === type }]}
         href={`/recommended/${getTypeTitle(i).toLowerCase()}`}
       >
-        <i class:list={["fa-sharp fa-solid", getTypeIcon(i)]} />
+        <i class:list={["fa-solid", getTypeIcon(i)]} />
         {getTypeTitle(i)}
       </a>
     ))
@@ -86,7 +88,7 @@ function getTypeIcon(type: string) {
             >
               {!type && (
                 <span class="badge type">
-                  <i class:list={["fa-sharp fa-solid", getTypeIcon(i.type)]} />
+                  <i class:list={["fa-solid", getTypeIcon(i.type)]} />
                   {i.type}
                 </span>
               )}
@@ -104,8 +106,7 @@ function getTypeIcon(type: string) {
 <style lang="scss">
   .items {
     display: grid;
-    gap: 30px;
-    transition: 200ms;
+    gap: 35px;
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   }
 
@@ -120,19 +121,24 @@ function getTypeIcon(type: string) {
       gap: 5px;
       justify-content: space-between;
 
-      strong {
+      strong, small {
         line-height: 1.2;
         display: block;
+      }
+
+      strong {
+        margin-bottom: 5px;
       }
     }
 
     .badges {
       display: flex;
       gap: 6px;
+      flex-wrap: wrap;
     }
 
     img {
-      aspect-ratio: 1/1;
+      aspect-ratio: 1/1.05;
       height: inherit;
       object-fit: cover;
     }

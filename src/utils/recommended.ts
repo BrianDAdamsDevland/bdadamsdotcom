@@ -8,6 +8,8 @@ export function getTypeTitle(type: string) {
       return "TV";
     case "music":
       return "Music";
+    case "app":
+      return "Apps";
     default:
       return type;
   }
