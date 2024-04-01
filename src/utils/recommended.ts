@@ -14,3 +14,7 @@ export function getTypeTitle(type: string) {
       return type;
   }
 }
+
+export function getTagUrlFragment(tag: string) {
+  return tag.replaceAll(" ", "-").toLowerCase();
+}

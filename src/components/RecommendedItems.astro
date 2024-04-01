@@ -1,5 +1,5 @@
 ---
-const { type } = Astro.props;
+const { type, tag } = Astro.props;
 
 import { Image } from "astro:assets";
 import { getCollection } from "astro:content";
@@ -7,7 +7,7 @@ import Enumerable from "linq";
 
 const allMediaCollection = await getCollection("recommendations");
 
-import { getTypeTitle } from "../utils/recommended";
+import { getTypeTitle, getTagUrlFragment } from "../utils/recommended";
 
 const items = Enumerable.from(allMediaCollection)
   .select((i) => ({ ...i.data, slug: i.slug }))
@@ -34,6 +34,16 @@ function getTypeIcon(type: string) {
       return "";
   }
 }
+
+function getTagsForType() {
+  if (!type) return undefined;
+  return Enumerable.from(items)
+    .where((j) => j.type === Astro.props.type)
+    .selectMany((j) => j.tags)
+    .groupBy((j) => j)
+    .select((jg) => jg.first())
+    .toArray();
+}
 ---
 
 <div class="filter-bar">
@@ -54,10 +64,32 @@ function getTypeIcon(type: string) {
   }
 </div>
 
+{
+  (getTagsForType()?.length ?? 0) > 0 && (
+    <div class="filter-bar sm">
+      <a
+        class:list={["badge", { active: !tag }]}
+        href={"/recommended/" + getTypeTitle(type).toLowerCase() + "/"}
+      >
+        all
+      </a>
+      {getTagsForType()!.map((i) => (
+        <a
+          class:list={["badge", { active: i === tag }]}
+          href={`/recommended/${getTypeTitle(type).toLowerCase()}/${getTagUrlFragment(i as string)}`}
+        >
+          {i}
+        </a>
+      ))}
+    </div>
+  )
+}
+
 <div class:list={["items", type]}>
   {
     Enumerable.from(items)
       .where((i) => !type || i.type === type)
+      .where((i) => !tag || i.tags?.some((t: string) => t == tag))
       .orderByDescending((i) => i.date)
       .toArray()
       .map((i, index) => {
@@ -218,6 +250,19 @@ function getTypeIcon(type: string) {
     font-size: calc(1em + 1.25vw);
     justify-content: center;
     flex-wrap: wrap;
+
+    &.sm {
+      font-size: 1.25em;
+
+      .badge {
+        line-height: 1;
+        padding: 8px 14px;
+      }
+
+      .badge.active {
+        background: var(--color-primary);
+      }
+    }
 
     i {
       font-size: 1.4em;

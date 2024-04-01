@@ -1,0 +1,51 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "../../../../layouts/Layout.astro";
+import RecommendedItems from "../../../../components/RecommendedItems.astro";
+import Enumerable from "linq";
+
+import { getTypeTitle, getTagUrlFragment } from "../../../../utils/recommended";
+
+export async function getStaticPaths() {
+  const items = await getCollection("recommendations");
+
+  const uniqueTypes = Enumerable.from(items)
+    .groupBy((i) => i.data.type)
+    .select((i) => i.first().data.type);
+
+  return uniqueTypes
+    .selectMany((i) =>
+      Enumerable.from(items)
+        .where((j) => j.data.type === i)
+        .selectMany((j) => j.data.tags)
+        .groupBy((j) => j)
+        .select((jg) => jg.first())
+        .select((j) => ({
+          params: {
+            type: getTypeTitle(i).toLowerCase(),
+            tag: getTagUrlFragment(j as string),
+          },
+          props: { type: i, tag: j },
+        }))
+    )
+    .toArray();
+}
+
+const { type, tag } = Astro.props;
+
+const typeTitle = getTypeTitle(type);
+---
+
+<Layout
+  title={`${tag} | ${typeTitle} | Recommended`}
+  description={`Brian D. Adams recommendations for ${typeTitle}`}
+  sourceLink="/src/pages/recommended/[type]/[tag]/index.astro"
+>
+  <main>
+    <div class="card">
+      <h1>Recommended</h1>
+
+      <RecommendedItems type={type} tag={tag} />
+    </div>
+  </main>
+</Layout>
