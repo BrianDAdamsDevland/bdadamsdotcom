@@ -38,8 +38,8 @@ function getTypeIcon(type: string) {
 function getTagsForType() {
   if (!type) return undefined;
   return Enumerable.from(items)
-    .where((j) => j.type === Astro.props.type)
-    .selectMany((j) => j.tags)
+    .where((j) => j.type === Astro.props.type && !!j.tags)
+    .selectMany((j) => j.tags as Array<string>)
     .groupBy((j) => j)
     .select((jg) => jg.first())
     .toArray();
@@ -89,7 +89,7 @@ function getTagsForType() {
   {
     Enumerable.from(items)
       .where((i) => !type || i.type === type)
-      .where((i) => !tag || i.tags?.some((t: string) => t == tag))
+      .where((i) => !tag || !!i.tags?.some((t: string) => t == tag))
       .orderByDescending((i) => i.date)
       .toArray()
       .map((i, index) => {
