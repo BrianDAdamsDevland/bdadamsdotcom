@@ -15,7 +15,7 @@
     "@astrojs/check": "0.5.10",
     "@astrojs/lit": "4.0.1",
     "@astrojs/mdx": "2.2.2",
-    "@astrojs/preact": "3.1.1",
+    "@astrojs/preact": "3.1.2",
     "@astrojs/react": "3.1.0",
     "@astrojs/rss": "4.0.5",
     "@astrojs/sitemap": "3.1.2",
