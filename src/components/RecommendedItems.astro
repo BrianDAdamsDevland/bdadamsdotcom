@@ -89,7 +89,7 @@ function getTagsForType() {
   )
 }
 
-<div class:list={["items", type.toLowerCase()]}>
+<div class:list={["items", (type ?? "").toLowerCase()]}>
   {
     Enumerable.from(items)
       .where((i) => !type || i.type === type)
