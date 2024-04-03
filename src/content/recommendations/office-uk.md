@@ -1,7 +1,7 @@
 ---
 title: The Office (UK)
 subtitle: Ricky Gervais & Stephen Merchant
-type: tv
+type: TV
 image: ./images/office-uk.webp
 link: https://www.imdb.com/title/tt0290978/
 year: 2001-2003

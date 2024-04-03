@@ -23,7 +23,7 @@ const types = Enumerable.from(items)
   .toArray();
 
 function getTypeIcon(type: string) {
-  switch (type) {
+  switch (type.toLowerCase()) {
     case "podcast":
       return "fa-sharp fa-podcast";
     case "tv":
@@ -75,7 +75,7 @@ function getTagsForType() {
         class:list={["badge", { active: !tag }]}
         href={"/recommended/" + getTypeTitle(type).toLowerCase() + "/"}
       >
-        all
+        All
       </a>
       {getTagsForType()!.map((i) => (
         <a
@@ -89,7 +89,7 @@ function getTagsForType() {
   )
 }
 
-<div class:list={["items", type]}>
+<div class:list={["items", type.toLowerCase()]}>
   {
     Enumerable.from(items)
       .where((i) => !type || i.type === type)
@@ -209,7 +209,7 @@ function getTagsForType() {
 
     .badges {
       display: flex;
-      gap: 6px;
+      gap: 2px;
       flex-wrap: wrap;
     }
 

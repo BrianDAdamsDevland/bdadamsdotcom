@@ -1,8 +1,8 @@
 ---
 title: ChooseFI
-type: podcast
+type: Podcast
 image: ./images/choosefi.jpg
 date: 2024-03-20
 link: https://www.choosefi.com/
-tags: ["personal finance"]
+tags: ["Personal Finance"]
 ---

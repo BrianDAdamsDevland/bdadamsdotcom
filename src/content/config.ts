@@ -58,7 +58,7 @@ const recommendationsCollection = defineCollection({
       title: z.string(),
       image: image(),
       tags: z.array(z.any()).optional(),
-      type: z.enum(["podcast", "movie", "tv", "music", "app"]),
+      type: z.enum(["Podcast", "Movie", "TV", "Music", "App"]),
       link: z.string().url(),
       date: z.date(),
       year: z.coerce.string().optional(),

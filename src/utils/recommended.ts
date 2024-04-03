@@ -1,5 +1,5 @@
 export function getTypeTitle(type: string) {
-  switch (type) {
+  switch (type.toLowerCase()) {
     case "podcast":
       return "Podcasts";
     case "movie":

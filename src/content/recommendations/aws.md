@@ -1,8 +1,8 @@
 ---
 title: AWS Podcast
-type: podcast
+type: Podcast
 link: https://aws.amazon.com/podcasts/aws-podcast/
 image: ./images/aws.webp
-tags: ["technology","programming"]
+tags: ["Technology","Programming"]
 date: 2024-01-06
 ---

@@ -1,7 +1,7 @@
 ---
 title: Ivory
 subtitle: Mastadon Client
-type: app
+type: App
 date: 2024-02-19
 image: ./images/ivory.png
 link: https://tapbots.com/ivory/

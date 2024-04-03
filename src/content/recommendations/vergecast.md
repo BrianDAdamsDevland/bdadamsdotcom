@@ -2,7 +2,7 @@
 title: The Vergecast
 image: ./images/vergecast.jpg
 date: 2023-03-15
-type: podcast
+type: Podcast
 link: https://www.theverge.com/the-vergecast
-tags: ["technology"]
+tags: ["Technology"]
 ---

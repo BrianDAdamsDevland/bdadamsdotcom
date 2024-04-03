@@ -1,7 +1,7 @@
 ---
 title: Buy Now
 subtitle: Eyeliner
-type: music
+type: Music
 image: ./images/buy-now.jpg
 year: 2015
 date: 2024-02-01
