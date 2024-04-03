@@ -4,7 +4,7 @@ import Layout from "../../../../layouts/Layout.astro";
 import RecommendedItems from "../../../../components/RecommendedItems.astro";
 import Enumerable from "linq";
 
-import { getTypeTitle, getTagUrlFragment } from "../../../../utils/recommended";
+import { getTypeTitle, getTagUrlFragment, getTagName } from "../../../../utils/recommended";
 
 export async function getStaticPaths() {
   const items = await getCollection("recommendations");
@@ -18,8 +18,8 @@ export async function getStaticPaths() {
       Enumerable.from(items)
         .where((j) => j.data.type === i)
         .selectMany((j) => j.data.tags as Array<string>)
-        .groupBy((j) => j)
-        .select((jg) => jg.first())
+        .groupBy((j) => getTagName(j))
+        .select((jg) => jg.key())
         .select((j) => ({
           params: {
             type: getTypeTitle(i).toLowerCase(),

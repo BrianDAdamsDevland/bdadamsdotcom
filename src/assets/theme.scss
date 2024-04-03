@@ -40,6 +40,8 @@
   --color-card-border: rgba(0, 0, 0, 0.2);
   --color-subcard-background: rgb(250, 250, 250);
   --color-active-selection-text: white;
+  --color-rank-background: rgba(255,255,255,.55);
+  --color-rank-border: rgba(255,255,255,.65);
 }
 
 /* Dark Theme */
@@ -58,6 +60,8 @@
     --color-card-border: rgba(255, 255, 255, 0.2);
     --color-subcard-background: rgb(20, 20, 20);
     --color-active-selection-text: black;
+    --color-rank-background: rgba(0,0,0,.6);
+    --color-rank-border: black;
   }
 }
 
@@ -75,4 +79,6 @@
   --color-card-border: rgba(255, 255, 255, 0.2);
   --color-subcard-background: rgb(20, 20, 20);
   --color-active-selection-text: black;
+  --color-rank-background: rgba(0,0,0,.6);
+    --color-rank-border: black;
 }

@@ -15,6 +15,10 @@ export function getTypeTitle(type: string) {
   }
 }
 
-export function getTagUrlFragment(tag: string) {
-  return tag.replaceAll(" ", "-").toLowerCase();
+export function getTagUrlFragment(tag: any) {
+  return getTagName(tag).replaceAll(" ", "-").toLowerCase();
+}
+
+export function getTagName(tag: any) {
+  return (typeof tag === "string" || tag instanceof String) ? tag : tag.name;
 }

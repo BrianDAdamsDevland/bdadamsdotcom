@@ -7,7 +7,11 @@ import Enumerable from "linq";
 
 const allMediaCollection = await getCollection("recommendations");
 
-import { getTypeTitle, getTagUrlFragment } from "../utils/recommended";
+import {
+  getTypeTitle,
+  getTagUrlFragment,
+  getTagName,
+} from "../utils/recommended";
 
 const items = Enumerable.from(allMediaCollection)
   .select((i) => ({ ...i.data, slug: i.slug }))
@@ -40,8 +44,8 @@ function getTagsForType() {
   return Enumerable.from(items)
     .where((j) => j.type === Astro.props.type && !!j.tags)
     .selectMany((j) => j.tags as Array<string>)
-    .groupBy((j) => j)
-    .select((jg) => jg.first())
+    .groupBy((j) => getTagName(j))
+    .select((jg) => jg.key())
     .toArray();
 }
 ---
@@ -89,13 +93,22 @@ function getTagsForType() {
   {
     Enumerable.from(items)
       .where((i) => !type || i.type === type)
-      .where((i) => !tag || !!i.tags?.some((t: string) => t == tag))
-      .orderByDescending((i) => i.date)
+      .where((i) => !tag || !!i.tags?.some((t : any) => getTagName(t) == tag))
+      .orderBy((i) =>
+        !tag ? 0 : i.tags!.find((t : any) => getTagName(t) === tag).rank
+      )
+      .thenByDescending((i) => i.date)
       .toArray()
       .map((i, index) => {
         const featured = index < 6;
         return (
           <div class:list={["item", { featured }]}>
+            {tag && i.tags!.find((t: any) => t.name === tag)?.rank && (
+              <div class="rank">
+                {i.tags!.find((t: any) => t.name === tag)?.rank}
+              </div>
+            )}
+
             <a href={i.link} target="_blank" class="art">
               <Image
                 transition:name={`recommend-item-image-${i.slug}`}
@@ -131,7 +144,7 @@ function getTagsForType() {
                 )}
 
                 {i.tags?.map((t: string) => (
-                  <span class="badge">{t}</span>
+                  <span class="badge">{getTagName(t)}</span>
                 ))}
               </div>
             </div>
@@ -175,6 +188,7 @@ function getTagsForType() {
     background: var(--color-subcard-background);
     padding: 10px;
     border-radius: 10px;
+    position: relative;
 
     .content {
       display: flex;
@@ -221,6 +235,27 @@ function getTagsForType() {
       img {
         width: 100%;
       }
+
+      .rank {
+        padding: 6px 20px;
+        font-size: 1.6em;
+        padding: 5px 16px;
+      }
+    }
+
+    .rank {
+      background: var(--color-rank-background);
+      backdrop-filter: blur(15px);
+      position: absolute;
+      z-index: 100;
+      padding: 5px 11px;
+      border-radius: 50%;
+      top: -10px;
+      left: -10px;
+      font-weight: bolder;
+      font-size: 1.2em;
+      text-align: center;
+      min-width: 20px;
     }
   }
 
