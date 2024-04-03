@@ -2,8 +2,8 @@
 import { Image } from "astro:assets";
 import { getCollection } from "astro:content";
 
-import Layout from "../../layouts/Layout.astro";
-import GoBack from "../../components/Portfolio/GoBack.vue";
+import Layout from "@layouts/Layout.astro";
+import GoBack from "@components/Portfolio/GoBack.vue";
 
 export async function getStaticPaths() {
   const portfolioItems = await getCollection("portfolio");

@@ -4,6 +4,12 @@
     "jsx": "react-jsx",
     "strictNullChecks": true,
     "allowJs": true,
-    "jsxImportSource": "preact"
+    "jsxImportSource": "preact",
+    "baseUrl": ".",
+    "paths": {
+      "@components/*": ["src/components/*"],
+      "@layouts/*": ["src/layouts/*"],
+      "@utils/*": ["src/utils/*"]
+    }
   }
 }

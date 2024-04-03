@@ -11,7 +11,7 @@ import {
   getTypeTitle,
   getTagUrlFragment,
   getTagName,
-} from "../utils/recommended";
+} from "@utils/recommended";
 
 const items = Enumerable.from(allMediaCollection)
   .select((i) => ({ ...i.data, slug: i.slug }))

@@ -1,10 +1,11 @@
 ---
 import { getCollection } from "astro:content";
-import Layout from "../../../../layouts/Layout.astro";
-import RecommendedItems from "../../../../components/RecommendedItems.astro";
 import Enumerable from "linq";
 
-import { getTypeTitle, getTagUrlFragment, getTagName } from "../../../../utils/recommended";
+import Layout from "@layouts/Layout.astro";
+import RecommendedItems from "@components/RecommendedItems.astro";
+
+import { getTypeTitle, getTagUrlFragment, getTagName } from "@utils/recommended";
 
 export async function getStaticPaths() {
   const items = await getCollection("recommendations");

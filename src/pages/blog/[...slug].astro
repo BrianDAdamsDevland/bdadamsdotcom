@@ -1,8 +1,8 @@
 ---
 import { Image, getImage } from "astro:assets";
-
 import { getCollection } from "astro:content";
-import Layout from "../../layouts/Layout.astro";
+
+import Layout from "@layouts/Layout.astro";
 
 export async function getStaticPaths() {
   const blogItems = await getCollection("blog");
