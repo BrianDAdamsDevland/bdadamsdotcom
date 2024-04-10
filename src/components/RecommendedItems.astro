@@ -73,14 +73,14 @@ function getTagsForType() {
     <div class="filter-bar sm">
       <a
         class:list={["badge", { active: !tag }]}
-        href={"/recommended/" + getTypeTitle(type).toLowerCase() + "/"}
+        href={`/recommended/${getTypeTitle(type).toLowerCase()}/`}
       >
         All
       </a>
       {getTagsForType()!.map((i) => (
         <a
           class:list={["badge", { active: i === tag }]}
-          href={`/recommended/${getTypeTitle(type).toLowerCase()}/${getTagUrlFragment(i as string)}`}
+          href={`/recommended/${getTypeTitle(type).toLowerCase()}/${getTagUrlFragment(i as string)}/`}
         >
           {i}
         </a>
