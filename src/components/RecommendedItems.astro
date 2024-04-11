@@ -48,6 +48,8 @@ function getTagsForType() {
     .select((jg) => jg.key())
     .toArray();
 }
+
+const pageSize = 24;
 ---
 
 <div class="filter-bar">
@@ -98,6 +100,8 @@ function getTagsForType() {
         !tag ? 0 : i.tags!.find((t : any) => getTagName(t) === tag).rank
       )
       .thenByDescending((i) => i.date)
+      .skip(page > 0 ? pageSize * (page-1) : 0)
+      .take(page > 0 ? pageSize : items.length)
       .toArray()
       .map((i, index) => {
         const featured = index < 6;
