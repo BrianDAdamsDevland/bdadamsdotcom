@@ -1,0 +1,38 @@
+---
+const {
+    title = "Recommended",
+    description = "Brian D. Adams recommendations for various media like podcasts, movies and television.",
+    sourceLink,
+    animateTitle,
+    type,
+    tag
+} = Astro.props;
+
+import Layout from "@layouts/Layout.astro";
+
+import Typer from "@components/Typer.vue";
+import RecommendedItems from "@components/RecommendedItems.astro";
+
+---
+<Layout
+  title={title}
+  description={description}
+  sourceLink={sourceLink}
+>
+  <main>
+    <div class="card">
+      <h1>
+        { animateTitle ? <Typer client:load text="Recommended" duration={650} /> : <>Recommended</> }
+        
+      </h1>
+
+      <RecommendedItems type={type} tag={tag} />
+    </div>
+  </main>
+</Layout>
+
+<style>
+  main {
+    max-width: 1000px;
+  }
+</style>

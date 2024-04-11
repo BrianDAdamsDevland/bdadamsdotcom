@@ -1,22 +1,5 @@
 ---
-import Layout from "@layouts/Layout.astro";
-
-import Typer from "@components/Typer.vue";
-import RecommendedItems from "@components/RecommendedItems.astro";
+import RecommendedLayout from "@layouts/Recommended.astro";
 ---
 
-<Layout
-  title="Recommended"
-  description="Brian D. Adams recommendations for various media like podcasts, movies and television."
-  sourceLink="/src/pages/recommended/index.astro"
->
-  <main>
-    <div class="card">
-      <h1>
-        <Typer client:load text="Recommended" duration={650} />
-      </h1>
-
-      <RecommendedItems />
-    </div>
-  </main>
-</Layout>
+<RecommendedLayout animateTitle sourceLink="/src/pages/recommended/index.astro" />

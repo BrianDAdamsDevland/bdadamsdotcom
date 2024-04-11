@@ -2,9 +2,6 @@
 import { getCollection } from "astro:content";
 import Enumerable from "linq";
 
-import Layout from "@layouts/Layout.astro";
-import RecommendedItems from "@components/RecommendedItems.astro";
-
 import { getTypeTitle } from "@utils/recommended";
 
 export async function getStaticPaths() {
@@ -23,18 +20,13 @@ export async function getStaticPaths() {
 const { type } = Astro.props;
 
 const typeTitle = getTypeTitle(type);
+
+import RecommendedLayout from "@layouts/Recommended.astro";
 ---
 
-<Layout
+<RecommendedLayout
   title={`${typeTitle} | Recommended`}
   description={`Brian D. Adams recommendations for ${typeTitle}`}
   sourceLink="/src/pages/recommended/[type]/index.astro"
->
-  <main>
-    <div class="card">
-      <h1>Recommended</h1>
-
-      <RecommendedItems type={type} />
-    </div>
-  </main>
-</Layout>
+  type={type}
+/>
