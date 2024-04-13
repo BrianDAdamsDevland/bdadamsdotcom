@@ -12,7 +12,6 @@ import preact from "@astrojs/preact";
 import solidJs from "@astrojs/solid-js";
 import svelte from "@astrojs/svelte";
 import pagefind from "astro-pagefind";
-//import playformCompress from "@playform/compress";
 const { SENTRY_AUTH_TOKEN } = loadEnv(process.env.NODE_ENV, process.cwd(), "");
 
 // https://astro.build/config
@@ -47,7 +46,13 @@ export default defineConfig({
     }),
     svelte(),
     pagefind(),
-    // playformCompress(),
+    (await import("@playform/compress")).default({
+      CSS: false,
+			HTML: true,
+			Image: false,
+			JavaScript: false,
+			SVG: false,
+    })
   ],
   markdown: {
     shikiConfig: {
