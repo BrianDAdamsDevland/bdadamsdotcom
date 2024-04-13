@@ -45,14 +45,7 @@ export default defineConfig({
       include: ["**/solid/*"],
     }),
     svelte(),
-    pagefind(),
-    (await import("@playform/compress")).default({
-      CSS: false,
-			HTML: true,
-			Image: false,
-			JavaScript: false,
-			SVG: false,
-    })
+    pagefind()
   ],
   markdown: {
     shikiConfig: {
