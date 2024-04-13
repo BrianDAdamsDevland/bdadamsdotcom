@@ -96,7 +96,7 @@ import "../assets/global.scss";
     <ViewTransitions fallback="swap" />
   </Head>
   <body>
-    {!hideMenu && <Menu client:only transition:name="menu-link" />}
+    {!hideMenu && <Menu client:only="vue" transition:name="menu-link" />}
     <Title hero={heroTitle} transition:name="title" />
     <slot />
 

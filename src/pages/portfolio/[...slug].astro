@@ -26,7 +26,7 @@ const { Content } = await entry.render();
   <main>
     <div class="card">
       <span>
-        <GoBack client:only />
+        <GoBack client:only="vue" />
       </span>
       <h1 transition:name={`${entry.slug}-title`}>
         {entry.data.title}
