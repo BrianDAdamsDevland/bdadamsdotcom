@@ -46,6 +46,7 @@ function getTagsForType() {
     .selectMany((j) => j.tags as Array<string>)
     .groupBy((j) => getTagName(j))
     .select((jg) => jg.key())
+    .orderBy(t => t)
     .toArray();
 }
 
