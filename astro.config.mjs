@@ -47,7 +47,7 @@ export default defineConfig({
     }),
     svelte(),
     pagefind(),
-    playformCompress(),
+    // playformCompress(),
   ],
   markdown: {
     shikiConfig: {
