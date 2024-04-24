@@ -29,7 +29,7 @@
     "@types/react": "18.2.79",
     "@types/react-dom": "18.2.25",
     "@webcomponents/template-shadowroot": "0.2.1",
-    "alpinejs": "3.13.9",
+    "alpinejs": "3.13.10",
     "animate.css": "4.1.1",
     "astro": "4.6.3",
     "astro-capo": "0.0.1",
