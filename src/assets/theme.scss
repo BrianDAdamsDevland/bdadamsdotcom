@@ -22,6 +22,10 @@
     var(--color-background-dark) 0%,
     var(--color-background-light) 100%
   );
+
+  --pagefind-ui-text: var(--color-text) !important;
+  --pagefind-ui-scale: 1 !important;
+  --pagefind-ui-border: var(--color-card-border) !important;
 }
 
 /* Light Theme */
