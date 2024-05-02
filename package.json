@@ -23,7 +23,7 @@
     "@astrojs/svelte": "5.4.0",
     "@astrojs/vue": "4.1.0",
     "@fontsource/ibm-plex-mono": "5.0.13",
-    "@sentry/astro": "7.112.2",
+    "@sentry/astro": "7.113.0",
     "@spotlightjs/astro": "1.0.20",
     "@types/alpinejs": "3.13.10",
     "@types/react": "18.3.1",
