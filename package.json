@@ -42,7 +42,7 @@
     "react-dom": "18.3.1",
     "sass": "1.76.0",
     "solid-js": "1.8.17",
-    "svelte": "4.2.15",
+    "svelte": "4.2.16",
     "typescript": "5.4.5",
     "vue": "3.4.26"
   }
