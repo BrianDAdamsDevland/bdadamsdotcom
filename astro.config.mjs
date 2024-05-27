@@ -14,6 +14,11 @@ import svelte from "@astrojs/svelte";
 import pagefind from "astro-pagefind";
 const { SENTRY_AUTH_TOKEN } = loadEnv(process.env.NODE_ENV, process.cwd(), "");
 
+//Works around issue with Sentry package v8
+//Hopefully can remove this once this is resolved:
+//https://github.com/getsentry/sentry-javascript/issues/12059
+globalThis._sentryEsmLoaderHookRegistered = true;
+
 // https://astro.build/config
 export default defineConfig({
   site: "https://www.bdadams.com",
