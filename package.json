@@ -8,7 +8,8 @@
     "start": "astro dev",
     "build": "astro check && astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "package update": "ncu -u -x '@sentry/astro' && npm i"
   },
   "dependencies": {
     "@astrojs/alpinejs": "0.4.0",
@@ -31,7 +32,7 @@
     "@webcomponents/template-shadowroot": "0.2.1",
     "alpinejs": "3.14.0",
     "animate.css": "4.1.1",
-    "astro": "4.9.1",
+    "astro": "4.9.2",
     "astro-capo": "0.0.1",
     "astro-pagefind": "1.5.0",
     "astro-seo": "0.8.3",
