@@ -15,8 +15,7 @@ import pagefind from "astro-pagefind";
 const { SENTRY_AUTH_TOKEN } = loadEnv(process.env.NODE_ENV, process.cwd(), "");
 
 //Works around issue with Sentry package v8
-//Hopefully can remove this once this is resolved:
-//https://github.com/getsentry/sentry-javascript/issues/12059
+//Try removing this after @sentry/astro >8.8.0
 globalThis._sentryEsmLoaderHookRegistered = true;
 
 // https://astro.build/config
