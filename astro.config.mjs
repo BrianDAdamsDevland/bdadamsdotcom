@@ -3,7 +3,6 @@ import vue from "@astrojs/vue";
 import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
 import sentry from "@sentry/astro";
-import spotlightjs from "@spotlightjs/astro";
 import { loadEnv } from "vite";
 import react from "@astrojs/react";
 import alpinejs from "@astrojs/alpinejs";
@@ -36,7 +35,6 @@ export default defineConfig({
         org: "brian-d-adams",
       },
     }),
-    spotlightjs(),
     react({
       include: ["**/react/*"],
     }),
