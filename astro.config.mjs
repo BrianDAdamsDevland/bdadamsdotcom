@@ -52,6 +52,6 @@ export default defineConfig({
     "/gallery": "/portfolio",
     "/gallery/[...slug]": "/portfolio/[...slug]"
   },
-  output: "server",
+  output: "static",
   adapter: netlify()
 });
