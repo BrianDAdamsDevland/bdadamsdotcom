@@ -51,6 +51,14 @@ function getTagsForType() {
 }
 
 const pageSize = 24;
+
+const filteredItems = Enumerable.from(items)
+      .where((i) => !type || i.type === type)
+      .where((i) => !tag || !!i.tags?.some((t : any) => getTagName(t) == tag))
+      .orderBy((i) =>
+        !tag ? 0 : i.tags!.find((t : any) => getTagName(t) === tag).rank
+      )
+      .thenByDescending((i) => i.date).toArray();
 ---
 
 <div class="filter-bar">
@@ -94,20 +102,14 @@ const pageSize = 24;
 
 <div class:list={["items", (type ?? "").toLowerCase()]}>
   {
-    Enumerable.from(items)
-      .where((i) => !type || i.type === type)
-      .where((i) => !tag || !!i.tags?.some((t : any) => getTagName(t) == tag))
-      .orderBy((i) =>
-        !tag ? 0 : i.tags!.find((t : any) => getTagName(t) === tag).rank
-      )
-      .thenByDescending((i) => i.date)
+    Enumerable.from(filteredItems)
       .skip(page > 0 ? pageSize * (page-1) : 0)
       .take(page > 0 ? pageSize : items.length)
       .toArray()
       .map((i, index) => {
-        const featured = index < 6;
+        const large = filteredItems.length < 11 || index < 6;
         return (
-          <div class:list={["item", { featured }]}>
+          <div class:list={["item", { large }]}>
             {tag && i.tags!.find((t: any) => t.name === tag)?.rank && (
               <div class="rank">
                 {i.tags!.find((t: any) => t.name === tag)?.rank}
@@ -119,7 +121,7 @@ const pageSize = 24;
                 transition:name={`recommend-item-image-${i.slug}`}
                 src={i.image}
                 alt={i.title}
-                width={featured ? 500 : 80}
+                width={large ? 500 : 80}
                 densities={[1.5, 2]}
               />
             </a>
@@ -180,7 +182,7 @@ const pageSize = 24;
         aspect-ratio: 1;
       }
 
-      .item.featured img {
+      .item.large img {
         border-radius: 35px;
       }
     }
@@ -234,7 +236,7 @@ const pageSize = 24;
       line-height: 0;
     }
 
-    &.featured {
+    &.large {
       flex-direction: column;
 
       img {
