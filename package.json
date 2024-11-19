@@ -21,7 +21,7 @@
     "@astrojs/react": "3.6.2",
     "@astrojs/rss": "4.0.9",
     "@astrojs/sitemap": "3.2.1",
-    "@astrojs/solid-js": "4.4.2",
+    "@astrojs/solid-js": "4.4.3",
     "@astrojs/svelte": "6.0.1",
     "@astrojs/vue": "4.5.2",
     "@fontsource/ibm-plex-mono": "5.1.0",
