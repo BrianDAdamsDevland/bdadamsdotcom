@@ -53,5 +53,8 @@ export default defineConfig({
     "/gallery/[...slug]": "/portfolio/[...slug]"
   },
   output: "static",
-  adapter: netlify()
+  adapter: netlify(),
+  legacy: {
+    collections: true
+  }
 });
