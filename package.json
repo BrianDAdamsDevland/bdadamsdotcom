@@ -27,7 +27,7 @@
     "@fontsource/ibm-plex-mono": "5.1.1",
     "@sentry/astro": "8.48.0",
     "@types/alpinejs": "3.13.11",
-    "@types/react": "19.0.4",
+    "@types/react": "19.0.6",
     "@types/react-dom": "19.0.2",
     "@webcomponents/template-shadowroot": "0.2.1",
     "alpinejs": "3.14.8",
