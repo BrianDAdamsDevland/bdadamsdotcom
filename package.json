@@ -22,7 +22,7 @@
     "@astrojs/rss": "4.0.11",
     "@astrojs/sitemap": "3.3.0",
     "@astrojs/solid-js": "5.0.6",
-    "@astrojs/vue": "5.0.8",
+    "@astrojs/vue": "5.0.9",
     "@astrojs/svelte": "7.0.9",
     "@fontsource/ibm-plex-mono": "5.2.5",
     "@sentry/astro": "9.10.1",
