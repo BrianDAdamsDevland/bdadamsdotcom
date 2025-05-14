@@ -28,7 +28,7 @@
     "@sentry/astro": "9.18.0",
     "@types/alpinejs": "3.13.11",
     "@types/react": "19.1.4",
-    "@types/react-dom": "19.1.4",
+    "@types/react-dom": "19.1.5",
     "@webcomponents/template-shadowroot": "0.2.1",
     "alpinejs": "3.14.9",
     "animate.css": "4.1.1",
