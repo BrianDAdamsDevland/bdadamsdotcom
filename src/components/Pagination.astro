@@ -61,7 +61,7 @@ function getPageUrl(page: number): string {
     {/* Previous button */}
     {currentPage > 1 && (
       <a href={getPageUrl(currentPage - 1)} class="pagination-btn prev">
-        <i class="fa-solid fa-chevron-left"></i>
+        <i class="fa-sharp fa-solid fa-chevron-left"></i>
         Previous
       </a>
     )}
@@ -86,7 +86,7 @@ function getPageUrl(page: number): string {
     {currentPage < totalPages && (
       <a href={getPageUrl(currentPage + 1)} class="pagination-btn next">
         Next
-        <i class="fa-solid fa-chevron-right"></i>
+        <i class="fa-sharp fa-solid fa-chevron-right"></i>
       </a>
     )}
   </div>
