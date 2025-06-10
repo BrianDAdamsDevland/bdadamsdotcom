@@ -1,0 +1,58 @@
+---
+import { getCollection } from "astro:content";
+import Enumerable from "linq";
+
+import { getTypeTitle, getTagUrlFragment, getTagName } from "@utils/recommended";
+
+export async function getStaticPaths() {
+  const items = await getCollection("recommendations");
+  const pageSize = 24;
+
+  const uniqueTypes = Enumerable.from(items)
+    .groupBy((i) => i.data.type)
+    .select((i) => i.first().data.type);
+
+  return uniqueTypes
+    .selectMany((type) =>
+      Enumerable.from(items)
+        .where((j) => j.data.type === type)
+        .selectMany((j) => j.data.tags as Array<string>)
+        .groupBy((j) => getTagName(j))
+        .selectMany((tagGroup) => {
+          const tag = tagGroup.key();
+          const tagItems = items.filter((i) => 
+            i.data.type === type && 
+            i.data.tags && 
+            i.data.tags.some((t: any) => getTagName(t) === tag)
+          );
+          
+          const totalPages = Math.ceil(tagItems.length / pageSize);
+          
+          return Array.from({ length: totalPages }, (_, i) => ({
+            params: {
+              type: getTypeTitle(type).toLowerCase(),
+              tag: getTagUrlFragment(tag as string),
+              page: (i + 1).toString()
+            },
+            props: { type, tag, page: i + 1 },
+          }));
+        })
+    )
+    .toArray();
+}
+
+const { type, tag, page } = Astro.props;
+
+const typeTitle = getTypeTitle(type);
+
+import RecommendedLayout from "@layouts/Recommended.astro";
+---
+
+<RecommendedLayout
+  title={`${tag} - Page ${page} | ${typeTitle} | Recommended`}
+  description={`Brian D. Adams recommendations for ${typeTitle}`}
+  sourceLink="/src/pages/recommended/[type]/[tag]/page/[page].astro"
+  type={type}
+  tag={tag}
+  page={page}
+/>

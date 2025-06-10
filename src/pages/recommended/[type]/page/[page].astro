@@ -1,0 +1,42 @@
+---
+import { getCollection } from "astro:content";
+import Enumerable from "linq";
+
+import { getTypeTitle } from "@utils/recommended";
+
+export async function getStaticPaths() {
+  const items = await getCollection("recommendations");
+  const pageSize = 24;
+
+  return Enumerable.from(items)
+    .groupBy((i) => i.data.type)
+    .selectMany((typeGroup) => {
+      const type = typeGroup.first().data.type;
+      const typeItems = typeGroup.toArray();
+      const totalPages = Math.ceil(typeItems.length / pageSize);
+      
+      return Array.from({ length: totalPages }, (_, i) => ({
+        params: { 
+          type: getTypeTitle(type).toLowerCase(),
+          page: (i + 1).toString()
+        },
+        props: { type, page: i + 1 },
+      }));
+    })
+    .toArray();
+}
+
+const { type, page } = Astro.props;
+
+const typeTitle = getTypeTitle(type);
+
+import RecommendedLayout from "@layouts/Recommended.astro";
+---
+
+<RecommendedLayout
+  title={`${typeTitle} - Page ${page} | Recommended`}
+  description={`Brian D. Adams recommendations for ${typeTitle}`}
+  sourceLink="/src/pages/recommended/[type]/page/[page].astro"
+  type={type}
+  page={page}
+/>

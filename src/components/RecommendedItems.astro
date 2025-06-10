@@ -11,6 +11,7 @@ import {
   getTypeTitle,
   getTagUrlFragment,
   getTagName,
+  getPaginationInfo,
 } from "@utils/recommended";
 
 const items = Enumerable.from(allMediaCollection)
@@ -59,6 +60,20 @@ const filteredItems = Enumerable.from(items)
         !tag ? 0 : i.tags!.find((t : any) => getTagName(t) === tag).rank
       )
       .thenByDescending((i) => i.date).toArray();
+
+const currentPage = page || 1;
+const paginationInfo = getPaginationInfo(filteredItems.length, currentPage, pageSize);
+
+// Build base URL for pagination
+let baseUrl = "/recommended/";
+if (type) {
+  baseUrl += `${getTypeTitle(type).toLowerCase()}/`;
+  if (tag) {
+    baseUrl += `${getTagUrlFragment(tag)}/`;
+  }
+}
+
+import Pagination from "@components/Pagination.astro";
 ---
 
 <div class="filter-bar">
@@ -103,8 +118,8 @@ const filteredItems = Enumerable.from(items)
 <div class:list={["items", (type ?? "").toLowerCase()]}>
   {
     Enumerable.from(filteredItems)
-      .skip(page > 0 ? pageSize * (page-1) : 0)
-      .take(page > 0 ? pageSize : items.length)
+      .skip(paginationInfo.startIndex)
+      .take(paginationInfo.pageSize)
       .toArray()
       .map((i, index) => {
         const large = filteredItems.length < 11 || index < 6;
@@ -160,6 +175,12 @@ const filteredItems = Enumerable.from(items)
       })
   }
 </div>
+
+<Pagination 
+  currentPage={paginationInfo.currentPage}
+  totalPages={paginationInfo.totalPages}
+  baseUrl={baseUrl}
+/>
 
 <style lang="scss">
   .items {
