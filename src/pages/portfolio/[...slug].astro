@@ -1,6 +1,6 @@
 ---
 import { Image } from "astro:assets";
-import { getCollection } from "astro:content";
+import { getCollection, render } from "astro:content";
 
 import Layout from "@layouts/Layout.astro";
 import GoBack from "@components/Portfolio/GoBack.vue";
@@ -8,13 +8,13 @@ import GoBack from "@components/Portfolio/GoBack.vue";
 export async function getStaticPaths() {
   const portfolioItems = await getCollection("portfolio");
   return portfolioItems.map((entry) => ({
-    params: { slug: entry.slug },
+    params: { slug: entry.id },
     props: { entry },
   }));
 }
 
 const { entry } = Astro.props;
-const { Content } = await entry.render();
+const { Content } = await render(entry);
 ---
 
 <Layout
@@ -28,9 +28,9 @@ const { Content } = await entry.render();
       <span>
         <GoBack client:only="vue" />
       </span>
-      <h1 transition:name={`${entry.slug}-title`}>
+      <h1 transition:name={`${entry.id}-title`}>
         {entry.data.title}
-        <small transition:name={`${entry.slug}-year`}>
+        <small transition:name={`${entry.id}-year`}>
           ({entry.data.year})
         </small>
       </h1>
@@ -39,7 +39,7 @@ const { Content } = await entry.render();
         <div class="img">
           <Image
             src={entry.data.image}
-            transition:name={`${entry.slug}-img`}
+            transition:name={`${entry.id}-img`}
             alt={entry.data.title}
             width={800}
             widths={[240, 540, 720, entry.data.image.width]}

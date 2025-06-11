@@ -1,9 +1,10 @@
 ---
 import Collapser from "../Collapser.vue";
+import { render } from "astro:content";
 
 const { entry } = Astro.props;
 
-const { Content } = await entry.render();
+const { Content } = await render(entry);
 ---
 
 <Collapser

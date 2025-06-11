@@ -14,7 +14,7 @@ import {
 } from "@utils/recommended";
 
 const items = Enumerable.from(allMediaCollection)
-  .select((i) => ({ ...i.data, slug: i.slug }))
+  .select((i) => ({ ...i.data, slug: i.id }))
   .toArray();
 
 const types = Enumerable.from(items)

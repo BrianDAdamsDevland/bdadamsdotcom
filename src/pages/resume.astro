@@ -9,7 +9,7 @@ import ResumeHighlighter from "@components/Resume/ResumeHighlighter.vue";
 import ResumeSkillBlock from "@components/Resume/ResumeSkillBlock.astro";
 import ResumeExperienceBlock from "@components/Resume/ResumeExperienceBlock.astro";
 
-import { getEntry, getCollection } from "astro:content";
+import { getEntry, getCollection, render } from "astro:content";
 import Enumerable from "linq";
 
 const profileEntryPromise = getEntry("resume", "profile");
@@ -28,13 +28,13 @@ const experienceEntries = Enumerable.from(
   await experienceCollectionPromise
 ).orderByDescending((a) => a.data.startDate);
 
-const profileEntryRenderPromise = profileEntry.render();
-const educationEntryRenderPromise = educationEntry.render();
-const certsEntryRenderPromise = certsEntry.render();
+const profileRendered = profileEntry ? await render(profileEntry) : null;
+const educationRendered = educationEntry ? await render(educationEntry) : null;
+const certsRendered = certsEntry ? await render(certsEntry) : null;
 
-const ProfileContent = (await profileEntryRenderPromise).Content;
-const EducationContent = (await educationEntryRenderPromise).Content;
-const CertsContent = (await certsEntryRenderPromise).Content;
+const ProfileContent = profileRendered?.Content;
+const EducationContent = educationRendered?.Content;
+const CertsContent = certsRendered?.Content;
 ---
 
 <Layout
@@ -58,20 +58,20 @@ const CertsContent = (await certsEntryRenderPromise).Content;
       </h1>
 
       <ResumeHighlighter client:load>
-        <Collapser client:load title={profileEntry.data.title}>
-          <ProfileContent />
+        <Collapser client:load title={profileEntry?.data.title}>
+          {ProfileContent && <ProfileContent />}
         </Collapser>
 
         <Collapser client:load title="Work Experience">
           {experienceEntries.select((e) => <ResumeExperienceBlock entry={e} />)}
         </Collapser>
 
-        <Collapser client:load title={educationEntry.data.title}>
-          <EducationContent />
+        <Collapser client:load title={educationEntry?.data.title}>
+          {EducationContent && <EducationContent />}
         </Collapser>
 
-        <Collapser client:load title={certsEntry.data.title}>
-          <CertsContent />
+        <Collapser client:load title={certsEntry?.data.title}>
+          {CertsContent && <CertsContent />}
         </Collapser>
 
         <Collapser client:load title="Skills">
