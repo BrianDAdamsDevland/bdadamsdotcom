@@ -67,12 +67,13 @@ function getPageUrl(page: number): string {
     )}
     
     {/* Page numbers */}
-    <div class="page-numbers">
+    <div class="page-numbers" id="page-numbers">
       {pageNumbers.map((page) => (
         typeof page === 'number' ? (
           <a 
             href={getPageUrl(page)} 
             class:list={["page-number", { active: page === currentPage }]}
+            data-page={page}
           >
             {page}
           </a>
@@ -91,6 +92,26 @@ function getPageUrl(page: number): string {
     )}
   </div>
 )}
+
+<script>
+  function centerActivePage() {
+    const pageNumbers = document.getElementById('page-numbers');
+    const activePageElement = pageNumbers?.querySelector('.page-number.active');
+    
+    if (pageNumbers && activePageElement) {
+      setTimeout(() => {
+        activePageElement.scrollIntoView({
+          behavior: 'smooth',
+          block: 'nearest',
+          inline: 'center'
+        });
+      }, 100);
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', centerActivePage);
+  window.addEventListener('resize', centerActivePage);
+</script>
 
 <style lang="scss">
   .pagination {
@@ -129,6 +150,8 @@ function getPageUrl(page: number): string {
     display: flex;
     align-items: center;
     gap: 4px;
+    overflow-x: auto;
+    max-width: 100%;
   }
   
   .page-number {
@@ -162,17 +185,37 @@ function getPageUrl(page: number): string {
   @media screen and (max-width: 600px) {
     .pagination {
       gap: 6px;
+      flex-wrap: nowrap;
     }
     
     .pagination-btn {
       padding: 8px 12px;
       font-size: 0.9em;
+      flex-shrink: 0;
+    }
+    
+    .page-numbers {
+      overflow-x: auto;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      flex: 1;
+      max-width: calc(100vw - 200px);
+      -webkit-overflow-scrolling: touch;
+      
+      &::-webkit-scrollbar {
+        display: none;
+      }
     }
     
     .page-number {
       width: 36px;
       height: 36px;
       font-size: 0.9em;
+      flex-shrink: 0;
+    }
+    
+    .ellipsis {
+      flex-shrink: 0;
     }
   }
 </style>
