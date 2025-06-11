@@ -124,7 +124,7 @@ export default {
       shouldAnimate: false,
       isOpen: false,
       buttonPosition: { x: 0, y: 0, width: 0, height: 0, isFloat: true },
-      headshotSrc: headshotImage,
+      headshotSrc: headshotImage.src,
     };
   },
   computed: {
