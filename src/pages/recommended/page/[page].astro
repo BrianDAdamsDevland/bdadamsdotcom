@@ -1,0 +1,25 @@
+---
+import { getCollection } from "astro:content";
+
+export async function getStaticPaths() {
+  const items = await getCollection("recommendations");
+  const pageSize = 24;
+  const totalPages = Math.ceil(items.length / pageSize);
+  
+  return Array.from({ length: totalPages }, (_, i) => ({
+    params: { page: (i + 1).toString() },
+    props: { page: i + 1 },
+  }));
+}
+
+const { page } = Astro.props;
+
+import RecommendedLayout from "@layouts/Recommended.astro";
+---
+
+<RecommendedLayout
+  title={`Page ${page} | Recommended`}
+  description="Brian D. Adams recommendations for various media like podcasts, movies and television."
+  sourceLink="/src/pages/recommended/page/[page].astro"
+  page={page}
+/>
