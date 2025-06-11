@@ -101,12 +101,3 @@
   from = "/gallery/*"
   to = "/portfolio/:splat"
   status = 301
-
-# Enable form handling if needed
-[build]
-  functions = "netlify/functions"
-
-# Enable Netlify Analytics and performance monitoring
-[build.environment]
-  NODE_VERSION = "18"
-  NPM_FLAGS = "--production=false"
