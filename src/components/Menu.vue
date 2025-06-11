@@ -3,21 +3,52 @@
 
   <div
     id="menu-link"
-    :class="{ float: fixedLink }"
-    @click.prevent="handleShow"
-    aria-label="Show Menu"
+    :class="{ float: fixedLink, open: isOpen }"
+    @click.prevent="isOpen ? handleClose() : handleShow($event)"
+    :aria-label="isOpen ? 'Close Menu' : 'Show Menu'"
+    :aria-expanded="isOpen"
   >
     <h3>
       <div>
-        <i class="fa-sharp fa-solid fa-bars"></i>
+        <i
+          :class="
+            isOpen
+              ? 'fa-sharp fa-solid fa-circle-xmark'
+              : 'fa-sharp fa-solid fa-bars'
+          "
+        ></i>
         <span>Menu</span>
       </div>
     </h3>
   </div>
 
   <Teleport to="body">
-    <div v-if="show" :class="{ 'menu-wrapper': true, animate: shouldAnimate }">
-      <div class="menu" @click.self="show = false">
+    <div
+      v-if="show"
+      :class="{
+        'menu-wrapper': true,
+        animate: shouldAnimate,
+        'float-menu': buttonPosition.isFloat,
+        'center-menu': !buttonPosition.isFloat,
+      }"
+      :style="{
+        '--menu-origin-x': buttonPosition.x + 'px',
+        '--menu-origin-y': buttonPosition.y + 'px',
+      }"
+    >
+      <div class="menu-backdrop" @click="handleClose"></div>
+      <div class="menu" @click.self="handleClose">
+        <div class="profile-section">
+          <div class="profile-avatar">
+            <img
+              :src="headshotSrc"
+              alt="Brian D. Adams"
+              width="60"
+              height="60"
+            />
+          </div>
+          <div class="profile-initials">BDA</div>
+        </div>
         <div class="top-action">
           <AnimatedEntrance type="slideInDown" :delay="0.03">
             <div class="accessory">
@@ -32,7 +63,7 @@
           </AnimatedEntrance>
 
           <AnimatedEntrance type="slideInDown" :delay="0.07">
-            <div class="accessory" @click="show = false" title="Close Menu">
+            <div class="accessory" @click="handleClose" title="Close Menu">
               <i class="fa-sharp fa-solid fa-circle-xmark"></i>
             </div>
           </AnimatedEntrance>
@@ -77,6 +108,7 @@
 <script>
 import AnimatedEntrance from "./AnimatedEntrance.vue";
 import ThemeToggle from "./ThemeToggle.vue";
+import headshotImage from "../assets/headshot.png";
 
 export default {
   name: "Menu",
@@ -90,6 +122,9 @@ export default {
     return {
       show: false,
       shouldAnimate: false,
+      isOpen: false,
+      buttonPosition: { x: 0, y: 0, width: 0, height: 0, isFloat: true },
+      headshotSrc: headshotImage.src,
     };
   },
   computed: {
@@ -109,8 +144,8 @@ export default {
         },
         {
           label: "Recommended",
-          href: "/recommended/"
-        }
+          href: "/recommended/",
+        },
       ];
     },
     externalLinks() {
@@ -144,19 +179,69 @@ export default {
     },
   },
   components: { AnimatedEntrance, ThemeToggle },
+  mounted() {
+    window.addEventListener("resize", this.updateMenuPosition);
+    window.addEventListener("orientationchange", this.updateMenuPosition);
+  },
+  beforeUnmount() {
+    window.removeEventListener("resize", this.updateMenuPosition);
+    window.removeEventListener("orientationchange", this.updateMenuPosition);
+  },
   methods: {
-    handleShow() {
+    handleShow(event) {
+      // Calculate button position from the clicked element
+      const button = event.currentTarget;
+      if (button) {
+        const rect = button.getBoundingClientRect();
+
+        // Adjust positioning based on whether it's the float (fixed) button or centered button
+        const isFloat = this.fixedLink;
+
+        this.buttonPosition = {
+          x: isFloat ? rect.right : rect.left + rect.width / 2,
+          y: isFloat ? rect.bottom : rect.top - 10,
+          width: rect.width,
+          height: rect.height,
+          isFloat: isFloat,
+        };
+      }
+
       this.show = true;
+      this.isOpen = true;
 
       setTimeout(() => {
         this.shouldAnimate = true;
-      }, 10);
+      }, 50);
+    },
+    updateMenuPosition() {
+      if (this.show) {
+        // Re-calculate position if menu is open and viewport changes
+        const button = document.querySelector("#menu-link");
+        if (button) {
+          const rect = button.getBoundingClientRect();
+          const isFloat = this.fixedLink;
+
+          this.buttonPosition = {
+            x: isFloat ? rect.right : rect.left + rect.width / 2,
+            y: isFloat ? rect.bottom : rect.top - 10,
+            width: rect.width,
+            height: rect.height,
+            isFloat: isFloat,
+          };
+        }
+      }
+    },
+    handleClose() {
+      this.shouldAnimate = false;
+      this.isOpen = false;
+      setTimeout(() => {
+        this.show = false;
+      }, 400);
     },
   },
   watch: {
     show() {
       if (!this.show) {
-        this.shouldAnimate = false;
         document.body.style.overflow = "inherit";
       } else {
         document.body.style.overflow = "hidden";
@@ -167,11 +252,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-h2 {
-  font-size: 2em;
-  margin-bottom: 10px;
-}
-
 #menu-link {
   text-align: center;
   margin: 0 auto;
@@ -193,17 +273,25 @@ h2 {
     border-radius: 20px;
     color: var(--color-menu-link-text);
     text-align: center;
-
     font-size: 1.4em;
     line-height: 0;
     cursor: pointer;
     display: inline-block;
+    transition: all 0.3s ease;
 
     div {
       display: flex;
       gap: 10px;
       align-items: center;
     }
+  }
+
+  &:hover h3 {
+    transform: scale(1.05);
+  }
+
+  &.open h3 {
+    transform: scale(0.95);
   }
 
   &.float {
@@ -225,32 +313,132 @@ h2 {
 }
 
 .menu-wrapper {
-  width: 100dvw;
-  height: 100dvh;
   position: fixed;
   top: 0;
   left: 0;
-
-  transition: all 0.5s;
-  opacity: 0;
+  width: 100dvw;
+  height: 100dvh;
   z-index: 1100;
   font-size: 17px;
-  overflow-y: auto;
+  pointer-events: none;
 
   &.animate {
-    background-color: var(--color-menu-background);
-    -webkit-backdrop-filter: blur(15px);
-    backdrop-filter: blur(15px);
+    pointer-events: all;
+  }
+}
+
+.menu-backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+
+  .menu-wrapper.animate & {
     opacity: 1;
   }
 }
 
 .menu {
+  position: fixed;
+  width: 320px;
+  max-width: calc(100vw - 20px);
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  padding: 20px;
+  transform: scale(0.1) rotate(-8deg) translateY(10px);
+  opacity: 0;
+  transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
   display: flex;
-  align-items: center;
-  justify-content: center;
   flex-direction: column;
-  min-height: 100dvh;
+  gap: 20px;
+  overflow: hidden;
+
+  /* Float button positioning (top-right) */
+  top: calc(var(--menu-origin-y, 60px) - 10px);
+  right: calc(100vw - var(--menu-origin-x, 60px) + 10px);
+  transform-origin: top right;
+
+  /* Center button positioning (above button, centered) */
+  .center-menu & {
+    bottom: calc(100vh - var(--menu-origin-y, 60px) + 20px);
+    left: calc(var(--menu-origin-x, 50vw) - 160px);
+    left: max(calc(var(--menu-origin-x, 50vw) - 160px), 15px);
+    top: auto;
+    right: auto;
+    transform-origin: bottom center;
+    transform: scale(0.1) rotate(-8deg) translateY(-10px);
+  }
+
+  .menu-wrapper.animate & {
+    transform: scale(1) rotate(0deg) translateY(0);
+    opacity: 1;
+  }
+
+  .menu-wrapper.animate .center-menu & {
+    transform: scale(1) rotate(0deg) translateY(0);
+  }
+
+  @media screen and (max-width: 600px) {
+    width: 280px;
+    padding: 18px;
+    gap: 18px;
+
+    .primary h2 {
+      font-size: 1.6em;
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+    /* Simplified positioning - always center on small screens */
+    left: 15px !important;
+    right: 15px !important;
+    top: 60px !important;
+    bottom: auto !important;
+    width: auto !important;
+    transform-origin: top center !important;
+    padding: 16px;
+    gap: 16px;
+
+    .primary {
+      margin: 0 -16px;
+
+      h2 {
+        font-size: 1.4em;
+
+        a {
+          padding: 10px 16px;
+        }
+      }
+    }
+  }
+
+  @media screen and (max-width: 380px) {
+    left: 10px !important;
+    right: 10px !important;
+    top: 50px !important;
+    padding: 14px;
+    gap: 14px;
+
+    .primary {
+      margin: 0 -14px;
+
+      h2 {
+        font-size: 1.2em;
+
+        a {
+          padding: 8px 14px;
+        }
+      }
+    }
+  }
 
   .accessory {
     cursor: pointer;
@@ -267,56 +455,217 @@ h2 {
   a {
     text-decoration: none;
     transition: all 0.1s;
-    border-bottom: 5px solid transparent;
 
     &:hover {
       color: var(--color-primary);
-      border-bottom: 4px solid;
       transition: all 0.1s;
     }
   }
 
-  .top-action {
-    padding: 10px;
+  .profile-section {
+    position: absolute;
+    top: 15px;
+    left: 15px;
     display: flex;
-    gap: 30px;
     align-items: center;
+    gap: 12px;
+    opacity: 0;
+    transition: opacity 0.6s ease;
+    transition-delay: 0.8s;
+  }
+
+  .profile-avatar {
+    width: 30px;
+    height: 30px;
+    overflow: hidden;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  .profile-initials {
+    font-family: "Monaco", "Menlo", "Ubuntu Mono", monospace;
+    font-size: 1em;
+    color: rgba(0, 0, 0, 0.2);
+    text-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.4),
+      0 -1px 0 rgba(0, 0, 0, 0.1);
+    letter-spacing: 0.05em;
+  }
+
+  .menu-wrapper.animate & .profile-section {
+    opacity: 1;
+  }
+
+  .top-action {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    justify-content: flex-end;
+    padding-bottom: 15px;
+    border-bottom: 1px solid var(--color-border);
+
+    .accessory {
+      transform: scale(0) rotate(180deg);
+      opacity: 0;
+      transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+      &:nth-child(1) {
+        transition-delay: 0.2s;
+      }
+      &:nth-child(2) {
+        transition-delay: 0.25s;
+      }
+      &:nth-child(3) {
+        transition-delay: 0.3s;
+      }
+    }
+  }
+
+  .menu-wrapper.animate & .top-action .accessory {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
   }
 
   .primary {
-    flex-grow: 1;
     display: flex;
-    align-items: center;
     flex-direction: column;
-    justify-content: center;
+    gap: 8px;
+    margin: 0 -25px;
+
+    h2 {
+      margin: 0;
+      font-size: 1.8em;
+      transform: translateY(-20px) rotate(-2deg);
+      opacity: 0;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+
+      &:nth-child(1) {
+        transition-delay: 0.1s;
+      }
+      &:nth-child(2) {
+        transition-delay: 0.15s;
+      }
+      &:nth-child(3) {
+        transition-delay: 0.2s;
+      }
+      &:nth-child(4) {
+        transition-delay: 0.25s;
+      }
+
+      &:nth-child(even) {
+        transform: translateY(-20px) rotate(1.5deg);
+      }
+
+      a {
+        display: block;
+        padding: 12px 20px;
+        position: relative;
+        overflow: hidden;
+        transition: all 0.3s ease;
+
+        &::before {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: -100%;
+          width: 100%;
+          height: 100%;
+          background: var(--color-primary);
+          transition: left 0.4s ease;
+          z-index: -1;
+        }
+
+        &:hover {
+          color: white;
+          //transform: rotate(0deg) scale(1.05);
+
+          &::before {
+            left: 0;
+          }
+        }
+      }
+    }
+  }
+
+  .menu-wrapper.animate & .primary h2 {
+    transform: translateY(0) rotate(-2deg);
+    opacity: 1;
+
+    &:nth-child(even) {
+      transform: translateY(0) rotate(1.5deg);
+    }
+
+    a:hover {
+      //transform: rotate(0deg) scale(1.05);
+    }
   }
 
   .external {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 15px;
-    margin-top: 20px;
-    flex-shrink: 1;
-    padding: 20px 0;
+    gap: 6px;
+    border-top: 1px solid var(--color-border);
+    padding-top: 15px;
+
+    @media screen and (max-width: 380px) {
+      grid-template-columns: 1fr;
+      gap: 4px;
+    }
 
     a {
       display: flex;
       gap: 5px;
       align-items: center;
       border-bottom: 2px solid transparent;
+      padding: 6px 8px;
+      border-radius: 6px;
+      transition: all 0.2s ease;
+      transform: translateY(20px);
+      opacity: 0;
+      font-size: 0.9em;
+
+      @media screen and (max-width: 380px) {
+        font-size: 0.85em;
+        padding: 6px;
+      }
 
       &:hover {
         border-bottom: 2px solid;
+        transform: translateY(-2px);
+        background: var(--color-background-light);
+      }
+
+      &:nth-child(1) {
+        transition-delay: 0.3s;
+      }
+      &:nth-child(2) {
+        transition-delay: 0.35s;
+      }
+      &:nth-child(3) {
+        transition-delay: 0.4s;
+      }
+      &:nth-child(4) {
+        transition-delay: 0.45s;
+      }
+      &:nth-child(5) {
+        transition-delay: 0.5s;
       }
     }
+  }
+
+  .menu-wrapper.animate & .external a {
+    transform: translateY(0);
+    opacity: 1;
   }
 }
 
 .spacer {
   height: 10px;
-}
-
-.theme-toggle {
-  padding-bottom: 15px;
 }
 </style>
