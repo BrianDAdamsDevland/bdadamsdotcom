@@ -41,7 +41,7 @@
         <div class="profile-section">
           <div class="profile-avatar">
             <img
-              src="/src/assets/headshot.png"
+              :src="headshotSrc"
               alt="Brian D. Adams"
               width="60"
               height="60"
@@ -108,6 +108,7 @@
 <script>
 import AnimatedEntrance from "./AnimatedEntrance.vue";
 import ThemeToggle from "./ThemeToggle.vue";
+import headshotImage from "../assets/headshot.png";
 
 export default {
   name: "Menu",
@@ -123,6 +124,7 @@ export default {
       shouldAnimate: false,
       isOpen: false,
       buttonPosition: { x: 0, y: 0, width: 0, height: 0, isFloat: true },
+      headshotSrc: headshotImage,
     };
   },
   computed: {
