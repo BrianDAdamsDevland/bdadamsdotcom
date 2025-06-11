@@ -102,10 +102,6 @@
   to = "/portfolio/:splat"
   status = 301
 
-# Enable Netlify's automatic image optimization
-[build.processing]
-  skip_processing = false
-
 # Enable form handling if needed
 [build]
   functions = "netlify/functions"
