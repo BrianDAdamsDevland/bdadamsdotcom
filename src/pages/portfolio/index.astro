@@ -10,7 +10,7 @@ import Enumerable from "linq";
 const allPortfolioCollection = await getCollection("portfolio");
 
 const portfolioItems = Enumerable.from(allPortfolioCollection)
-  .select((i) => ({ ...i.data, slug: i.slug }))
+  .select((i) => ({ ...i.data, slug: i.id }))
   .orderByDescending((a) => a.year)
   .toArray();
 ---

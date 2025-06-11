@@ -54,7 +54,4 @@ export default defineConfig({
   },
   output: "static",
   adapter: netlify(),
-  legacy: {
-    collections: true
-  }
 });

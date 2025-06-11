@@ -1,19 +1,19 @@
 ---
 import { Image, getImage } from "astro:assets";
-import { getCollection } from "astro:content";
+import { getCollection, render } from "astro:content";
 
 import Layout from "@layouts/Layout.astro";
 
 export async function getStaticPaths() {
   const blogItems = await getCollection("blog");
   return blogItems.map((entry) => ({
-    params: { slug: entry.slug },
+    params: { slug: entry.id },
     props: { entry },
   }));
 }
 
 const { entry } = Astro.props;
-const { Content } = await entry.render();
+const { Content } = await render(entry);
 
 const openGraphImage = await getImage({
   src: entry.data.heroImage,
@@ -48,15 +48,15 @@ const openGraphImage = await getImage({
       </span>
 
       <div class="title">
-        <h1 transition:name={`${entry.slug}-title`}>{entry.data.title}</h1>
+        <h1 transition:name={`${entry.id}-title`}>{entry.data.title}</h1>
         {
           entry.data.subtitle && (
-            <h2 transition:name={`${entry.slug}-subtitle`}>
+            <h2 transition:name={`${entry.id}-subtitle`}>
               {entry.data.subtitle}
             </h2>
           )
         }
-        <strong transition:name={`${entry.slug}-date`}>
+        <strong transition:name={`${entry.id}-date`}>
           {
             entry.data.pubDate.toLocaleDateString("en-us", {
               weekday: "long",
@@ -70,7 +70,7 @@ const openGraphImage = await getImage({
 
       {
         entry.data.heroImage && (
-          <div class="hero" transition:name={`${entry.slug}-hero`}>
+          <div class="hero" transition:name={`${entry.id}-hero`}>
             <Image
               src={entry.data.heroImage}
               alt={entry.data.heroImageAltText}

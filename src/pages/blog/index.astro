@@ -10,7 +10,7 @@ import Typer from "@components/Typer.vue";
 const allBlogCollection = await getCollection("blog");
 
 const blogItems = Enumerable.from(allBlogCollection)
-  .select((i) => ({ ...i.data, slug: i.slug }))
+  .select((i) => ({ ...i.data, slug: i.id }))
   .orderByDescending((a) => a.pubDate)
   .toArray();
 ---

@@ -1,8 +1,9 @@
 import { z, defineCollection } from "astro:content";
+import { glob } from "astro/loaders";
 import { rssSchema } from "@astrojs/rss";
 
 const portfolioCollection = defineCollection({
-  type: "content",
+  loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/portfolio" }),
   schema: ({ image }) =>
     z.object({
       title: z.string(),
@@ -14,14 +15,14 @@ const portfolioCollection = defineCollection({
 });
 
 const resumeCollection = defineCollection({
-  type: "content",
+  loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/resume" }),
   schema: z.object({
     title: z.string(),
   }),
 });
 
 const resumeExperienceCollection = defineCollection({
-  type: "content",
+  loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/resumeExperience" }),
   schema: z.object({
     startDate: z.string(),
     title: z.string(),
@@ -30,7 +31,7 @@ const resumeExperienceCollection = defineCollection({
 });
 
 const resumeSkillsCollection = defineCollection({
-  type: "content",
+  loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/resumeSkills" }),
   schema: z.object({
     title: z.string(),
     icon: z.string(),
@@ -39,7 +40,7 @@ const resumeSkillsCollection = defineCollection({
 });
 
 const blogCollection = defineCollection({
-  type: "content",
+  loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/blog" }),
   schema: ({ image }) =>
     rssSchema.extend({
       title: z.string(),
@@ -52,7 +53,7 @@ const blogCollection = defineCollection({
 });
 
 const recommendationsCollection = defineCollection({
-  type: "content",
+  loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/recommendations" }),
   schema: ({ image }) =>
     z.object({
       title: z.string(),
