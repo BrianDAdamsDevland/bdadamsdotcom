@@ -82,7 +82,6 @@
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
     Permissions-Policy = "geolocation=(), microphone=(), camera=()"
-    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' *.sentry.io *.netlify.app; style-src 'self' 'unsafe-inline'; img-src 'self' data: *.sentry.io; font-src 'self' data:; connect-src 'self' *.sentry.io"
     # Preload critical fonts
     Link = '''<https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap>; rel=preload; as=style'''
 
