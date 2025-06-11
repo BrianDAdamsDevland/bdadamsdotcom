@@ -10,20 +10,26 @@
   >
     <h3>
       <div>
-        <i :class="isOpen ? 'fa-sharp fa-solid fa-circle-xmark' : 'fa-sharp fa-solid fa-bars'"></i>
+        <i
+          :class="
+            isOpen
+              ? 'fa-sharp fa-solid fa-circle-xmark'
+              : 'fa-sharp fa-solid fa-bars'
+          "
+        ></i>
         <span>Menu</span>
       </div>
     </h3>
   </div>
 
   <Teleport to="body">
-    <div 
-      v-if="show" 
-      :class="{ 
-        'menu-wrapper': true, 
-        'animate': shouldAnimate,
-        'float-menu': buttonPosition.isFloat, 
-        'center-menu': !buttonPosition.isFloat 
+    <div
+      v-if="show"
+      :class="{
+        'menu-wrapper': true,
+        animate: shouldAnimate,
+        'float-menu': buttonPosition.isFloat,
+        'center-menu': !buttonPosition.isFloat,
       }"
       :style="{
         '--menu-origin-x': buttonPosition.x + 'px',
@@ -34,9 +40,9 @@
       <div class="menu" @click.self="handleClose">
         <div class="profile-section">
           <div class="profile-avatar">
-            <img 
-              src="/src/assets/headshot.png" 
-              alt="Brian D. Adams" 
+            <img
+              src="/src/assets/headshot.png"
+              alt="Brian D. Adams"
               width="60"
               height="60"
             />
@@ -136,8 +142,8 @@ export default {
         },
         {
           label: "Recommended",
-          href: "/recommended/"
-        }
+          href: "/recommended/",
+        },
       ];
     },
     externalLinks() {
@@ -172,12 +178,12 @@ export default {
   },
   components: { AnimatedEntrance, ThemeToggle },
   mounted() {
-    window.addEventListener('resize', this.updateMenuPosition);
-    window.addEventListener('orientationchange', this.updateMenuPosition);
+    window.addEventListener("resize", this.updateMenuPosition);
+    window.addEventListener("orientationchange", this.updateMenuPosition);
   },
   beforeUnmount() {
-    window.removeEventListener('resize', this.updateMenuPosition);
-    window.removeEventListener('orientationchange', this.updateMenuPosition);
+    window.removeEventListener("resize", this.updateMenuPosition);
+    window.removeEventListener("orientationchange", this.updateMenuPosition);
   },
   methods: {
     handleShow(event) {
@@ -185,16 +191,16 @@ export default {
       const button = event.currentTarget;
       if (button) {
         const rect = button.getBoundingClientRect();
-        
+
         // Adjust positioning based on whether it's the float (fixed) button or centered button
         const isFloat = this.fixedLink;
-        
+
         this.buttonPosition = {
           x: isFloat ? rect.right : rect.left + rect.width / 2,
           y: isFloat ? rect.bottom : rect.top - 10,
           width: rect.width,
           height: rect.height,
-          isFloat: isFloat
+          isFloat: isFloat,
         };
       }
 
@@ -208,17 +214,17 @@ export default {
     updateMenuPosition() {
       if (this.show) {
         // Re-calculate position if menu is open and viewport changes
-        const button = document.querySelector('#menu-link');
+        const button = document.querySelector("#menu-link");
         if (button) {
           const rect = button.getBoundingClientRect();
           const isFloat = this.fixedLink;
-          
+
           this.buttonPosition = {
             x: isFloat ? rect.right : rect.left + rect.width / 2,
             y: isFloat ? rect.bottom : rect.top - 10,
             width: rect.width,
             height: rect.height,
-            isFloat: isFloat
+            isFloat: isFloat,
           };
         }
       }
@@ -244,7 +250,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-
 #menu-link {
   text-align: center;
   margin: 0 auto;
@@ -304,7 +309,6 @@ export default {
     }
   }
 }
-
 
 .menu-wrapper {
   position: fixed;
@@ -384,7 +388,7 @@ export default {
     width: 280px;
     padding: 18px;
     gap: 18px;
-    
+
     .primary h2 {
       font-size: 1.6em;
     }
@@ -400,13 +404,13 @@ export default {
     transform-origin: top center !important;
     padding: 16px;
     gap: 16px;
-    
+
     .primary {
       margin: 0 -16px;
-      
+
       h2 {
         font-size: 1.4em;
-        
+
         a {
           padding: 10px 16px;
         }
@@ -420,13 +424,13 @@ export default {
     top: 50px !important;
     padding: 14px;
     gap: 14px;
-    
+
     .primary {
       margin: 0 -14px;
-      
+
       h2 {
         font-size: 1.2em;
-        
+
         a {
           padding: 8px 14px;
         }
@@ -481,13 +485,12 @@ export default {
   }
 
   .profile-initials {
-    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
-    font-size: 1.1em;
-    font-weight: 700;
-    color: rgba(0, 0, 0, 0.6);
-    text-shadow: 
-      0 1px 0 rgba(255, 255, 255, 0.8),
-      0 -1px 0 rgba(0, 0, 0, 0.2);
+    font-family: "Monaco", "Menlo", "Ubuntu Mono", monospace;
+    font-size: 1em;
+    color: rgba(0, 0, 0, 0.2);
+    text-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.4),
+      0 -1px 0 rgba(0, 0, 0, 0.1);
     letter-spacing: 0.05em;
   }
 
@@ -508,9 +511,15 @@ export default {
       opacity: 0;
       transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
-      &:nth-child(1) { transition-delay: 0.2s; }
-      &:nth-child(2) { transition-delay: 0.25s; }
-      &:nth-child(3) { transition-delay: 0.3s; }
+      &:nth-child(1) {
+        transition-delay: 0.2s;
+      }
+      &:nth-child(2) {
+        transition-delay: 0.25s;
+      }
+      &:nth-child(3) {
+        transition-delay: 0.3s;
+      }
     }
   }
 
@@ -534,10 +543,18 @@ export default {
       position: relative;
       overflow: hidden;
 
-      &:nth-child(1) { transition-delay: 0.1s; }
-      &:nth-child(2) { transition-delay: 0.15s; }
-      &:nth-child(3) { transition-delay: 0.2s; }
-      &:nth-child(4) { transition-delay: 0.25s; }
+      &:nth-child(1) {
+        transition-delay: 0.1s;
+      }
+      &:nth-child(2) {
+        transition-delay: 0.15s;
+      }
+      &:nth-child(3) {
+        transition-delay: 0.2s;
+      }
+      &:nth-child(4) {
+        transition-delay: 0.25s;
+      }
 
       &:nth-child(even) {
         transform: translateY(-20px) rotate(1.5deg);
@@ -551,7 +568,7 @@ export default {
         transition: all 0.3s ease;
 
         &::before {
-          content: '';
+          content: "";
           position: absolute;
           top: 0;
           left: -100%;
@@ -622,11 +639,21 @@ export default {
         background: var(--color-background-light);
       }
 
-      &:nth-child(1) { transition-delay: 0.3s; }
-      &:nth-child(2) { transition-delay: 0.35s; }
-      &:nth-child(3) { transition-delay: 0.4s; }
-      &:nth-child(4) { transition-delay: 0.45s; }
-      &:nth-child(5) { transition-delay: 0.5s; }
+      &:nth-child(1) {
+        transition-delay: 0.3s;
+      }
+      &:nth-child(2) {
+        transition-delay: 0.35s;
+      }
+      &:nth-child(3) {
+        transition-delay: 0.4s;
+      }
+      &:nth-child(4) {
+        transition-delay: 0.45s;
+      }
+      &:nth-child(5) {
+        transition-delay: 0.5s;
+      }
     }
   }
 
@@ -639,5 +666,4 @@ export default {
 .spacer {
   height: 10px;
 }
-
 </style>
