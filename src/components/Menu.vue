@@ -346,10 +346,10 @@ export default {
   position: fixed;
   width: 320px;
   max-width: calc(100vw - 20px);
-  background: rgba(255, 255, 255, 0.5);
+  background: var(--color-menu-background);
   backdrop-filter: blur(30px);
   -webkit-backdrop-filter: blur(30px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid var(--color-card-border);
   border-radius: 20px;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
   padding: 20px;
@@ -622,23 +622,42 @@ export default {
       display: flex;
       gap: 5px;
       align-items: center;
-      border-bottom: 2px solid transparent;
+      border: none;
       padding: 6px 8px;
       border-radius: 6px;
-      transition: all 0.2s ease;
+      transition: transform 0.2s ease, opacity 0.2s ease;
       transform: translateY(20px);
       opacity: 0;
       font-size: 0.9em;
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
 
       @media screen and (max-width: 380px) {
         font-size: 0.85em;
         padding: 6px;
       }
 
+      &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: var(--color-primary);
+        transition: left 0.4s ease;
+        z-index: -1;
+        border-radius: 6px;
+      }
+
       &:hover {
-        border-bottom: 2px solid;
         transform: translateY(-2px);
-        background: var(--color-background-light);
+        color: white;
+
+        &::before {
+          left: 0;
+        }
       }
 
       &:nth-child(1) {
@@ -667,5 +686,40 @@ export default {
 
 .spacer {
   height: 10px;
+}
+
+/* Dark mode overrides */
+:root.dark .menu .primary h2 a::before {
+  background: rgba(13, 71, 161, 0.95); /* Dark blue */
+}
+
+:root.dark .menu .external a::before {
+  background: rgba(13, 71, 161, 0.95); /* Same dark blue as primary items */
+}
+
+:root.dark .menu .accessory:hover {
+  color: rgba(13, 71, 161, 0.95) !important; /* Dark blue for dark mode */
+}
+
+:root.dark .menu a.accessory:hover {
+  color: rgba(13, 71, 161, 0.95) !important; /* Dark blue for dark mode links */
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not(.light) .menu .primary h2 a::before {
+    background: rgba(13, 71, 161, 0.95); /* Dark blue */
+  }
+  
+  :root:not(.light) .menu .external a::before {
+    background: rgba(13, 71, 161, 0.95); /* Same dark blue as primary items */
+  }
+  
+  :root:not(.light) .menu .accessory:hover {
+    color: rgba(13, 71, 161, 0.95) !important; /* Dark blue for dark mode */
+  }
+  
+  :root:not(.light) .menu a.accessory:hover {
+    color: rgba(13, 71, 161, 0.95) !important; /* Dark blue for dark mode links */
+  }
 }
 </style>
