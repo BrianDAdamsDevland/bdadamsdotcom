@@ -25,7 +25,7 @@
     "@astrojs/svelte": "7.1.0",
     "@astrojs/vue": "5.1.0",
     "@fontsource/ibm-plex-mono": "5.2.6",
-    "@netlify/blobs": "10.0.8",
+    "@netlify/blobs": "10.0.10",
     "@sentry/astro": "10.7.0",
     "@types/alpinejs": "3.13.11",
     "@types/react": "19.1.12",
