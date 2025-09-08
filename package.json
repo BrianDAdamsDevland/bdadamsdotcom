@@ -22,7 +22,7 @@
     "@astrojs/rss": "4.0.12",
     "@astrojs/sitemap": "3.5.1",
     "@astrojs/solid-js": "5.1.0",
-    "@astrojs/svelte": "7.1.0",
+    "@astrojs/svelte": "7.1.1",
     "@astrojs/vue": "5.1.0",
     "@fontsource/ibm-plex-mono": "5.2.6",
     "@netlify/blobs": "10.0.10",
