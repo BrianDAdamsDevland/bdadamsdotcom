@@ -24,7 +24,7 @@
     "@astrojs/solid-js": "5.1.1",
     "@astrojs/svelte": "7.1.1",
     "@astrojs/vue": "5.1.1",
-    "@fontsource/ibm-plex-mono": "5.2.6",
+    "@fontsource/ibm-plex-mono": "5.2.7",
     "@netlify/blobs": "10.0.10",
     "@sentry/astro": "10.12.0",
     "@types/alpinejs": "3.13.11",
