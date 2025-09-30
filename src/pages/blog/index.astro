@@ -6,11 +6,12 @@ import Enumerable from "linq";
 import Layout from "@layouts/Layout.astro";
 
 import Typer from "@components/Typer.vue";
+import { getReadingTime } from "@utils/readingTime";
 
 const allBlogCollection = await getCollection("blog");
 
 const blogItems = Enumerable.from(allBlogCollection)
-  .select((i) => ({ ...i.data, slug: i.id }))
+  .select((i) => ({ ...i.data, slug: i.id, body: i.body }))
   .orderByDescending((a) => a.pubDate)
   .toArray();
 ---
@@ -57,6 +58,8 @@ const blogItems = Enumerable.from(allBlogCollection)
                       day: "numeric",
                     })}
                   </strong>
+                  &middot;
+                  <span class="reading-time">{getReadingTime(i.body)}</span>
                   &middot;
                   <small>{i.description}</small>
                 </div>
@@ -111,6 +114,11 @@ const blogItems = Enumerable.from(allBlogCollection)
       text-transform: uppercase;
       font-size: 0.8em;
       letter-spacing: 0.2px;
+    }
+
+    .reading-time {
+      font-size: 0.85em;
+      font-style: italic;
     }
 
     div:first-child {
