@@ -57,17 +57,20 @@ const openGraphImage = await getImage({
             </h2>
           )
         }
-        <strong transition:name={`${entry.id}-date`}>
-          {
-            entry.data.pubDate.toLocaleDateString("en-us", {
-              weekday: "long",
-              year: "numeric",
-              month: "long",
-              day: "numeric",
-            })
-          }
-        </strong>
-        <span class="reading-time">{getReadingTime(entry.body)}</span>
+        <div class="meta">
+          <strong transition:name={`${entry.id}-date`}>
+            {
+              entry.data.pubDate.toLocaleDateString("en-us", {
+                weekday: "long",
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              })
+            }
+          </strong>
+          &middot;
+          <span class="reading-time">{getReadingTime(entry.body)}</span>
+        </div>
       </div>
 
       {
@@ -107,6 +110,13 @@ const openGraphImage = await getImage({
     display: flex;
     gap: 15px;
     flex-direction: column;
+
+    .meta {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
 
     .reading-time {
       color: var(--color-text-muted);
