@@ -77,7 +77,7 @@ import Pagination from "@components/Pagination.astro";
 ---
 
 <div class="filter-bar">
-  <a class:list={["badge", { active: !type }]} href="/recommended/">
+  <a class:list={["badge", { active: !type }]} href="/recommended/" data-astro-prefetch="tap">
     <i class={"fa-sharp fa-solid fa-circle-star"}></i>
     All Types
   </a>
@@ -86,6 +86,7 @@ import Pagination from "@components/Pagination.astro";
       <a
         class:list={["badge", { active: i === type }]}
         href={`/recommended/${getTypeTitle(i).toLowerCase()}/`}
+        data-astro-prefetch="tap"
       >
         <i class:list={["fa-solid", getTypeIcon(i)]} />
         {getTypeTitle(i)}
@@ -100,6 +101,7 @@ import Pagination from "@components/Pagination.astro";
       <a
         class:list={["badge", { active: !tag }]}
         href={`/recommended/${getTypeTitle(type).toLowerCase()}/`}
+        data-astro-prefetch="tap"
       >
         All
       </a>
@@ -107,6 +109,7 @@ import Pagination from "@components/Pagination.astro";
         <a
           class:list={["badge", { active: i === tag }]}
           href={`/recommended/${getTypeTitle(type).toLowerCase()}/${getTagUrlFragment(i as string)}/`}
+          data-astro-prefetch="tap"
         >
           {i}
         </a>
