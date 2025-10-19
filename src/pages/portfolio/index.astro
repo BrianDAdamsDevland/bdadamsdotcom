@@ -39,6 +39,7 @@ const portfolioItems = Enumerable.from(allPortfolioCollection)
                   transition:name={`${item.slug}-img`}
                   decoding="async"
                   loading={i < 6 ? "eager" : "lazy"}
+                  fetchpriority={i < 3 ? "high" : undefined}
                 />
               </a>
 

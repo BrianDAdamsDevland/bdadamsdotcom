@@ -82,6 +82,7 @@ const openGraphImage = await getImage({
               widths={[420, 600, 840, 1200]}
               sizes="(min-width: 500px) calc(100vw - 40px), calc(100vw - 20px)"
               decoding="async"
+              fetchpriority="high"
             />
           </div>
         )
