@@ -30,12 +30,12 @@ const portfolioItems = Enumerable.from(allPortfolioCollection)
         {
           portfolioItems.map((item, i) => (
             <div class="item">
-              <a href={`/portfolio/${item.slug}/`}>
+              <a href={`/portfolio/${item.slug}/`} data-astro-prefetch="tap">
                 <Image
                   src={item.image}
                   alt={item.title}
-                  width={370}
-                  densities={[1.5, 2, 2.5]}
+                  widths={[240, 370, 540, 720, 800, item.image.width]}
+                  sizes="(min-width: 900px) 370px, (min-width: 500px) calc(50vw - 53px), calc(50vw - 33px)"
                   transition:name={`${item.slug}-img`}
                   decoding="async"
                   loading={i < 6 ? "eager" : "lazy"}
@@ -43,7 +43,7 @@ const portfolioItems = Enumerable.from(allPortfolioCollection)
               </a>
 
               <div class="title">
-                <a href={`/portfolio/${item.slug}/`}>
+                <a href={`/portfolio/${item.slug}/`} data-astro-prefetch="tap">
                   <strong transition:name={`${item.slug}-title`}>
                     {item.title}
                   </strong>
