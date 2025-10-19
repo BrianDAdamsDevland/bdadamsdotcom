@@ -138,6 +138,7 @@ import Pagination from "@components/Pagination.astro";
                 alt={i.title}
                 width={large ? 500 : 80}
                 densities={[1.5, 2]}
+                loading={index < 6 ? "eager" : "lazy"}
               />
             </a>
             <div class="content">
