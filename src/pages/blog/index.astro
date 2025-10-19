@@ -38,7 +38,7 @@ const blogItems = Enumerable.from(allBlogCollection)
 
       <div class="entries">
         {
-          blogItems.map((i) => (
+          blogItems.map((i, index) => (
             <div class="entry">
               <div>
                 <a href={`/blog/${i.slug}/`}>
@@ -70,8 +70,11 @@ const blogItems = Enumerable.from(allBlogCollection)
                   <Image
                     src={i.heroImage}
                     alt={i.heroImageAltText}
-                    width="420"
-                    densities={[1.5, 2]}
+                    widths={[80, 130, 420, 600, 840, 1200]}
+                    sizes="(min-width: 700px) 420px, (min-width: 400px) 130px, 80px"
+                    loading={index < 6 ? "eager" : "lazy"}
+                    decoding="async"
+                    fetchpriority={index < 2 ? "high" : undefined}
                   />
                 </a>
               </div>

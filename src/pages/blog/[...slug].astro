@@ -79,7 +79,10 @@ const openGraphImage = await getImage({
             <Image
               src={entry.data.heroImage}
               alt={entry.data.heroImageAltText}
-              width="1800"
+              widths={[420, 600, 840, 1200]}
+              sizes="(min-width: 500px) calc(100vw - 40px), calc(100vw - 20px)"
+              decoding="async"
+              fetchpriority="high"
             />
           </div>
         )

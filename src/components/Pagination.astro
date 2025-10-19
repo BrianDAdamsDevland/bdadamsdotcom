@@ -62,8 +62,8 @@ function getPageUrl(page: number): string {
     <div class="page-numbers" id="page-numbers">
       {pageNumbers.map((page) => (
         typeof page === 'number' ? (
-          <a 
-            href={getPageUrl(page)} 
+          <a
+            href={getPageUrl(page)}
             class:list={["page-number", { active: page === currentPage }]}
             data-page={page}
           >
@@ -84,7 +84,7 @@ function getPageUrl(page: number): string {
           Previous
         </a>
       )}
-      
+
       {/* Next button */}
       {currentPage < totalPages && (
         <a href={getPageUrl(currentPage + 1)} class="pagination-btn next">

@@ -70,3 +70,12 @@ h4 {
     padding: 20px;
   }
 }
+
+/* Respect prefers-reduced-motion for view transitions */
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation-duration: 0.01ms !important;
+  }
+}
