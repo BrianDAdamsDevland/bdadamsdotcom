@@ -41,7 +41,7 @@ const blogItems = Enumerable.from(allBlogCollection)
           blogItems.map((i) => (
             <div class="entry">
               <div>
-                <a href={`/blog/${i.slug}/`} data-astro-prefetch="tap">
+                <a href={`/blog/${i.slug}/`}>
                   <h3>
                     <span transition:name={`${i.slug}-title`}>{i.title}</span>
                     <small transition:name={`${i.slug}-subtitle`}>
@@ -66,7 +66,7 @@ const blogItems = Enumerable.from(allBlogCollection)
               </div>
 
               <div transition:name={`${i.slug}-hero`}>
-                <a href={`/blog/${i.slug}/`} data-astro-prefetch="tap">
+                <a href={`/blog/${i.slug}/`}>
                   <Image
                     src={i.heroImage}
                     alt={i.heroImageAltText}

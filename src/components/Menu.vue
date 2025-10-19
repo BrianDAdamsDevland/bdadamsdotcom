@@ -77,7 +77,7 @@
             :delay="0.05 * index"
           >
             <h2>
-              <a :href="l.href" data-astro-prefetch="tap">{{ l.label }}</a>
+              <a :href="l.href">{{ l.label }}</a>
             </h2>
           </AnimatedEntrance>
         </div>

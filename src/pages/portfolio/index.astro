@@ -30,7 +30,7 @@ const portfolioItems = Enumerable.from(allPortfolioCollection)
         {
           portfolioItems.map((item, i) => (
             <div class="item">
-              <a href={`/portfolio/${item.slug}/`} data-astro-prefetch="tap">
+              <a href={`/portfolio/${item.slug}/`}>
                 <Image
                   src={item.image}
                   alt={item.title}
@@ -43,7 +43,7 @@ const portfolioItems = Enumerable.from(allPortfolioCollection)
               </a>
 
               <div class="title">
-                <a href={`/portfolio/${item.slug}/`} data-astro-prefetch="tap">
+                <a href={`/portfolio/${item.slug}/`}>
                   <strong transition:name={`${item.slug}-title`}>
                     {item.title}
                   </strong>

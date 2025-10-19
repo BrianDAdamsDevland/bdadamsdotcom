@@ -66,7 +66,6 @@ function getPageUrl(page: number): string {
             href={getPageUrl(page)}
             class:list={["page-number", { active: page === currentPage }]}
             data-page={page}
-            data-astro-prefetch="tap"
           >
             {page}
           </a>
@@ -80,7 +79,7 @@ function getPageUrl(page: number): string {
     <div class="pagination-nav">
       {/* Previous button */}
       {currentPage > 1 && (
-        <a href={getPageUrl(currentPage - 1)} class="pagination-btn prev" data-astro-prefetch="tap">
+        <a href={getPageUrl(currentPage - 1)} class="pagination-btn prev">
           <i class="fa-sharp fa-solid fa-chevron-left"></i>
           Previous
         </a>
@@ -88,7 +87,7 @@ function getPageUrl(page: number): string {
 
       {/* Next button */}
       {currentPage < totalPages && (
-        <a href={getPageUrl(currentPage + 1)} class="pagination-btn next" data-astro-prefetch="tap">
+        <a href={getPageUrl(currentPage + 1)} class="pagination-btn next">
           Next
           <i class="fa-sharp fa-solid fa-chevron-right"></i>
         </a>
