@@ -73,6 +73,7 @@ const blogItems = Enumerable.from(allBlogCollection)
                     widths={[80, 130, 420, 600, 840, 1200]}
                     sizes="(min-width: 700px) 420px, (min-width: 400px) 130px, 80px"
                     loading={index < 6 ? "eager" : "lazy"}
+                    decoding="async"
                   />
                 </a>
               </div>
