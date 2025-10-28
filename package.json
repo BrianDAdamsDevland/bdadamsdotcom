@@ -15,7 +15,7 @@
     "@astrojs/alpinejs": "0.4.9",
     "@astrojs/check": "0.9.5",
     "@astrojs/lit": "4.3.0",
-    "@astrojs/mdx": "4.3.8",
+    "@astrojs/mdx": "4.3.9",
     "@astrojs/netlify": "6.6.0",
     "@astrojs/preact": "4.1.1",
     "@astrojs/react": "4.4.0",
