@@ -42,7 +42,7 @@
     "preact": "10.27.2",
     "react": "19.2.0",
     "react-dom": "19.2.0",
-    "sass": "1.93.3",
+    "sass": "1.94.0",
     "solid-js": "1.9.10",
     "svelte": "5.43.5",
     "typescript": "5.9.3",
