@@ -29,11 +29,13 @@ export default defineConfig({
     prefetchAll: true
   },
   integrations: [vue(), mdx(), sitemap(), sentry({
-    dsn: "https://c0923b76e81cff946429e3533e2a3ff1@o4506892850233344.ingest.us.sentry.io/4506892851806208",
     sourceMapsUploadOptions: {
       project: "bdadamsdotcom",
       authToken: SENTRY_AUTH_TOKEN,
-      org: "brian-d-adams"
+      org: "brian-d-adams",
+      telemetry: false,
+      // Only upload source maps when auth token is available (production builds)
+      enabled: !!SENTRY_AUTH_TOKEN
     }
   }), react({
     include: ["**/react/*"]
@@ -54,4 +56,50 @@ export default defineConfig({
   },
   output: "static",
   adapter: netlify(),
+  vite: {
+    build: {
+      rollupOptions: {
+        onLog(level, log, handler) {
+          // Suppress lit-related warnings
+          if (log.code === 'AMBIGUOUS_EXTERNAL_NAMESPACE' &&
+              log.message.includes('lit')) {
+            return;
+          }
+          if (log.code === 'UNUSED_EXTERNAL_IMPORT' &&
+              (log.message.includes('lit') || log.message.includes('@astrojs/internal-helpers'))) {
+            return;
+          }
+          // Suppress sourcemap warnings from astro:transitions plugin
+          if (log.code === 'SOURCEMAP_BROKEN' &&
+              log.plugin === 'astro:transitions') {
+            return;
+          }
+          handler(level, log);
+        }
+      }
+    },
+    customLogger: {
+      // Custom logger to filter SSR build warnings
+      ...(() => {
+        const createFilteredLogger = () => ({
+          info: (msg) => console.log(msg),
+          warn: (msg) => {
+            // Filter lit-related warnings during SSR build
+            if (msg.includes('Ambiguous external namespace') && msg.includes('lit')) return;
+            if (msg.includes('UNUSED_EXTERNAL_IMPORT') && msg.includes('lit')) return;
+            console.warn(msg);
+          },
+          warnOnce: (msg) => {
+            if (msg.includes('Ambiguous external namespace') && msg.includes('lit')) return;
+            console.warn(msg);
+          },
+          error: (msg) => console.error(msg),
+          clearScreen: () => {},
+          hasErrorLogged: () => false,
+          hasWarned: false
+        });
+        return createFilteredLogger();
+      })()
+    }
+  }
 });
