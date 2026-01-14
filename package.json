@@ -36,7 +36,7 @@
     "astro": "5.16.9",
     "astro-capo": "0.0.1",
     "astro-pagefind": "1.8.5",
-    "astro-seo": "0.8.4",
+    "astro-seo": "1.1.0",
     "linq": "4.0.3",
     "lit": "3.3.2",
     "preact": "10.28.2",
