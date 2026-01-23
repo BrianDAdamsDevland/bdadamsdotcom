@@ -43,7 +43,7 @@
     "react": "19.2.3",
     "react-dom": "19.2.3",
     "sass": "1.97.3",
-    "solid-js": "1.9.10",
+    "solid-js": "1.9.11",
     "svelte": "5.48.0",
     "typescript": "5.9.3",
     "vue": "3.5.27"
