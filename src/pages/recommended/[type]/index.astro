@@ -1,20 +1,17 @@
 ---
 import { getCollection } from "astro:content";
-import Enumerable from "linq";
 
 import { getTypeTitle } from "@utils/recommended";
 
 export async function getStaticPaths() {
   const items = await getCollection("recommendations");
 
-  return Enumerable.from(items)
-    .groupBy((i) => i.data.type)
-    .select((i) => i.first().data.type)
-    .select((i) => ({
-      params: { type: getTypeTitle(i).toLowerCase() },
-      props: { type: i },
-    }))
-    .toArray();
+  const uniqueTypes = [...new Set(items.map((i) => i.data.type))];
+
+  return uniqueTypes.map((type) => ({
+    params: { type: getTypeTitle(type).toLowerCase() },
+    props: { type },
+  }));
 }
 
 const { type } = Astro.props;

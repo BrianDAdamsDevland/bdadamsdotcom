@@ -34,6 +34,7 @@ export default {
     return {
       display: this.hiddenOnStart ? "" : " ",
       remainingTime: this.duration,
+      timeoutId: null,
     };
   },
   beforeMount() {
@@ -44,7 +45,10 @@ export default {
       this.display = this.text;
   },
   mounted() {
-    setTimeout(this.addNextChar, this.delay);
+    this.timeoutId = setTimeout(this.addNextChar, this.delay);
+  },
+  beforeUnmount() {
+    if (this.timeoutId) clearTimeout(this.timeoutId);
   },
   computed: {
     isComplete() {
@@ -74,7 +78,7 @@ export default {
         this.handleComplete();
         return;
       }
-      setTimeout(this.addNextChar, this.charDurations[this.display.length - 1]);
+      this.timeoutId = setTimeout(this.addNextChar, this.charDurations[this.display.length - 1]);
     },
     handleComplete() {
       if (this.once) {

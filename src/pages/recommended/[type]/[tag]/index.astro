@@ -1,32 +1,26 @@
 ---
 import { getCollection } from "astro:content";
-import Enumerable from "linq";
 
 import { getTypeTitle, getTagUrlFragment, getTagName } from "@utils/recommended";
 
 export async function getStaticPaths() {
   const items = await getCollection("recommendations");
 
-  const uniqueTypes = Enumerable.from(items)
-    .groupBy((i) => i.data.type)
-    .select((i) => i.first().data.type);
+  const uniqueTypes = [...new Set(items.map((i) => i.data.type))];
 
-  return uniqueTypes
-    .selectMany((i) =>
-      Enumerable.from(items)
-        .where((j) => j.data.type === i)
-        .selectMany((j) => j.data.tags as Array<string>)
-        .groupBy((j) => getTagName(j))
-        .select((jg) => jg.key())
-        .select((j) => ({
-          params: {
-            type: getTypeTitle(i).toLowerCase(),
-            tag: getTagUrlFragment(j as string),
-          },
-          props: { type: i, tag: j },
-        }))
-    )
-    .toArray();
+  return uniqueTypes.flatMap((type) => {
+    const typeItems = items.filter((j) => j.data.type === type);
+    const allTags = typeItems.flatMap((j) => j.data.tags ?? []);
+    const uniqueTagNames = [...new Set(allTags.map((t) => getTagName(t)))];
+
+    return uniqueTagNames.map((tagName) => ({
+      params: {
+        type: getTypeTitle(type).toLowerCase(),
+        tag: getTagUrlFragment(tagName),
+      },
+      props: { type, tag: tagName },
+    }));
+  });
 }
 
 const { type, tag } = Astro.props;
