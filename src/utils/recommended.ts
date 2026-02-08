@@ -15,12 +15,19 @@ export function getTypeTitle(type: string) {
   }
 }
 
-export function getTagUrlFragment(tag: any) {
+export type Tag = string | { name: string; rank?: number };
+
+export function getTagUrlFragment(tag: Tag) {
   return getTagName(tag).replaceAll(" ", "-").toLowerCase();
 }
 
-export function getTagName(tag: any) {
-  return (typeof tag === "string" || tag instanceof String) ? tag : tag.name;
+export function getTagName(tag: Tag): string {
+  return typeof tag === "string" ? tag : tag.name;
+}
+
+export function getTagRank(tag: Tag | undefined): number | undefined {
+  if (!tag || typeof tag === "string") return undefined;
+  return tag.rank;
 }
 
 export function getPaginationInfo(totalItems: number, currentPage: number = 1, pageSize: number = 24) {

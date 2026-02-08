@@ -22,14 +22,25 @@ if (autoplay) {
   apiUrl += "&autoplay=1";
 }
 
-const response = await fetch(apiUrl);
-
-const data = await response.json();
+let html = "";
+try {
+  const response = await fetch(apiUrl);
+  if (!response.ok) {
+    console.error(`Embed fetch failed for ${url}: ${response.status}`);
+  } else {
+    const data = await response.json();
+    html = data.html ?? "";
+  }
+} catch (e) {
+  console.error(`Embed fetch error for ${url}:`, e);
+}
 ---
 
-<div class:list={["embed", { small: small }]}>
-  <Fragment set:html={data.html} />
-</div>
+{html && (
+  <div class:list={["embed", { small: small }]}>
+    <Fragment set:html={html} />
+  </div>
+)}
 
 <style lang="scss">
   .embed.small :global(iframe) {
