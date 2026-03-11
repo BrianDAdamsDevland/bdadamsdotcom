@@ -3,7 +3,6 @@ const { type, tag, page } = Astro.props;
 
 import { Image } from "astro:assets";
 import { getCollection } from "astro:content";
-import Enumerable from "linq";
 
 const allMediaCollection = await getCollection("recommendations");
 
@@ -11,17 +10,14 @@ import {
   getTypeTitle,
   getTagUrlFragment,
   getTagName,
+  getTagRank,
   getPaginationInfo,
 } from "@utils/recommended";
 
-const items = Enumerable.from(allMediaCollection)
-  .select((i) => ({ ...i.data, slug: i.id }))
-  .toArray();
+const items = allMediaCollection
+  .map((i) => ({ ...i.data, slug: i.id }));
 
-const types = Enumerable.from(items)
-  .groupBy((i) => i.type)
-  .select((i) => i.first().type)
-  .toArray();
+const types = [...new Set(items.map((i) => i.type))];
 
 function getTypeIcon(type: string) {
   switch (type.toLowerCase()) {
@@ -42,24 +38,25 @@ function getTypeIcon(type: string) {
 
 function getTagsForType() {
   if (!type) return undefined;
-  return Enumerable.from(items)
-    .where((j) => j.type === Astro.props.type && !!j.tags)
-    .selectMany((j) => j.tags as Array<string>)
-    .groupBy((j) => getTagName(j))
-    .select((jg) => jg.key())
-    .orderBy(t => t)
-    .toArray();
+  const allTags = items
+    .filter((j) => j.type === type && !!j.tags)
+    .flatMap((j) => j.tags!);
+  return [...new Set(allTags.map((t) => getTagName(t)))].sort();
 }
 
 const pageSize = 24;
 
-const filteredItems = Enumerable.from(items)
-      .where((i) => !type || i.type === type)
-      .where((i) => !tag || !!i.tags?.some((t : any) => getTagName(t) == tag))
-      .orderBy((i) =>
-        !tag ? 0 : i.tags!.find((t : any) => getTagName(t) === tag).rank
-      )
-      .thenByDescending((i) => i.date).toArray();
+const filteredItems = items
+  .filter((i) => !type || i.type === type)
+  .filter((i) => !tag || !!i.tags?.some((t) => getTagName(t) == tag))
+  .sort((a, b) => {
+    if (tag) {
+      const rankA = getTagRank(a.tags?.find((t) => getTagName(t) === tag)) ?? 0;
+      const rankB = getTagRank(b.tags?.find((t) => getTagName(t) === tag)) ?? 0;
+      if (rankA !== rankB) return rankA - rankB;
+    }
+    return b.date.getTime() - a.date.getTime();
+  });
 
 const currentPage = page || 1;
 const paginationInfo = getPaginationInfo(filteredItems.length, currentPage, pageSize);
@@ -117,17 +114,15 @@ import Pagination from "@components/Pagination.astro";
 
 <div class:list={["items", (type ?? "").toLowerCase()]}>
   {
-    Enumerable.from(filteredItems)
-      .skip(paginationInfo.startIndex)
-      .take(paginationInfo.pageSize)
-      .toArray()
+    filteredItems
+      .slice(paginationInfo.startIndex, paginationInfo.startIndex + paginationInfo.pageSize)
       .map((i, index) => {
         const large = filteredItems.length < 11 || index < 6;
         return (
           <div class:list={["item", { large }]}>
-            {tag && i.tags!.find((t: any) => t.name === tag)?.rank && (
+            {tag && getTagRank(i.tags?.find((t) => getTagName(t) === tag)) && (
               <div class="rank">
-                {i.tags!.find((t: any) => t.name === tag)?.rank}
+                {getTagRank(i.tags?.find((t) => getTagName(t) === tag))}
               </div>
             )}
 
@@ -167,7 +162,7 @@ import Pagination from "@components/Pagination.astro";
                   </span>
                 )}
 
-                {i.tags?.map((t: string) => (
+                {i.tags?.map((t) => (
                   <span class="badge">{getTagName(t)}</span>
                 ))}
               </div>

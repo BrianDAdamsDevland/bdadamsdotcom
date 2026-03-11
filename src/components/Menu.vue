@@ -16,6 +16,7 @@
               ? 'fa-sharp fa-solid fa-circle-xmark'
               : 'fa-sharp fa-solid fa-bars'
           "
+          aria-hidden="true"
         ></i>
         <span>Menu</span>
       </div>
@@ -57,15 +58,15 @@
           </AnimatedEntrance>
 
           <AnimatedEntrance type="slideInDown" :delay="0.05">
-            <a class="accessory" href="/search/" title="Search">
-              <i class="fa-sharp fa-solid fa-magnifying-glass"></i>
+            <a class="accessory" href="/search/" title="Search" aria-label="Search">
+              <i class="fa-sharp fa-solid fa-magnifying-glass" aria-hidden="true"></i>
             </a>
           </AnimatedEntrance>
 
           <AnimatedEntrance type="slideInDown" :delay="0.07">
-            <div class="accessory" @click="handleClose" title="Close Menu">
-              <i class="fa-sharp fa-solid fa-circle-xmark"></i>
-            </div>
+            <button class="accessory" @click="handleClose" title="Close Menu" aria-label="Close Menu">
+              <i class="fa-sharp fa-solid fa-circle-xmark" aria-hidden="true"></i>
+            </button>
           </AnimatedEntrance>
         </div>
 
@@ -125,6 +126,8 @@ export default {
       isOpen: false,
       buttonPosition: { x: 0, y: 0, width: 0, height: 0, isFloat: true },
       headshotSrc: headshotImage.src,
+      showTimeoutId: null,
+      closeTimeoutId: null,
     };
   },
   computed: {
@@ -186,6 +189,8 @@ export default {
   beforeUnmount() {
     window.removeEventListener("resize", this.updateMenuPosition);
     window.removeEventListener("orientationchange", this.updateMenuPosition);
+    if (this.showTimeoutId) clearTimeout(this.showTimeoutId);
+    if (this.closeTimeoutId) clearTimeout(this.closeTimeoutId);
   },
   methods: {
     handleShow(event) {
@@ -209,7 +214,7 @@ export default {
       this.show = true;
       this.isOpen = true;
 
-      setTimeout(() => {
+      this.showTimeoutId = setTimeout(() => {
         this.shouldAnimate = true;
       }, 50);
     },
@@ -234,7 +239,7 @@ export default {
     handleClose() {
       this.shouldAnimate = false;
       this.isOpen = false;
-      setTimeout(() => {
+      this.closeTimeoutId = setTimeout(() => {
         this.show = false;
       }, 400);
     },
@@ -444,11 +449,22 @@ export default {
     cursor: pointer;
     font-size: 1.35em;
     border-bottom: 0;
+    background: none;
+    border: none;
+    padding: 0;
+    color: inherit;
+    font: inherit;
 
     &:hover {
       color: var(--color-primary);
       text-decoration: none;
       border-bottom: 0;
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--color-primary);
+      outline-offset: 2px;
+      border-radius: 4px;
     }
   }
 
@@ -459,6 +475,12 @@ export default {
     &:hover {
       color: var(--color-primary);
       transition: all 0.1s;
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--color-primary);
+      outline-offset: 2px;
+      border-radius: 4px;
     }
   }
 

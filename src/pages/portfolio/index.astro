@@ -5,14 +5,12 @@ import Layout from "@layouts/Layout.astro";
 import Typer from "@components/Typer.vue";
 
 import { getCollection } from "astro:content";
-import Enumerable from "linq";
 
 const allPortfolioCollection = await getCollection("portfolio");
 
-const portfolioItems = Enumerable.from(allPortfolioCollection)
-  .select((i) => ({ ...i.data, slug: i.id }))
-  .orderByDescending((a) => a.year)
-  .toArray();
+const portfolioItems = allPortfolioCollection
+  .map((i) => ({ ...i.data, slug: i.id }))
+  .sort((a, b) => b.year - a.year);
 ---
 
 <Layout

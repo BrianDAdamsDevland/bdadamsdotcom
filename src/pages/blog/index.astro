@@ -1,7 +1,6 @@
 ---
 import { Image } from "astro:assets";
 import { getCollection } from "astro:content";
-import Enumerable from "linq";
 
 import Layout from "@layouts/Layout.astro";
 
@@ -10,10 +9,9 @@ import { getReadingTime } from "@utils/readingTime";
 
 const allBlogCollection = await getCollection("blog");
 
-const blogItems = Enumerable.from(allBlogCollection)
-  .select((i) => ({ ...i.data, slug: i.id, body: i.body }))
-  .orderByDescending((a) => a.pubDate)
-  .toArray();
+const blogItems = allBlogCollection
+  .map((i) => ({ ...i.data, slug: i.id, body: i.body }))
+  .sort((a, b) => b.pubDate.getTime() - a.pubDate.getTime());
 ---
 
 <Layout

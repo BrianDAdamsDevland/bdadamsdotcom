@@ -1,6 +1,5 @@
 ---
 import { getCollection } from "astro:content";
-import Enumerable from "linq";
 
 import { getTypeTitle, getTagUrlFragment, getTagName } from "@utils/recommended";
 
@@ -8,37 +7,29 @@ export async function getStaticPaths() {
   const items = await getCollection("recommendations");
   const pageSize = 24;
 
-  const uniqueTypes = Enumerable.from(items)
-    .groupBy((i) => i.data.type)
-    .select((i) => i.first().data.type);
+  const uniqueTypes = [...new Set(items.map((i) => i.data.type))];
 
-  return uniqueTypes
-    .selectMany((type) =>
-      Enumerable.from(items)
-        .where((j) => j.data.type === type)
-        .selectMany((j) => j.data.tags as Array<string>)
-        .groupBy((j) => getTagName(j))
-        .selectMany((tagGroup) => {
-          const tag = tagGroup.key();
-          const tagItems = items.filter((i) => 
-            i.data.type === type && 
-            i.data.tags && 
-            i.data.tags.some((t: any) => getTagName(t) === tag)
-          );
-          
-          const totalPages = Math.ceil(tagItems.length / pageSize);
-          
-          return Array.from({ length: totalPages }, (_, i) => ({
-            params: {
-              type: getTypeTitle(type).toLowerCase(),
-              tag: getTagUrlFragment(tag as string),
-              page: (i + 1).toString()
-            },
-            props: { type, tag, page: i + 1 },
-          }));
-        })
-    )
-    .toArray();
+  return uniqueTypes.flatMap((type) => {
+    const typeItems = items.filter((j) => j.data.type === type);
+    const allTags = typeItems.flatMap((j) => j.data.tags ?? []);
+    const uniqueTagNames = [...new Set(allTags.map((t) => getTagName(t)))];
+
+    return uniqueTagNames.flatMap((tagName) => {
+      const tagItems = typeItems.filter((i) =>
+        i.data.tags?.some((t) => getTagName(t) === tagName)
+      );
+      const totalPages = Math.ceil(tagItems.length / pageSize);
+
+      return Array.from({ length: totalPages }, (_, i) => ({
+        params: {
+          type: getTypeTitle(type).toLowerCase(),
+          tag: getTagUrlFragment(tagName),
+          page: (i + 1).toString(),
+        },
+        props: { type, tag: tagName, page: i + 1 },
+      }));
+    });
+  });
 }
 
 const { type, tag, page } = Astro.props;

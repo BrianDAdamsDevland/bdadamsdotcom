@@ -19,8 +19,9 @@ const heroSpeedAdjustment = 1.3;
 ---
 
 <div id="title-block" class={wrapperClasses}>
-  <a
-    href="javascript:document.getElementById('menu-link')?.click()"
+  <button
+    class="menu-trigger"
+    onclick="document.getElementById('menu-link')?.click()"
     title="Show Menu"
     aria-label="Show Menu"
   >
@@ -53,12 +54,13 @@ const heroSpeedAdjustment = 1.3;
         />
       )
     }
-  </a>
+  </button>
 
   <div class="title">
     <div class="name" transition:name="title-name">
-      <a
-        href="javascript:document.getElementById('menu-link')?.click()"
+      <button
+        class="menu-trigger"
+        onclick="document.getElementById('menu-link')?.click()"
         aria-label="Show Menu"
       >
         <span class="bracket">
@@ -113,11 +115,12 @@ const heroSpeedAdjustment = 1.3;
             )
           }
         </span>
-      </a>
+      </button>
     </div>
     <div class="desc" transition:name="title-desc">
-      <a
-        href="javascript:document.getElementById('menu-link')?.click()"
+      <button
+        class="menu-trigger"
+        onclick="document.getElementById('menu-link')?.click()"
         aria-label="Show Menu"
       >
         <span class="bracket">
@@ -204,7 +207,7 @@ const heroSpeedAdjustment = 1.3;
             )
           }
         </span>
-      </a>
+      </button>
     </div>
     {
       hero && (
@@ -273,6 +276,17 @@ const heroSpeedAdjustment = 1.3;
   a {
     text-decoration: none;
     color: var(--color-link);
+  }
+
+  .menu-trigger {
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    font: inherit;
+    color: inherit;
+    cursor: pointer;
+    text-align: inherit;
   }
 
   .name {
