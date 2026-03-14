@@ -1,4 +1,5 @@
-import { z, defineCollection } from "astro:content";
+import { defineCollection } from "astro:content";
+import { z } from "astro/zod";
 import { glob } from "astro/loaders";
 import { rssSchema } from "@astrojs/rss";
 
@@ -60,7 +61,7 @@ const recommendationsCollection = defineCollection({
       image: image(),
       tags: z.array(z.any()).optional(),
       type: z.enum(["Podcast", "Movie", "TV", "Music", "App"]),
-      link: z.string().url(),
+      link: z.url(),
       date: z.date(),
       year: z.coerce.string().optional(),
       subtitle: z.string().optional()
