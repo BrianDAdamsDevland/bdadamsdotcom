@@ -1,0 +1,117 @@
+---
+interface Props {
+  type?: string;
+  speed?: string;
+  cssClass?: string;
+  delay?: number;
+  immediate?: boolean;
+  infinite?: boolean;
+  inline?: boolean;
+  name?: string;
+  once?: boolean;
+}
+
+const {
+  type = "fadeIn",
+  speed,
+  cssClass,
+  delay = 0,
+  immediate = false,
+  infinite = false,
+  inline = false,
+  name,
+  once = false,
+} = Astro.props;
+---
+
+<animated-entrance
+  data-type={type}
+  data-speed={speed}
+  data-css-class={cssClass}
+  data-delay={String(delay)}
+  data-immediate={immediate ? "true" : undefined}
+  data-infinite={infinite ? "true" : undefined}
+  data-inline={inline ? "true" : undefined}
+  data-name={name}
+  data-once={once ? "true" : undefined}
+  class={`hidden ${cssClass ?? ""}`}
+  style={`animation-delay: ${delay}s`}
+>
+  <slot />
+</animated-entrance>
+
+<script>
+  class AnimatedEntranceElement extends HTMLElement {
+    private observer?: IntersectionObserver;
+
+    connectedCallback() {
+      const immediate = this.dataset.immediate === "true";
+
+      if (immediate) {
+        this.playAnimation();
+        return;
+      }
+
+      const once = this.dataset.once === "true";
+      const name = this.dataset.name;
+      const key = `animated-enter-${name}`;
+      const playedPreviously = once && window.localStorage?.getItem(key) === "1";
+
+      if (once && playedPreviously) {
+        this.classList.remove("hidden");
+        return;
+      }
+
+      this.observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              this.playAnimation();
+              this.observer?.disconnect();
+              if (once && name) {
+                window.localStorage?.setItem(key, "1");
+              }
+            }
+          });
+        },
+        { root: null, rootMargin: "0px" }
+      );
+      this.observer.observe(this);
+    }
+
+    disconnectedCallback() {
+      this.observer?.disconnect();
+    }
+
+    private playAnimation() {
+      this.classList.remove("hidden");
+      const type = this.dataset.type || "fadeIn";
+      const speed = this.dataset.speed;
+      const cssClass = this.dataset.cssClass;
+      const infinite = this.dataset.infinite === "true";
+      const inline = this.dataset.inline === "true";
+
+      this.classList.add("animate__animated", `animate__${type}`);
+      if (speed) this.classList.add(`animate__${speed}`);
+      if (cssClass) this.classList.add(cssClass);
+      if (infinite) this.classList.add("animate__infinite");
+      if (inline) this.classList.add("inline");
+    }
+  }
+
+  customElements.define("animated-entrance", AnimatedEntranceElement);
+</script>
+
+<style>
+  animated-entrance {
+    display: block;
+  }
+
+  .hidden {
+    visibility: hidden;
+  }
+
+  .inline {
+    display: inline;
+  }
+</style>
