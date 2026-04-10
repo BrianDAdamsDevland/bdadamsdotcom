@@ -18,6 +18,7 @@
 
 [build.environment]
   NETLIFY_ANALYTICS = "true"
+  NODE_VERSION = "22"
 
 # Cache static assets aggressively
 [[headers]]
