@@ -23,6 +23,17 @@ export default defineConfig({
   prefetch: {
     prefetchAll: true
   },
+  vite: {
+    build: {
+      rollupOptions: {
+        output: {
+          sanitizeFileName(name) {
+            return name.replace(/[^\w.-]/g, '_');
+          }
+        }
+      }
+    }
+  },
   integrations: [vue(), mdx(), sitemap(), sentry({
     dsn: "https://c0923b76e81cff946429e3533e2a3ff1@o4506892850233344.ingest.us.sentry.io/4506892851806208",
     sourceMapsUploadOptions: {
