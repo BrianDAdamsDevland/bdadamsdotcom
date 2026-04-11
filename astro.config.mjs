@@ -17,37 +17,6 @@ const {
   SENTRY_AUTH_TOKEN
 } = loadEnv(process.env.NODE_ENV, process.cwd(), "");
 
-// DEBUG: Vite plugin to inspect chunks before esbuild processes them
-function inspectChunksPlugin() {
-  return {
-    name: 'inspect-chunks',
-    generateBundle(options, bundle) {
-      for (const [fileName, chunk] of Object.entries(bundle)) {
-        if (fileName.includes('client') && chunk.type === 'chunk') {
-          const lines = chunk.code.split('\n');
-          console.log(`\n[inspect-chunks] === ${fileName} (${lines.length} lines, ${chunk.code.length} bytes) ===`);
-          if (lines.length >= 35) {
-            console.log(`[inspect-chunks] Line 35: ${lines[34]}`);
-            console.log(`[inspect-chunks] Line 35 around col 126: ...${lines[34].substring(116, 156)}...`);
-          }
-          // Log any unresolved hash placeholders
-          const placeholders = chunk.code.match(/!~\{[^}]*\}~/g);
-          if (placeholders) {
-            console.log(`[inspect-chunks] WARNING: Unresolved hash placeholders found: ${placeholders.join(', ')}`);
-          }
-          // Show first few lines if file has 30+ lines
-          if (lines.length >= 30) {
-            console.log(`[inspect-chunks] First 5 lines:`);
-            lines.slice(0, 5).forEach((l, i) => console.log(`[inspect-chunks]   ${i+1}: ${l.substring(0, 200)}`));
-            console.log(`[inspect-chunks] Lines 33-37:`);
-            lines.slice(32, 37).forEach((l, i) => console.log(`[inspect-chunks]   ${i+33}: ${l.substring(0, 200)}`));
-          }
-        }
-      }
-    }
-  };
-}
-
 // https://astro.build/config
 export default defineConfig({
   site: "https://www.bdadams.com",
@@ -55,10 +24,21 @@ export default defineConfig({
     prefetchAll: true
   },
   vite: {
-    plugins: [inspectChunksPlugin()],
-    build: {
-      minify: false,
-    }
+    plugins: [{
+      // Astro hardcodes minify: true for the client environment build,
+      // and Vite uses esbuild for minification during Rollup's renderChunk
+      // phase — before hash placeholders are resolved. On Netlify's Linux
+      // build, esbuild fails on the unresolved placeholders in chunk names.
+      // This plugin forces minify: false for the client build; Netlify
+      // post-processing handles JS minification on the final output instead.
+      name: 'disable-client-minify',
+      configEnvironment(name, config) {
+        if (name === 'client') {
+          config.build ??= {};
+          config.build.minify = false;
+        }
+      }
+    }],
   },
   integrations: [vue(), mdx(), sitemap(), sentry({
     dsn: "https://c0923b76e81cff946429e3533e2a3ff1@o4506892850233344.ingest.us.sentry.io/4506892851806208",
