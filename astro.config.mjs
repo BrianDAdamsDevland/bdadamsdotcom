@@ -17,6 +17,37 @@ const {
   SENTRY_AUTH_TOKEN
 } = loadEnv(process.env.NODE_ENV, process.cwd(), "");
 
+// DEBUG: Vite plugin to inspect chunks before esbuild processes them
+function inspectChunksPlugin() {
+  return {
+    name: 'inspect-chunks',
+    generateBundle(options, bundle) {
+      for (const [fileName, chunk] of Object.entries(bundle)) {
+        if (fileName.includes('client') && chunk.type === 'chunk') {
+          const lines = chunk.code.split('\n');
+          console.log(`\n[inspect-chunks] === ${fileName} (${lines.length} lines, ${chunk.code.length} bytes) ===`);
+          if (lines.length >= 35) {
+            console.log(`[inspect-chunks] Line 35: ${lines[34]}`);
+            console.log(`[inspect-chunks] Line 35 around col 126: ...${lines[34].substring(116, 156)}...`);
+          }
+          // Log any unresolved hash placeholders
+          const placeholders = chunk.code.match(/!~\{[^}]*\}~/g);
+          if (placeholders) {
+            console.log(`[inspect-chunks] WARNING: Unresolved hash placeholders found: ${placeholders.join(', ')}`);
+          }
+          // Show first few lines if file has 30+ lines
+          if (lines.length >= 30) {
+            console.log(`[inspect-chunks] First 5 lines:`);
+            lines.slice(0, 5).forEach((l, i) => console.log(`[inspect-chunks]   ${i+1}: ${l.substring(0, 200)}`));
+            console.log(`[inspect-chunks] Lines 33-37:`);
+            lines.slice(32, 37).forEach((l, i) => console.log(`[inspect-chunks]   ${i+33}: ${l.substring(0, 200)}`));
+          }
+        }
+      }
+    }
+  };
+}
+
 // https://astro.build/config
 export default defineConfig({
   site: "https://www.bdadams.com",
@@ -24,10 +55,8 @@ export default defineConfig({
     prefetchAll: true
   },
   vite: {
+    plugins: [inspectChunksPlugin()],
     build: {
-      // Disable Vite's esbuild minification to avoid conflict with Rollup's
-      // hash placeholder resolution on Netlify's build environment.
-      // Netlify post-processing handles JS minification instead.
       minify: false,
     }
   },
