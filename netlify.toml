@@ -7,11 +7,11 @@
 
 [build.processing.css]
   bundle = false
-  minify = false
+  minify = true
 
 [build.processing.js]
   bundle = false
-  minify = false
+  minify = true
 
 [build.processing.images]
   compress = true

@@ -25,13 +25,10 @@ export default defineConfig({
   },
   vite: {
     build: {
-      rollupOptions: {
-        output: {
-          sanitizeFileName(name) {
-            return name.replace(/[^\w.-]/g, '_');
-          }
-        }
-      }
+      // Disable Vite's esbuild minification to avoid conflict with Rollup's
+      // hash placeholder resolution on Netlify's build environment.
+      // Netlify post-processing handles JS minification instead.
+      minify: false,
     }
   },
   integrations: [vue(), mdx(), sitemap(), sentry({
