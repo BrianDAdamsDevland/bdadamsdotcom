@@ -17,11 +17,6 @@ const {
   SENTRY_AUTH_TOKEN
 } = loadEnv(process.env.NODE_ENV, process.cwd(), "");
 
-//Works around issue with Sentry package v8
-//Try removing this after @sentry/astro >8.9.1
-globalThis._sentryEsmLoaderHookRegistered = true;
-
-
 // https://astro.build/config
 export default defineConfig({
   site: "https://www.bdadams.com",
