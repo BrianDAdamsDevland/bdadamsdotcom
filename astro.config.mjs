@@ -2,7 +2,7 @@ import { defineConfig } from "astro/config";
 import vue from "@astrojs/vue";
 import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
-// import sentry from "@sentry/astro"; // TEMPORARILY DISABLED - investigating Netlify build failure
+import sentry from "@sentry/astro";
 import { loadEnv } from "vite";
 import react from "@astrojs/react";
 import alpinejs from "@astrojs/alpinejs";
@@ -23,18 +23,14 @@ export default defineConfig({
   prefetch: {
     prefetchAll: true
   },
-  vite: {
-    logLevel: "info",
-    build: {
-      rollupOptions: {
-        onwarn(warning, warn) {
-          console.log("[rollup-warn]", warning.code, warning.message?.slice(0, 120));
-          warn(warning);
-        }
-      }
+  integrations: [vue(), mdx(), sitemap(), sentry({
+    dsn: "https://c0923b76e81cff946429e3533e2a3ff1@o4506892850233344.ingest.us.sentry.io/4506892851806208",
+    sourceMapsUploadOptions: {
+      project: "bdadamsdotcom",
+      authToken: SENTRY_AUTH_TOKEN,
+      org: "brian-d-adams"
     }
-  },
-  integrations: [vue(), mdx(), sitemap(), react({
+  }), react({
     include: ["**/react/*"]
   }), alpinejs(), lit(), preact({
     include: ["**/preact/*"]
