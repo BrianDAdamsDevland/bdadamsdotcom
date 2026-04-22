@@ -16,7 +16,7 @@
     "@astrojs/check": "0.9.8",
     "@astrojs/lit": "4.3.0",
     "@astrojs/mdx": "5.0.3",
-    "@astrojs/netlify": "7.0.6",
+    "@astrojs/netlify": "7.0.7",
     "@astrojs/preact": "5.1.1",
     "@astrojs/react": "5.0.3",
     "@astrojs/rss": "4.0.18",
