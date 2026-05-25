@@ -4,10 +4,12 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Development Commands
 
-- `npm run dev` - Start development server
-- `npm run build` - Build for production (includes type checking)
-- `npm run preview` - Preview production build locally
-- `npm run "package update"` - Update all dependencies using npm-check-updates
+- `bun run dev` - Start development server
+- `bun run build` - Build for production (includes type checking)
+- `bun run preview` - Preview production build locally
+- `bun run "package update"` - Update all dependencies to latest (`bun update --latest`)
+
+This project uses [Bun](https://bun.sh) as its package manager and runtime. Use `bun install` to install dependencies (the lockfile is `bun.lock`).
 
 ## Architecture Overview
 
