@@ -24,7 +24,9 @@ export default defineConfig({
     prefetchAll: true
   },
   integrations: [vue(), mdx(), sitemap(), sentry({
+    telemetry: false,
     sourceMapsUploadOptions: {
+      enabled: Boolean(SENTRY_AUTH_TOKEN),
       project: "bdadamsdotcom",
       authToken: SENTRY_AUTH_TOKEN,
       org: "brian-d-adams"
