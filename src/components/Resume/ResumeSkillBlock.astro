@@ -8,39 +8,79 @@ const { Content } = await render(entry);
 ---
 
 <AnimatedEntrance client:load>
-<div>
+<div class="skill-block">
   <h4>
-    <i class={`${entry.data.icon} fa-lg`}></i>
-    {entry.data.title}
+    <span class="icon-box"><i class={`${entry.data.icon}`}></i></span>
+    <span>{entry.data.title}</span>
   </h4>
 
-  <Content />
+  <div class="skill-content">
+    <Content />
+  </div>
 </div>
 </AnimatedEntrance>
 
-<style>
-  div {
+<style lang="scss">
+  .skill-block {
     background: var(--color-subcard-background);
-    padding: 15px;
-    border-radius: 5px;
+    padding: 14px 16px;
+    border: 2px solid var(--color-card-border);
+    box-shadow: 4px 4px 0 var(--con-orange);
+    position: relative;
   }
 
   h4 {
-    margin-top: 0;
+    margin: 0 0 10px;
     position: sticky;
-    top: 36px;
+    top: 70px;
     background: var(--color-subcard-background);
     z-index: 801;
-    padding: 4px 0;
+    padding: 6px 0;
+    font-family: "Oswald", sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--color-text);
+    border-bottom: 2px solid var(--color-card-border);
   }
 
-  div :global(ul) {
+  .icon-box {
+    width: 32px;
+    height: 32px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--con-orange);
+    color: var(--con-cream);
+    border: 2px solid var(--color-card-border);
+    flex-shrink: 0;
+    font-size: 0.9em;
+  }
+
+  .skill-content :global(ul) {
     list-style-type: none;
-    margin-left: 0;
-    padding-left: 0;
+    margin: 0;
+    padding: 0;
     display: grid;
-    gap: 5px;
+    gap: 4px 12px;
     grid-template-columns: 1fr 1fr;
     align-items: center;
+    font-family: "IBM Plex Sans", sans-serif;
+    font-size: 0.95em;
+  }
+  .skill-content :global(li) {
+    padding: 2px 0 2px 14px;
+    position: relative;
+  }
+  .skill-content :global(li::before) {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.7em;
+    width: 8px;
+    height: 2px;
+    background: var(--con-orange);
   }
 </style>

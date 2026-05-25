@@ -1,39 +1,47 @@
 ---
 const {
-    title = "Recommended",
-    description = "Brian D. Adams recommendations for various media like podcasts, movies and television.",
-    sourceLink,
-    animateTitle,
-    type,
-    tag,
-    page
+  title = "Recommended",
+  description = "Brian D. Adams recommendations for various media like podcasts, movies and television.",
+  sourceLink,
+  animateTitle,
+  type,
+  tag,
+  page,
 } = Astro.props;
 
 import Layout from "@layouts/Layout.astro";
 
 import Typer from "@components/Typer.vue";
 import RecommendedItems from "@components/RecommendedItems.astro";
-
 ---
-<Layout
-  title={title}
-  description={description}
-  sourceLink={sourceLink}
->
+
+<Layout title={title} description={description} sourceLink={sourceLink}>
   <main>
     <div class="card">
-      <h1>
-        { animateTitle ? <Typer client:load text="Recommended" duration={650} /> : <>Recommended</> }
-        
-      </h1>
+      <header class="page-head">
+        <span class="big-mark" aria-hidden="true">Р</span>
+        <span class="stencil red">FILES / ФАЙЛЫ</span>
+        <h1>
+          { animateTitle ? <Typer client:load text="Recommended" duration={650} /> : <>Recommended</> }
+        </h1>
+        <p class="lede">Things worth your time — movies, TV, podcasts, music, apps.</p>
+      </header>
+
+      <div class="hatch-divider"></div>
 
       <RecommendedItems type={type} tag={tag} page={page} />
     </div>
   </main>
 </Layout>
 
-<style>
+<style lang="scss">
   main {
-    max-width: 1000px;
+    max-width: 1100px;
+  }
+  .page-head h1 { margin: 10px 0 6px; }
+  .lede {
+    margin: 0;
+    color: var(--color-text-muted);
+    font-size: 0.95em;
   }
 </style>

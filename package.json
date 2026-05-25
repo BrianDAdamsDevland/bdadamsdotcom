@@ -24,7 +24,11 @@
     "@astrojs/solid-js": "6.0.1",
     "@astrojs/svelte": "8.1.0",
     "@astrojs/vue": "6.0.1",
+    "@fontsource/antonio": "5.2.8",
+    "@fontsource/big-shoulders-display": "5.2.5",
     "@fontsource/ibm-plex-mono": "5.2.7",
+    "@fontsource/ibm-plex-sans": "5.2.8",
+    "@fontsource/oswald": "5.2.8",
     "@netlify/blobs": "10.7.5",
     "@sentry/astro": "10.53.1",
     "@types/alpinejs": "3.13.11",
@@ -47,5 +51,10 @@
     "svelte": "5.55.5",
     "typescript": "5.9.3",
     "vue": "3.5.34"
+  },
+  "devDependencies": {
+    "@imgly/background-removal-node": "1.4.5",
+    "playwright": "1.60.0",
+    "sharp": "0.34.5"
   }
 }

@@ -25,28 +25,32 @@ const { Content } = await render(entry);
 >
   <main>
     <div class="card">
-      <span>
-        <GoBack client:only="vue" />
-      </span>
-      <h1 transition:name={`${entry.id}-title`}>
-        {entry.data.title}
-        <small transition:name={`${entry.id}-year`}>
-          ({entry.data.year})
-        </small>
-      </h1>
+      <GoBack client:only="vue" />
+
+      <header class="poster">
+        <span class="stencil red filed">SPECIMEN</span>
+        <h1 transition:name={`${entry.id}-title`}>
+          {entry.data.title}
+        </h1>
+        <div class="meta">
+          <span class="year" transition:name={`${entry.id}-year`}>{entry.data.year}</span>
+        </div>
+      </header>
 
       <div class="portfolio-item-block">
-        <div class="img">
-          <Image
-            src={entry.data.image}
-            transition:name={`${entry.id}-img`}
-            alt={entry.data.title}
-            widths={[240, 370, 540, 720, 800, entry.data.image.width]}
-            sizes="(min-width: 1320px) 753px, (min-width: 800px) 58.2vw, (min-width: 500px) calc(100vw - 90px), calc(100vw - 46px)"
-          />
+        <div class="img-col">
+          <div class="img-frame duotone">
+            <Image
+              src={entry.data.image}
+              transition:name={`${entry.id}-img`}
+              alt={entry.data.title}
+              widths={[240, 370, 540, 720, 800, entry.data.image.width]}
+              sizes="(min-width: 1320px) 753px, (min-width: 800px) 58.2vw, (min-width: 500px) calc(100vw - 90px), calc(100vw - 46px)"
+            />
+          </div>
         </div>
 
-        <div>
+        <div class="copy">
           <Content />
         </div>
       </div>
@@ -54,37 +58,91 @@ const { Content } = await render(entry);
   </main>
 </Layout>
 
-<style>
+<style lang="scss">
   main {
-    max-width: 1200px;
+    max-width: 1240px;
+  }
+
+  .poster {
+    position: relative;
+    margin: 14px 0 22px;
+    padding: 22px 22px 18px;
+    background: var(--color-subcard-background);
+    border: 2px solid var(--color-card-border);
+    box-shadow: 6px 6px 0 var(--con-orange);
+  }
+
+  .filed {
+    position: absolute;
+    top: -12px;
+    left: 14px;
+    transform: rotate(-3deg);
+    box-shadow: 3px 3px 0 var(--color-card-border);
+  }
+
+  h1 {
+    margin: 12px 0 8px;
+    font-size: clamp(1.8rem, 5vw, 3rem);
+    line-height: 0.95;
+  }
+
+  .meta { display: flex; }
+  .year {
+    background: var(--con-black);
+    color: var(--con-cream);
+    padding: 4px 12px;
+    font-family: "Oswald", sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    font-size: 0.9em;
+    border: 2px solid var(--color-card-border);
   }
 
   .portfolio-item-block {
     display: flex;
-    gap: 15px;
+    gap: 24px;
     flex-direction: column;
   }
 
-  img {
+  .img-frame {
+    border: 2px solid var(--color-card-border);
+    background: var(--con-orange);
+    box-shadow: 8px 8px 0 var(--color-card-border);
+    line-height: 0;
+    overflow: hidden;
+  }
+  .img-frame img {
     max-width: 100%;
-    max-height: 130vh;
-    margin: 0 auto;
+    height: auto;
+    width: 100%;
     display: block;
-    width: inherit;
-    height: inherit;
+    filter: contrast(1.05) saturate(0.92);
   }
 
-  :global(p:first-child) {
-    margin-top: 0;
+  .copy :global(p:first-child) { margin-top: 0; }
+  .copy {
+    font-family: "IBM Plex Sans", sans-serif;
+    line-height: 1.65;
+  }
+  .copy :global(h2),
+  .copy :global(h3),
+  .copy :global(h4) {
+    border-left: 5px solid var(--con-orange);
+    padding-left: 12px;
+    margin-top: 28px;
   }
 
   @media screen and (min-width: 800px) {
     .portfolio-item-block {
       flex-direction: row;
+      align-items: flex-start;
     }
-
-    .img {
-      min-width: 65%;
+    .img-col {
+      min-width: 0;
+      flex: 1.4;
+    }
+    .copy {
+      flex: 1;
     }
   }
 </style>

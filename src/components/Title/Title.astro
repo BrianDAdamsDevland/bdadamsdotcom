@@ -5,291 +5,571 @@ interface Props {
 
 const { hero } = Astro.props;
 
-const wrapperClasses = `title-block ${hero ? "hero" : ""}`;
+const wrapperClasses = `title-block ${hero ? "hero" : "compact"}`;
 
 import { Image } from "astro:assets";
 
-import AnimatedEntrance from "../AnimatedEntrance.vue";
 import Menu from "../Menu.vue";
 import Typer from "../Typer.vue";
 
-import headshotImg from "../../assets/headshot.png";
+import headshotImg from "../../assets/headshot-halftone.png";
 
 const heroSpeedAdjustment = 1.3;
 ---
 
 <div id="title-block" class={wrapperClasses}>
-  <a
-    href="javascript:document.getElementById('menu-link')?.click()"
-    title="Show Menu"
-    aria-label="Show Menu"
-  >
-    {
-      hero ? (
-        <AnimatedEntrance
-          client:only="vue"
-          type="fadeInDown"
-          delay={3.5 / heroSpeedAdjustment}
-          name="titleHeadshot"
-          once
-        >
-          <Image
-            src={headshotImg}
-            alt="Brian Adams Headshot"
-            widths={[80, 160, 350, 700]}
-            sizes="350px"
-            transition:name="title-photo"
-            loading="eager"
-          />
-        </AnimatedEntrance>
-      ) : (
+  {hero && (
+    <Fragment>
+      {/* ===== Background poster scaffolding ===== */}
+      <div class="bg-grid" aria-hidden="true"></div>
+      <div class="bg-numeral" aria-hidden="true">26</div>
+      <div class="bg-diag" aria-hidden="true"></div>
+      <div class="bg-circle bg-circle--lg" aria-hidden="true"></div>
+      <div class="bg-circle bg-circle--sm" aria-hidden="true"></div>
+      <div class="bg-bar bg-bar--1" aria-hidden="true"></div>
+      <div class="bg-bar bg-bar--2" aria-hidden="true"></div>
+      <div class="bg-bar bg-bar--3" aria-hidden="true"></div>
+
+      {/* ===== Corner registration marks ===== */}
+      <div class="reg reg--tl" aria-hidden="true">
+        <svg viewBox="0 0 30 30"><line x1="0" y1="15" x2="12" y2="15" stroke="currentColor" stroke-width="2"/><line x1="15" y1="0" x2="15" y2="12" stroke="currentColor" stroke-width="2"/><circle cx="15" cy="15" r="6" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+      </div>
+      <div class="reg reg--tr" aria-hidden="true">
+        <svg viewBox="0 0 30 30"><line x1="18" y1="15" x2="30" y2="15" stroke="currentColor" stroke-width="2"/><line x1="15" y1="0" x2="15" y2="12" stroke="currentColor" stroke-width="2"/><circle cx="15" cy="15" r="6" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+      </div>
+      <div class="reg reg--bl" aria-hidden="true">
+        <svg viewBox="0 0 30 30"><line x1="0" y1="15" x2="12" y2="15" stroke="currentColor" stroke-width="2"/><line x1="15" y1="18" x2="15" y2="30" stroke="currentColor" stroke-width="2"/><circle cx="15" cy="15" r="6" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+      </div>
+      <div class="reg reg--br" aria-hidden="true">
+        <svg viewBox="0 0 30 30"><line x1="18" y1="15" x2="30" y2="15" stroke="currentColor" stroke-width="2"/><line x1="15" y1="18" x2="15" y2="30" stroke="currentColor" stroke-width="2"/><circle cx="15" cy="15" r="6" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+      </div>
+    </Fragment>
+  )}
+
+  {/* ═══ FOREGROUND COMPOSITION ═══ */}
+  <div class="poster-grid">
+    <div class="overline">
+      <span class="bar"></span>
+      <span class="ribbon-tag">№ 001 / DEVLAND</span>
+      <span class="dot">●</span>
+      <span class="ribbon-tag ribbon-tag--alt">EDITION MMXXVI</span>
+      <span class="bar"></span>
+    </div>
+
+    <a
+      class="portrait-link"
+      href="javascript:document.getElementById('menu-link')?.click()"
+      title="Show Menu"
+      aria-label="Show Menu"
+    >
+      <div class="portrait">
         <Image
           src={headshotImg}
           alt="Brian Adams Headshot"
           widths={[80, 160, 350, 700]}
-          sizes="80px"
+          sizes={hero ? "350px" : "80px"}
           transition:name="title-photo"
           loading="eager"
         />
-      )
-    }
-  </a>
+      </div>
+    </a>
 
-  <div class="title">
-    <div class="name" transition:name="title-name">
-      <a
-        href="javascript:document.getElementById('menu-link')?.click()"
-        aria-label="Show Menu"
-      >
-        <span class="bracket">
-          {
-            hero ? (
-              <Typer
-                text="<"
-                client:only="vue"
-                duration={100 / heroSpeedAdjustment}
-                name="titleStartBracket"
-                once
-                hiddenOnStart
-              />
-            ) : (
-              "<"
-            )
-          }
-        </span>
-
-        <span class="text-gradient">
-          {
-            hero ? (
-              <Typer
-                text="Brian D. Adams"
-                client:only="vue"
-                duration={1000 / heroSpeedAdjustment}
-                delay={100 / heroSpeedAdjustment}
-                name="titleName"
-                once
-                hiddenOnStart
-              />
-            ) : (
-              "Brian D. Adams"
-            )
-          }
-        </span>
-
-        <span class="bracket">
-          {
-            hero ? (
-              <Typer
-                text="/>"
-                client:only="vue"
-                duration={100 / heroSpeedAdjustment}
-                delay={1100 / heroSpeedAdjustment}
-                name="titleEndBracket"
-                once
-                hiddenOnStart
-              />
-            ) : (
-              "/>"
-            )
-          }
-        </span>
-      </a>
-    </div>
-    <div class="desc" transition:name="title-desc">
-      <a
-        href="javascript:document.getElementById('menu-link')?.click()"
-        aria-label="Show Menu"
-      >
-        <span class="bracket">
-          {
-            hero ? (
-              <Typer
-                text="["
-                client:only="vue"
-                duration={100 / heroSpeedAdjustment}
-                delay={1300 / heroSpeedAdjustment}
-                name="titleStartBracket"
-                once
-                hiddenOnStart
-              />
-            ) : (
-              "["
-            )
-          }
-        </span>
-        <span class="string">
-          {
-            hero ? (
-              <Typer
-                text='"web developer"'
-                client:only="vue"
-                duration={1000 / heroSpeedAdjustment}
-                delay={1400 / heroSpeedAdjustment}
-                name="titleWebDev"
-                once
-                hiddenOnStart
-              />
-            ) : (
-              '"web developer"'
-            )
-          }
-        </span>
-        {
-          hero ? (
-            <Typer
-              text=","
-              client:only="vue"
-              duration={100 / heroSpeedAdjustment}
-              delay={2400 / heroSpeedAdjustment}
-              name="titleComma"
-              once
-              hiddenOnStart
-            />
-          ) : (
-            ","
-          )
-        }
-
-        <span class="string">
-          {
-            hero ? (
-              <Typer
-                text='"ui/ux designer"'
-                client:only="vue"
-                duration={1000 / heroSpeedAdjustment}
-                delay={2500 / heroSpeedAdjustment}
-                name="titleUiUx"
-                once
-                hiddenOnStart
-              />
-            ) : (
-              '"ui/ux designer"'
-            )
-          }
-        </span>
-        <span class="bracket">
-          {
-            hero ? (
-              <Typer
-                text="]"
-                client:only="vue"
-                duration={100 / heroSpeedAdjustment}
-                delay={3500 / heroSpeedAdjustment}
-                name="titleEndBracket"
-                once
-                hiddenOnStart
-              />
-            ) : (
-              "]"
-            )
-          }
-        </span>
-      </a>
-    </div>
-    {
-      hero && (
-        <AnimatedEntrance
-          client:only="vue"
-          delay={4 / heroSpeedAdjustment}
-          type="fadeInUp"
-          name="titleMenu"
-          once
+    <div class="title">
+      <div class="name" transition:name="title-name">
+        <a
+          href="javascript:document.getElementById('menu-link')?.click()"
+          aria-label="Show Menu"
         >
-          <div class="menu">
-            <Menu
-              id="menu"
-              client:only="vue"
-              fixedLink={false}
-              showLabel={true}
-              transition:name="menu-link"
-            />
-          </div>
-        </AnimatedEntrance>
-      )
-    }
+          <span class="line line--1">
+            {hero ? (
+              <Typer
+                text="BRIAN"
+                client:only="vue"
+                duration={400 / heroSpeedAdjustment}
+                delay={100 / heroSpeedAdjustment}
+                name="titleFirst"
+                once
+                hiddenOnStart
+                cursor={false}
+              />
+            ) : (
+              "BRIAN"
+            )}
+          </span>
+          <span class="line line--2">
+            <span class="initial">
+              {hero ? (
+                <Typer
+                  text="D."
+                  client:only="vue"
+                  duration={150 / heroSpeedAdjustment}
+                  delay={500 / heroSpeedAdjustment}
+                  name="titleMiddle"
+                  once
+                  hiddenOnStart
+                  cursor={false}
+                />
+              ) : (
+                "D."
+              )}
+            </span>
+            <span class="last">
+              {hero ? (
+                <Typer
+                  text="ADAMS"
+                  client:only="vue"
+                  duration={400 / heroSpeedAdjustment}
+                  delay={650 / heroSpeedAdjustment}
+                  name="titleLast"
+                  once
+                  hiddenOnStart
+                  cursor={false}
+                />
+              ) : (
+                "ADAMS"
+              )}
+            </span>
+          </span>
+        </a>
+      </div>
+
+      <div class="desc" transition:name="title-desc">
+        <a
+          href="javascript:document.getElementById('menu-link')?.click()"
+          aria-label="Show Menu"
+        >
+          <span class="role role--a">
+            {hero ? (
+              <Typer
+                text="WEB·DEVELOPER"
+                client:only="vue"
+                duration={500 / heroSpeedAdjustment}
+                delay={1100 / heroSpeedAdjustment}
+                name="titleRoleA"
+                once
+                hiddenOnStart
+                cursor={false}
+              />
+            ) : (
+              "WEB·DEVELOPER"
+            )}
+          </span>
+          <span class="slash" aria-hidden="true">+</span>
+          <span class="role role--b">
+            {hero ? (
+              <Typer
+                text="UI·UX·DESIGNER"
+                client:only="vue"
+                duration={500 / heroSpeedAdjustment}
+                delay={1700 / heroSpeedAdjustment}
+                name="titleRoleB"
+                once
+                hiddenOnStart
+                cursor={false}
+              />
+            ) : (
+              "UI·UX·DESIGNER"
+            )}
+          </span>
+        </a>
+      </div>
+
+      {hero && (
+        <div class="menu-slot">
+          <Menu
+            id="menu"
+            client:only="vue"
+            fixedLink={false}
+            showLabel={true}
+            transition:name="menu-link"
+          />
+        </div>
+      )}
+    </div>
   </div>
 </div>
 
 <style lang="scss">
+  /* ════════════════════════════════════════════════════════════════
+     SHARED
+     ════════════════════════════════════════════════════════════════ */
   .title-block {
-    text-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
-    display: flex;
+    position: relative;
+    z-index: 5;
     margin: 0 auto;
-    align-items: center;
-    font-family: "IBM Plex Mono", monospace;
-    font-size: calc(1em + 2vw);
-    justify-content: center;
-    gap: 10px;
+    font-family: "Oswald", "Arial Narrow", sans-serif;
+    overflow: hidden;
   }
 
-  img {
+  .poster-grid {
+    position: relative;
+    z-index: 2;
+  }
+
+  .portrait-link { text-decoration: none; display: inline-block; }
+
+  .portrait {
+    border: 4px solid var(--color-card-border);
+    background: var(--con-orange);
+    overflow: hidden;
+    position: relative;
+    box-shadow: 8px 8px 0 var(--color-card-border);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    isolation: isolate;
+  }
+  .portrait img {
     object-fit: cover;
-    width: 80px;
-    height: inherit;
+    width: 100%;
+    height: 100%;
+  }
+  .portrait-link:hover .portrait {
+    transform: translate(-3px, -3px);
+    box-shadow: 11px 11px 0 var(--color-card-border);
   }
 
-  .hero {
-    font-size: calc(1em + 4vw);
-    min-height: 100vh;
-    justify-content: center;
-    flex-direction: column;
-
-    img {
-      width: 350px;
-      height: 260px;
-      background-position: 45% 20%;
-      object-position: 50% 10%;
-    }
-  }
-
-  .bracket {
-    color: var(--color-secondary);
-  }
-
-  .string {
-    color: var(--color-primary);
-  }
-
-  a {
-    text-decoration: none;
-    color: var(--color-link);
-  }
-
-  .name {
-    font-weight: 400;
-    text-align: center;
-    padding: 0;
-    margin-top: 0;
+  /* ════════ Compact (top-of-page bar) ════════ */
+  .compact {
+    padding: 16px 18px;
+    background: var(--color-card-background);
+    border-bottom: 4px solid var(--color-card-border);
+    box-shadow: 0 6px 0 var(--con-orange);
     margin-bottom: 0;
+
+    .poster-grid {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      align-items: center;
+      gap: 18px;
+      max-width: 1240px;
+      margin: 0 auto;
+    }
+
+    .overline { display: none; }
+
+    .portrait { width: 56px; height: 56px; }
+    .portrait img { width: 56px; height: 56px; }
+
+    .title { text-align: left; }
+    .name a {
+      font-family: "Big Shoulders Display", "Oswald", sans-serif;
+      font-weight: 900;
+      text-transform: uppercase;
+      font-size: clamp(1.4rem, 4vw, 2rem);
+      letter-spacing: -0.01em;
+      color: var(--color-text);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: baseline;
+      gap: 0.3em;
+      line-height: 0.95;
+    }
+    .name .line--2 { display: inline-flex; gap: 0.3em; }
+    .name .initial { color: var(--con-orange); }
+    .name .last { color: var(--color-text); }
+
+    .desc { display: none; margin-top: 4px; }
+    @media (min-width: 600px) {
+      .desc { display: block; }
+    }
+    .desc a {
+      text-decoration: none;
+      color: var(--color-text-muted);
+      font-family: "Oswald", sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      font-size: 0.65rem;
+      display: inline-flex;
+      gap: 6px;
+    }
+    .desc .slash { color: var(--con-orange); font-weight: 700; }
+  }
+  .compact::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -16px;
+    height: 6px;
+    background: repeating-linear-gradient(
+      90deg,
+      var(--color-text) 0 12px,
+      transparent 12px 20px
+    );
   }
 
-  .desc {
+  /* ════════════════════════════════════════════════════════════════
+     HERO — full Lissitzky poster
+     ════════════════════════════════════════════════════════════════ */
+  .hero {
+    min-height: 100vh;
+    padding: 40px 24px 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .hero .poster-grid {
+    width: min(1100px, 100%);
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "overline"
+      "portrait"
+      "title";
+    gap: 24px;
+    align-items: center;
+  }
+
+  .hero .overline {
+    grid-area: overline;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.7rem;
+    color: var(--color-text);
+    font-weight: 500;
+  }
+  .hero .overline .bar {
+    flex: 1;
+    height: 4px;
+    background: var(--color-text);
+    max-width: 60px;
+  }
+  .hero .overline .bar:last-of-type { background: var(--con-orange); }
+
+  .hero .ribbon-tag {
+    background: var(--con-black);
+    color: var(--con-cream);
+    padding: 3px 10px;
+    font-family: "Oswald", sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    border: 2px solid var(--color-card-border);
+  }
+  .hero .ribbon-tag--alt {
+    background: var(--con-orange);
+    color: var(--con-cream);
+  }
+  .hero .overline .dot {
+    color: var(--con-orange);
+    font-size: 1.4em;
+  }
+
+  .hero .portrait-link {
+    grid-area: portrait;
+    justify-self: center;
+  }
+  .hero .portrait {
+    width: clamp(180px, 28vw, 320px);
+    height: clamp(180px, 28vw, 320px);
+    box-shadow: 14px 14px 0 var(--color-card-border);
+    border-width: 5px;
+  }
+  .hero .portrait-link:hover .portrait {
+    transform: translate(-4px, -4px);
+    box-shadow: 18px 18px 0 var(--color-card-border);
+  }
+
+  .hero .title { grid-area: title; text-align: center; }
+
+  .hero .name { line-height: 0.85; }
+  .hero .name a {
+    text-decoration: none;
+    color: var(--color-text);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: "Big Shoulders Display", "Oswald", sans-serif;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -0.025em;
+    line-height: 0.82;
+  }
+  .hero .name .line--1 {
+    font-size: clamp(3.5rem, 14vw, 9rem);
+    color: var(--color-text);
+    display: block;
+  }
+  .hero .name .line--2 {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.25em;
+    font-size: clamp(3.5rem, 14vw, 9rem);
+    margin-top: 0.05em;
+  }
+  .hero .name .initial {
+    color: var(--con-orange);
+    display: inline-block;
+  }
+  .hero .name .last { color: var(--color-text); }
+
+  .hero .desc { margin-top: 22px; }
+  .hero .desc a {
+    text-decoration: none;
+    color: var(--color-text);
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    font-family: "Oswald", sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.28em;
+    font-size: clamp(0.8rem, 1.4vw, 1rem);
+    padding: 6px 16px;
+    background: var(--color-card-background);
+    border: 3px solid var(--color-card-border);
+    box-shadow: 5px 5px 0 var(--con-orange);
+  }
+  .hero .desc .slash {
+    color: var(--con-orange);
+    font-weight: 900;
+    font-size: 1.3em;
+    line-height: 1;
+  }
+  .hero .desc .role--b { color: var(--color-text-muted); }
+
+  .hero .menu-slot {
+    margin-top: 36px;
     text-align: center;
-    font-size: 0.45em;
-    margin-top: 1px;
   }
 
-  .menu {
-    padding-top: 50px;
+  /* ════════════════════════════════════════════════════════════════
+     HERO — BACKGROUND POSTER SCAFFOLDING
+     ════════════════════════════════════════════════════════════════ */
+  .hero .bg-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(var(--color-text-very-light) 1px, transparent 1px),
+      linear-gradient(90deg, var(--color-text-very-light) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.6;
+  }
+
+  .hero .bg-numeral {
+    position: absolute;
+    top: -3vw;
+    left: 50%;
+    transform: translateX(-50%) rotate(-6deg);
+    font-family: "Big Shoulders Display", "Oswald", sans-serif;
+    font-weight: 900;
+    font-size: clamp(20rem, 50vw, 50rem);
+    color: var(--con-orange);
+    opacity: 0.10;
+    line-height: 0.7;
+    pointer-events: none;
+    z-index: 0;
+    letter-spacing: -0.08em;
+    user-select: none;
+  }
+
+  /* Big diagonal orange slab — sits BEHIND the type, lower portion of poster */
+  .hero .bg-diag {
+    position: absolute;
+    top: 78%;
+    left: -10%;
+    width: 130%;
+    height: 26px;
+    background: var(--con-orange);
+    transform: translateY(-50%) rotate(-12deg);
+    pointer-events: none;
+    z-index: 0;
+    border-top: 3px solid var(--color-card-border);
+    border-bottom: 3px solid var(--color-card-border);
+  }
+
+  /* Large yellow circle (Lissitzky) */
+  .hero .bg-circle--lg {
+    position: absolute;
+    top: 8%;
+    right: -4%;
+    width: clamp(120px, 18vw, 240px);
+    aspect-ratio: 1;
+    background: var(--con-yellow);
+    border-radius: 50%;
+    border: 4px solid var(--color-card-border);
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  /* Smaller black circle, opposite corner */
+  .hero .bg-circle--sm {
+    position: absolute;
+    bottom: 12%;
+    left: 5%;
+    width: clamp(50px, 7vw, 90px);
+    aspect-ratio: 1;
+    background: var(--con-black);
+    border-radius: 50%;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  /* Horizontal slab bars */
+  .hero .bg-bar--1 {
+    position: absolute;
+    top: 20%;
+    right: 0;
+    width: clamp(80px, 18vw, 240px);
+    height: 14px;
+    background: var(--con-black);
+    z-index: 1;
+    pointer-events: none;
+  }
+  .hero .bg-bar--2 {
+    position: absolute;
+    top: calc(20% + 22px);
+    right: 0;
+    width: clamp(40px, 10vw, 140px);
+    height: 6px;
+    background: var(--con-orange);
+    z-index: 1;
+    pointer-events: none;
+  }
+  .hero .bg-bar--3 {
+    position: absolute;
+    bottom: 8%;
+    right: 5%;
+    width: clamp(60px, 14vw, 200px);
+    height: 14px;
+    background: var(--con-black);
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  /* Registration marks at corners */
+  .reg {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    color: var(--color-text);
+    z-index: 3;
+    pointer-events: none;
+    opacity: 0.8;
+  }
+  .reg svg { width: 100%; height: 100%; display: block; }
+  .reg--tl { top: 16px; left: 16px; }
+  .reg--tr { top: 16px; right: 16px; }
+  .reg--bl { bottom: 16px; left: 16px; }
+  .reg--br { bottom: 16px; right: 16px; }
+
+  @media (min-width: 800px) {
+    .hero .poster-grid {
+      grid-template-columns: 1fr 1.2fr;
+      grid-template-areas:
+        "overline overline"
+        "portrait title"
+        "portrait title";
+      align-items: center;
+      gap: 36px;
+    }
+    .hero .portrait-link { justify-self: end; }
+    .hero .title { text-align: left; }
+    .hero .name a { align-items: flex-start; }
+    .hero .desc { text-align: left; }
+
+    .hero .bg-numeral { left: auto; right: -8%; transform: rotate(-6deg); }
   }
 </style>

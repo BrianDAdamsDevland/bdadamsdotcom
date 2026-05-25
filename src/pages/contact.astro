@@ -10,48 +10,124 @@ import Typer from "@components/Typer.vue";
 >
   <main>
     <div class="card">
-      <h1>
-        <Typer text="Contact" client:load duration={600} />
-      </h1>
+      <header class="page-head">
+        <span class="big-mark" aria-hidden="true">К</span>
+        <span class="stencil red">DIRECT LINE / СВЯЗЬ</span>
+        <h1>
+          <Typer text="Contact" client:load duration={600} />
+        </h1>
+        <p class="lede">For correspondence, opportunities, and other transmissions.</p>
+      </header>
+
+      <div class="hatch-divider"></div>
 
       <div class="contact-block">
-        <div>
-          <strong>Email</strong>
-          <a href="mailto:brian@bdadams.com" aria-label="Email">
-            <i class="fa-sharp fa-solid fa-envelope fa-4x"></i>
-          </a>
-
-          <a href="mailto:brian@bdadams.com">brian@bdadams.com</a>
-        </div>
-        <div>
-          <strong>LinkedIn</strong>
-          <a
-            href="https://www.linkedin.com/in/brian-d-adams-dev/"
-            aria-label="LinkedIn"
-          >
-            <i class="fa-brands fa-linkedin fa-4x"></i></a
-          >
-
-          <a href="https://www.linkedin.com/in/brian-d-adams-dev/">
-            brian-d-adams-dev
-          </a>
-        </div>
+        <a class="ch ch--email" href="mailto:brian@bdadams.com" aria-label="Email">
+          <span class="ch-num">01</span>
+          <span class="ch-icon"><i class="fa-sharp fa-solid fa-envelope fa-3x"></i></span>
+          <span class="ch-label">EMAIL</span>
+          <span class="ch-addr">brian@bdadams.com</span>
+        </a>
+        <a
+          class="ch ch--linkedin"
+          href="https://www.linkedin.com/in/brian-d-adams-dev/"
+          aria-label="LinkedIn"
+        >
+          <span class="ch-num">02</span>
+          <span class="ch-icon"><i class="fa-brands fa-linkedin fa-3x"></i></span>
+          <span class="ch-label">LINKEDIN</span>
+          <span class="ch-addr">brian-d-adams-dev</span>
+        </a>
       </div>
     </div>
   </main>
 </Layout>
 
 <style lang="scss">
-  .contact-block {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 20px;
+  .page-head h1 { margin: 10px 0 6px; }
+  .lede { margin: 0; color: var(--color-text-muted); }
 
-    > div {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+  .contact-block {
+    display: grid;
+    gap: 20px;
+    grid-template-columns: 1fr;
+  }
+
+  .ch {
+    position: relative;
+    display: grid;
+    grid-template-areas:
+      "num icon label"
+      "num icon addr";
+    grid-template-columns: auto auto 1fr;
+    gap: 4px 18px;
+    align-items: center;
+    padding: 22px 24px;
+    background: var(--color-subcard-background);
+    border: 2px solid var(--color-card-border);
+    box-shadow: 6px 6px 0 var(--color-card-border);
+    text-decoration: none;
+    color: var(--color-text);
+    transition: all 0.2s ease;
+    overflow: hidden;
+  }
+  .ch::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: var(--con-orange);
+    transform: translateX(-101%);
+    transition: transform 0.3s cubic-bezier(0.65, 0, 0.35, 1);
+    z-index: 0;
+  }
+  .ch > * { position: relative; z-index: 1; }
+
+  .ch:hover {
+    color: var(--con-cream);
+    transform: translate(-3px, -3px);
+    box-shadow: 9px 9px 0 var(--color-card-border);
+  }
+  .ch:hover::before { transform: translateX(0); }
+
+  .ch-num {
+    grid-area: num;
+    font-family: "Oswald", sans-serif;
+    font-weight: 700;
+    font-size: 3em;
+    line-height: 0.85;
+    color: var(--con-orange);
+    transition: color 0.2s ease;
+  }
+  .ch:hover .ch-num { color: var(--con-cream); }
+
+  .ch-icon {
+    grid-area: icon;
+    color: var(--color-text);
+    transition: color 0.2s ease;
+  }
+  .ch:hover .ch-icon { color: var(--con-cream); }
+
+  .ch-label {
+    grid-area: label;
+    font-family: "Oswald", sans-serif;
+    font-weight: 700;
+    font-size: 1.5em;
+    letter-spacing: 0.12em;
+    align-self: end;
+  }
+
+  .ch-addr {
+    grid-area: addr;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.95em;
+    color: var(--color-text-muted);
+    align-self: start;
+  }
+  .ch:hover .ch-addr { color: var(--con-cream); }
+
+  @media screen and (min-width: 700px) {
+    .contact-block {
+      grid-template-columns: 1fr 1fr;
     }
   }
 </style>

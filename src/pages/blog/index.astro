@@ -23,50 +23,34 @@ const blogItems = Enumerable.from(allBlogCollection)
 >
   <main>
     <div class="card">
-      <a
-        href="/rss.xml"
-        title="RSS Feed"
-        class="float-right"
-        aria-label="RSS Feed"
-      >
-        <i class="fa-sharp fa-solid fa-square-rss fa-2x"></i>
-      </a>
+      <header class="page-head">
+        <span class="big-mark" aria-hidden="true">Б</span>
+        <div class="page-head-left">
+          <span class="stencil red">DISPATCHES / ДЕПЕШИ</span>
+          <h1>
+            <Typer client:load text="Blog" duration={600} />
+          </h1>
+          <p class="lede">Notes, experiments, and field reports from web development.</p>
+        </div>
+        <a
+          href="/rss.xml"
+          title="RSS Feed"
+          class="rss"
+          aria-label="RSS Feed"
+        >
+          <i class="fa-sharp fa-solid fa-square-rss fa-2x"></i>
+          <span>SUBSCRIBE</span>
+        </a>
+      </header>
 
-      <h1>
-        <Typer client:load text="Blog" duration={600} />
-      </h1>
+      <div class="hatch-divider"></div>
 
       <div class="entries">
         {
           blogItems.map((i, index) => (
-            <div class="entry">
-              <div>
-                <a href={`/blog/${i.slug}/`}>
-                  <h3>
-                    <span transition:name={`${i.slug}-title`}>{i.title}</span>
-                    <small transition:name={`${i.slug}-subtitle`}>
-                      {i.subtitle}
-                    </small>
-                  </h3>
-                </a>
-
-                <div>
-                  <strong class="date" transition:name={`${i.slug}-date`}>
-                    {i.pubDate.toLocaleDateString("en-us", {
-                      year: "numeric",
-                      month: "long",
-                      day: "numeric",
-                    })}
-                  </strong>
-                  &middot;
-                  <span class="reading-time">{getReadingTime(i.body)}</span>
-                  &middot;
-                  <small>{i.description}</small>
-                </div>
-              </div>
-
-              <div transition:name={`${i.slug}-hero`}>
-                <a href={`/blog/${i.slug}/`}>
+            <article class="entry">
+              <a class="entry-img" href={`/blog/${i.slug}/`}>
+                <div class="entry-img-frame duotone" transition:name={`${i.slug}-hero`}>
                   <Image
                     src={i.heroImage}
                     alt={i.heroImageAltText}
@@ -76,9 +60,35 @@ const blogItems = Enumerable.from(allBlogCollection)
                     decoding="async"
                     fetchpriority={index < 2 ? "high" : undefined}
                   />
+                </div>
+                <span class="entry-num">{String(index + 1).padStart(3, "0")}</span>
+              </a>
+
+              <div class="entry-text">
+                <a href={`/blog/${i.slug}/`} class="entry-title-link">
+                  <h3>
+                    <span transition:name={`${i.slug}-title`}>{i.title}</span>
+                  </h3>
+                  {i.subtitle && (
+                    <p class="subtitle" transition:name={`${i.slug}-subtitle`}>{i.subtitle}</p>
+                  )}
                 </a>
+
+                <div class="meta">
+                  <strong class="date" transition:name={`${i.slug}-date`}>
+                    {i.pubDate.toLocaleDateString("en-us", {
+                      year: "numeric",
+                      month: "short",
+                      day: "2-digit",
+                    })}
+                  </strong>
+                  <span class="bullet">●</span>
+                  <span class="reading-time">{getReadingTime(i.body)}</span>
+                </div>
+
+                <p class="description">{i.description}</p>
               </div>
-            </div>
+            </article>
           ))
         }
       </div>
@@ -87,92 +97,183 @@ const blogItems = Enumerable.from(allBlogCollection)
 </Layout>
 
 <style lang="scss">
-  h3 {
-    margin-top: 0;
-    font-weight: 800;
-
-    small {
-      font-weight: 400;
-    }
+  .page-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .page-head-left { flex: 1; min-width: 0; }
+  .page-head h1 { margin: 8px 0 6px; }
+  .lede {
+    color: var(--color-text-muted);
+    margin: 0;
+    font-size: 0.95em;
+    max-width: 600px;
   }
 
-  a {
+  .rss {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 14px;
+    background: var(--con-yellow);
+    color: var(--con-black);
     text-decoration: none;
+    border: 2px solid var(--color-card-border);
+    box-shadow: 4px 4px 0 var(--color-card-border);
+    font-family: "Oswald", sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    font-size: 0.75em;
+    transition: all 0.15s ease;
   }
+  .rss:hover {
+    background: var(--con-orange);
+    color: var(--con-cream);
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0 var(--color-card-border);
+  }
+  .rss i { color: var(--con-black); }
+  .rss:hover i { color: var(--con-cream); }
 
   .entries {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 25px;
+    gap: 24px;
   }
 
   .entry {
-    display: flex;
-    align-items: top;
-    flex-direction: row-reverse;
-    gap: 15px;
-    line-height: 1.3;
-
-    .date {
-      text-transform: uppercase;
-      font-size: 0.8em;
-      letter-spacing: 0.2px;
-    }
-
-    .reading-time {
-      font-size: 0.85em;
-      font-style: italic;
-    }
-
-    div:first-child {
-      flex-grow: 1;
-      display: flex;
-      flex-direction: column;
-      color: var(--color-text-muted);
-    }
-
-    img {
-      object-fit: cover;
-      aspect-ratio: 10/7;
-      width: 80px;
-      height: inherit;
-    }
-
-    h3 {
-      margin: 0;
-    }
-
-    @media screen and (min-width: 400px) {
-      align-items: center;
-
-      img {
-        width: 130px;
-      }
-    }
+    display: grid;
+    grid-template-columns: 130px 1fr;
+    gap: 18px;
+    padding: 16px;
+    background: var(--color-subcard-background);
+    border: 2px solid var(--color-card-border);
+    box-shadow: 5px 5px 0 var(--color-card-border);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    position: relative;
+  }
+  .entry:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 7px 7px 0 var(--con-orange);
   }
 
-  @media screen and (min-width: 700px) {
+  .entry-img {
+    position: relative;
+    text-decoration: none;
+    display: block;
+  }
+  .entry-img-frame {
+    border: 2px solid var(--color-card-border);
+    background: var(--con-orange);
+    overflow: hidden;
+    aspect-ratio: 10/7;
+    line-height: 0;
+  }
+  .entry-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: contrast(1.1) saturate(0.9);
+    transition: filter 0.2s ease;
+  }
+  .entry:hover .entry-img img {
+    filter: contrast(1.1) saturate(0.9) sepia(0.2);
+  }
+
+  .entry-num {
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    background: var(--con-orange);
+    color: var(--con-cream);
+    font-family: "Oswald", sans-serif;
+    font-weight: 700;
+    padding: 4px 10px;
+    border: 2px solid var(--color-card-border);
+    font-size: 0.85em;
+    letter-spacing: 0.1em;
+  }
+
+  .entry-text {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 0;
+  }
+
+  .entry-title-link {
+    text-decoration: none;
+    color: var(--color-text);
+  }
+  .entry-title-link:hover h3 { color: var(--con-orange); }
+
+  h3 {
+    margin: 0;
+    font-family: "Oswald", sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    line-height: 1.05;
+    font-size: 1.4em;
+    color: var(--color-text);
+    text-transform: uppercase;
+    transition: color 0.15s ease;
+  }
+
+  .subtitle {
+    margin: 4px 0 0;
+    color: var(--color-text-muted);
+    font-style: italic;
+    font-size: 0.95em;
+  }
+
+  .meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.78em;
+    color: var(--color-text-muted);
+  }
+  .meta .date {
+    background: var(--con-black);
+    color: var(--con-cream);
+    padding: 2px 8px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-family: "Oswald", sans-serif;
+    font-weight: 700;
+  }
+  .meta .bullet { color: var(--con-orange); }
+  .meta .reading-time { font-style: italic; }
+
+  .description {
+    margin: 0;
+    color: var(--color-text);
+    font-size: 0.92em;
+    line-height: 1.5;
+  }
+
+  @media screen and (max-width: 480px) {
+    .entry {
+      grid-template-columns: 90px 1fr;
+      gap: 14px;
+      padding: 12px;
+    }
+    h3 { font-size: 1.15em; }
+    .description { font-size: 0.85em; }
+  }
+
+  @media screen and (min-width: 800px) {
     .entries {
       grid-template-columns: repeat(2, 1fr);
     }
-
     .entry {
-      flex-direction: column-reverse;
-      gap: 5px;
-
-      h3 {
-        margin-bottom: 4px;
-
-        small {
-          display: block;
-        }
-      }
-
-      img {
-        width: 100%;
-        aspect-ratio: 10/6;
-        object-position: 50% 10%;
-      }
+      grid-template-columns: 1fr;
+      gap: 14px;
     }
+    .entry-img-frame { aspect-ratio: 10/6; }
   }
 </style>

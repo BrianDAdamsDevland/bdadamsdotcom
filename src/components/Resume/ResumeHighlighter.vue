@@ -1,16 +1,19 @@
 <template>
   <div :class="wrapperClasses">
     <div class="highlight-control">
-      <h5>
-        <i class="fa-sharp fa-regular fa-eye"></i>
-        Focus On
-      </h5>
+      <div class="hc-head">
+        <span class="hc-stencil">FOCUS / ФОКУС</span>
+        <h5>
+          <i class="fa-sharp fa-regular fa-eye"></i>
+          Filter dossier
+        </h5>
+      </div>
       <div class="highlight-cats">
         <div
           v-for="o in highlightCats"
           :key="o.label"
           @click="toggleHighlight(o.value)"
-          :class="highlight === o.value ? 'active' : ''"
+          :class="highlight === o.value ? 'cat active' : 'cat'"
         >
           {{ o.label }}
         </div>
@@ -44,42 +47,15 @@ export default {
     },
     highlightCats() {
       return [
-        {
-          label: "Vue.js",
-          value: "vue",
-        },
-        {
-          label: ".NET",
-          value: "dotnet",
-        },
-        {
-          label: "Management",
-          value: "manage",
-        },
-        {
-          label: "Operations",
-          value: "ops",
-        },
-        {
-          label: "AWS",
-          value: "aws",
-        },
-        {
-          label: "Mobile",
-          value: "mobile",
-        },
-        {
-          label: "React",
-          value: "react",
-        },
-        {
-          label: "Astro",
-          value: "astro",
-        },
-        {
-          label: "Database",
-          value: "db",
-        },
+        { label: "Vue.js", value: "vue" },
+        { label: ".NET", value: "dotnet" },
+        { label: "Management", value: "manage" },
+        { label: "Operations", value: "ops" },
+        { label: "AWS", value: "aws" },
+        { label: "Mobile", value: "mobile" },
+        { label: "React", value: "react" },
+        { label: "Astro", value: "astro" },
+        { label: "Database", value: "db" },
       ];
     },
   },
@@ -107,44 +83,80 @@ export default {
     color: var(--color-text);
     transition: all 0.3s;
 
-    a {
-      color: var(--color-text);
-    }
-  }
-}
-
-.highlight-cats {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  align-items: center;
-  justify-content: center;
-
-  div {
-    cursor: pointer;
-    border: 1px solid var(--color-card-border);
-    padding: 3px 7px;
-    border-radius: 4px;
-
-    &.active {
-      background: var(--color-active-selection-background);
-      color: var(--color-active-selection-text);
-    }
+    a { color: var(--color-text); }
   }
 }
 
 .highlight-control {
   background: var(--color-subcard-background);
-  padding: 10px;
-  margin: -8px;
-  text-align: center;
+  border: 2px solid var(--color-card-border);
+  box-shadow: 5px 5px 0 var(--con-orange);
+  padding: 14px 16px;
+  margin: 0 0 22px;
+  text-align: left;
+  position: relative;
+}
 
-  h5 {
-    margin-top: 0;
-    margin-bottom: 5px;
-    text-transform: uppercase;
-    font-weight: 900;
-    letter-spacing: 0.5px;
+.hc-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.hc-stencil {
+  background: var(--con-orange);
+  color: var(--con-cream);
+  padding: 3px 10px;
+  font-family: "Oswald", sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  font-size: 0.7em;
+}
+
+h5 {
+  margin: 0;
+  font-family: "Oswald", sans-serif;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  font-size: 0.95em;
+  color: var(--color-text);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.highlight-cats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+}
+
+.cat {
+  cursor: pointer;
+  border: 2px solid var(--color-card-border);
+  background: var(--color-card-background);
+  padding: 4px 10px;
+  font-family: "Oswald", sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.75em;
+  font-weight: 500;
+  transition: all 0.15s ease;
+  color: var(--color-text);
+
+  &:hover {
+    background: var(--color-text);
+    color: var(--color-card-background);
+  }
+
+  &.active {
+    background: var(--con-orange);
+    color: var(--con-cream);
+    box-shadow: 3px 3px 0 var(--color-card-border);
+    transform: translate(-1px, -1px);
   }
 }
 </style>

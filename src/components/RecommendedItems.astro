@@ -47,24 +47,22 @@ function getTagsForType() {
     .selectMany((j) => j.tags as Array<string>)
     .groupBy((j) => getTagName(j))
     .select((jg) => jg.key())
-    .orderBy(t => t)
+    .orderBy((t) => t)
     .toArray();
 }
 
 const pageSize = 24;
 
 const filteredItems = Enumerable.from(items)
-      .where((i) => !type || i.type === type)
-      .where((i) => !tag || !!i.tags?.some((t : any) => getTagName(t) == tag))
-      .orderBy((i) =>
-        !tag ? 0 : i.tags!.find((t : any) => getTagName(t) === tag).rank
-      )
-      .thenByDescending((i) => i.date).toArray();
+  .where((i) => !type || i.type === type)
+  .where((i) => !tag || !!i.tags?.some((t: any) => getTagName(t) == tag))
+  .orderBy((i) => (!tag ? 0 : i.tags!.find((t: any) => getTagName(t) === tag).rank))
+  .thenByDescending((i) => i.date)
+  .toArray();
 
 const currentPage = page || 1;
 const paginationInfo = getPaginationInfo(filteredItems.length, currentPage, pageSize);
 
-// Build base URL for pagination
 let baseUrl = "/recommended/";
 if (type) {
   baseUrl += `${getTypeTitle(type).toLowerCase()}/`;
@@ -77,18 +75,18 @@ import Pagination from "@components/Pagination.astro";
 ---
 
 <div class="filter-bar">
-  <a class:list={["badge", { active: !type }]} href="/recommended/">
+  <a class:list={["fbadge", { active: !type }]} href="/recommended/">
     <i class={"fa-sharp fa-solid fa-circle-star"}></i>
-    All Types
+    <span>All</span>
   </a>
   {
     types.map((i) => (
       <a
-        class:list={["badge", { active: i === type }]}
+        class:list={["fbadge", { active: i === type }]}
         href={`/recommended/${getTypeTitle(i).toLowerCase()}/`}
       >
         <i class:list={["fa-solid", getTypeIcon(i)]} />
-        {getTypeTitle(i)}
+        <span>{getTypeTitle(i)}</span>
       </a>
     ))
   }
@@ -96,16 +94,16 @@ import Pagination from "@components/Pagination.astro";
 
 {
   (getTagsForType()?.length ?? 0) > 0 && (
-    <div class="filter-bar sm">
+    <div class="tag-bar">
       <a
-        class:list={["badge", { active: !tag }]}
+        class:list={["tbadge", { active: !tag }]}
         href={`/recommended/${getTypeTitle(type).toLowerCase()}/`}
       >
-        All
+        ALL
       </a>
       {getTagsForType()!.map((i) => (
         <a
-          class:list={["badge", { active: i === tag }]}
+          class:list={["tbadge", { active: i === tag }]}
           href={`/recommended/${getTypeTitle(type).toLowerCase()}/${getTagUrlFragment(i as string)}/`}
         >
           {i}
@@ -124,7 +122,7 @@ import Pagination from "@components/Pagination.astro";
       .map((i, index) => {
         const large = filteredItems.length < 11 || index < 6;
         return (
-          <div class:list={["item", { large }]}>
+          <article class:list={["item", { large }]}>
             {tag && i.tags!.find((t: any) => t.name === tag)?.rank && (
               <div class="rank">
                 {i.tags!.find((t: any) => t.name === tag)?.rank}
@@ -132,27 +130,30 @@ import Pagination from "@components/Pagination.astro";
             )}
 
             <a href={i.link} target="_blank" class="art">
-              <Image
-                transition:name={`recommend-item-image-${i.slug}`}
-                src={i.image}
-                alt={i.title}
-                width={large ? 500 : 80}
-                densities={[1.5, 2]}
-                loading={index < 6 ? "eager" : "lazy"}
-                decoding="async"
-              />
+              <div class="art-frame duotone">
+                <Image
+                  transition:name={`recommend-item-image-${i.slug}`}
+                  src={i.image}
+                  alt={i.title}
+                  width={large ? 500 : 80}
+                  densities={[1.5, 2]}
+                  loading={index < 6 ? "eager" : "lazy"}
+                  decoding="async"
+                />
+              </div>
             </a>
             <div class="content">
               <a
                 href={i.link}
                 target="_blank"
                 transition:name={`recommend-item-title-${i.slug}`}
+                class="item-title"
               >
                 <strong>{i.title}</strong>
                 {(i.subtitle || i.year) && (
                   <small>
                     {i.subtitle}
-                    {i.year && <>({i.year})</>}
+                    {i.year && <> ({i.year})</>}
                   </small>
                 )}
               </a>
@@ -172,186 +173,231 @@ import Pagination from "@components/Pagination.astro";
                 ))}
               </div>
             </div>
-          </div>
+          </article>
         );
       })
   }
 </div>
 
-<Pagination 
+<Pagination
   currentPage={paginationInfo.currentPage}
   totalPages={paginationInfo.totalPages}
   baseUrl={baseUrl}
 />
 
 <style lang="scss">
-  .items {
-    display: grid;
-    gap: 15px;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  /* ════════ Type filter bar (top) ════════ */
+  .filter-bar {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+  }
 
-    &.movie .item img {
-      aspect-ratio: 1/1.55;
+  .fbadge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 14px;
+    background: var(--color-card-background);
+    border: 2px solid var(--color-card-border);
+    text-decoration: none;
+    color: var(--color-text);
+    font-family: "Oswald", sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 0.85em;
+    font-weight: 700;
+    box-shadow: 3px 3px 0 var(--color-card-border);
+    transition: all 0.15s ease;
+
+    i { color: var(--con-orange); }
+
+    &:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 5px 5px 0 var(--con-orange);
     }
 
-    &.music .item img,
-    &.podcast .item img {
-      aspect-ratio: 1;
-    }
-
-    &.app {
-      .item img {
-        border-radius: 20px;
-        aspect-ratio: 1;
-      }
-
-      .item.large img {
-        border-radius: 35px;
-      }
+    &.active {
+      background: var(--con-orange);
+      color: var(--con-cream);
+      i { color: var(--con-cream); }
     }
   }
+
+  /* ════════ Sub-tag filter bar ════════ */
+  .tag-bar {
+    display: flex;
+    gap: 6px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 24px;
+  }
+  .tbadge {
+    display: inline-block;
+    padding: 4px 10px;
+    background: var(--color-subcard-background);
+    border: 2px solid var(--color-card-border);
+    text-decoration: none;
+    color: var(--color-text);
+    font-family: "Oswald", sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 0.7em;
+    font-weight: 500;
+    transition: all 0.15s ease;
+
+    &:hover {
+      background: var(--con-yellow);
+      color: var(--con-black);
+    }
+    &.active {
+      background: var(--con-black);
+      color: var(--con-cream);
+    }
+  }
+
+  /* ════════ Item grid ════════ */
+  .items {
+    display: grid;
+    gap: 16px;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  }
+  .items.movie .art-frame img { aspect-ratio: 1/1.55; }
+  .items.music .art-frame img,
+  .items.podcast .art-frame img { aspect-ratio: 1; }
+  .items.app .art-frame img { aspect-ratio: 1; }
 
   .item {
     display: flex;
-    gap: 10px;
+    gap: 12px;
     align-items: stretch;
     background: var(--color-subcard-background);
-    padding: 10px;
-    border-radius: 10px;
+    padding: 12px;
+    border: 2px solid var(--color-card-border);
+    box-shadow: 5px 5px 0 var(--color-card-border);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
     position: relative;
-
-    .content {
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
-      justify-content: space-between;
-
-      strong,
-      small {
-        line-height: 1.2;
-        display: block;
-      }
-
-      strong {
-        margin-bottom: 5px;
-      }
-    }
-
-    .badges {
-      display: flex;
-      gap: 2px;
-      flex-wrap: wrap;
-    }
-
-    img {
-      aspect-ratio: 1/1.05;
-      height: inherit;
-      object-fit: cover;
-      transition: all 0.2s;
-      border-radius: 6px;
-    }
-
-    a {
-      text-decoration: none;
-    }
-
-    .art {
-      line-height: 0;
-    }
-
-    &.large {
-      flex-direction: column;
-
-      img {
-        width: 100%;
-      }
-
-      .rank {
-        padding: 6px 20px;
-        font-size: 1.6em;
-        padding: 5px 16px;
-      }
-    }
-
-    .rank {
-      background: var(--color-rank-background);
-      backdrop-filter: blur(15px);
-      -webkit-backdrop-filter: blur(15px);
-      position: absolute;
-      z-index: 100;
-      padding: 5px 11px;
-      border-radius: 50%;
-      top: -10px;
-      left: -10px;
-      font-weight: bolder;
-      font-size: 1.2em;
-      text-align: center;
-      min-width: 20px;
-    }
+  }
+  .item:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 7px 7px 0 var(--con-orange);
   }
 
-  .badge {
-    border-radius: 15px;
-    padding: 3px 8px;
-    background: var(--color-background-light);
-    font-size: 0.65em;
-    font-weight: 400;
-    text-decoration: none;
-    border: 1px solid var(--color-background-dark);
+  .art { line-height: 0; text-decoration: none; }
+  .art-frame {
+    border: 2px solid var(--color-card-border);
+    background: var(--con-orange);
+    overflow: hidden;
   }
-
-  .badge.type {
-    font-weight: 800;
+  .art-frame img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    aspect-ratio: 1/1.05;
+    transition: filter 0.2s ease;
+    display: block;
+    filter: contrast(1.05) saturate(0.92);
   }
+  .item:hover .art-frame img { filter: contrast(1.05) saturate(0.92) sepia(0.15); }
 
-  .badge.active {
-    background: var(--color-secondary);
-    color: var(--color-card-background);
-  }
-
-  .filter-bar {
-    margin-bottom: 20px;
+  .content {
     display: flex;
+    flex-direction: column;
     gap: 6px;
-    font-size: calc(1em + 1.25vw);
-    justify-content: center;
-    flex-wrap: wrap;
+    justify-content: space-between;
+    min-width: 0;
+    flex: 1;
+  }
+  .item-title {
+    text-decoration: none;
+    color: var(--color-text);
 
-    &.sm {
-      font-size: 1.25em;
-
-      .badge {
-        line-height: 1;
-        padding: 8px 14px;
-      }
-
-      .badge.active {
-        background: var(--color-primary);
-      }
+    strong,
+    small {
+      line-height: 1.2;
+      display: block;
+    }
+    strong {
+      font-family: "Oswald", sans-serif;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      margin-bottom: 4px;
+      font-size: 1.05em;
+    }
+    small {
+      color: var(--color-text-muted);
+      font-style: italic;
+      font-size: 0.85em;
     }
 
-    i {
-      font-size: 1.4em;
-    }
-
-    .badge {
-      padding: 6px 13px;
-      border-radius: 20px;
-      box-shadow: 0 0 2px var(--color-text-very-light);
-      display: flex;
-      gap: 6px;
-      align-items: center;
-      line-height: 0;
-    }
-
-    .badge.active {
-      box-shadow: 0 0 2px var(--color-text-muted);
-    }
+    &:hover strong { color: var(--con-orange); }
   }
 
-  @media screen and (min-width: 950px) {
-    .filter-bar {
-      font-size: 1.75em;
-    }
+  .badges {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+    margin-top: 4px;
+  }
+  .badge {
+    background: var(--color-card-background);
+    border: 1.5px solid var(--color-card-border);
+    padding: 2px 6px;
+    font-size: 0.65em;
+    font-family: "Oswald", sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 500;
+  }
+  .badge.type {
+    background: var(--con-black);
+    color: var(--con-cream);
+    font-weight: 700;
+
+    i { color: var(--con-orange); margin-right: 4px; }
+  }
+
+  /* ════════ Large (featured) item ════════ */
+  .item.large {
+    flex-direction: column;
+    padding: 14px;
+  }
+  .item.large .art-frame img {
+    width: 100%;
+  }
+  .item.large .item-title strong {
+    font-size: 1.3em;
+  }
+
+  /* ════════ Rank stamp ════════ */
+  .rank {
+    position: absolute;
+    z-index: 100;
+    top: -14px;
+    left: -14px;
+    background: var(--con-yellow);
+    color: var(--con-black);
+    border: 3px solid var(--color-card-border);
+    font-family: "Oswald", sans-serif;
+    font-weight: 700;
+    font-size: 1.2em;
+    line-height: 1;
+    min-width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 3px 3px 0 var(--con-orange);
+    transform: rotate(-6deg);
+  }
+  .item.large .rank {
+    font-size: 1.6em;
+    min-width: 50px;
+    height: 50px;
+    top: -18px;
+    left: -18px;
   }
 </style>

@@ -43,19 +43,28 @@ const CertsContent = certsRendered?.Content;
   sourceLink="/src/pages/resume.astro"
 >
   <main>
-    <div class="card">
-      <a
-        href="/docs/resume.pdf"
-        title="PDF Version"
-        class="float-right"
-        aria-label="Download PDF Version"
-      >
-        <i class="fa-sharp fa-solid fa-file-pdf fa-2x"></i>
-      </a>
+    <div class="card resume-card">
+      <header class="page-head">
+        <span class="big-mark" aria-hidden="true">Д</span>
+        <div>
+          <span class="stencil red">DOSSIER / ДОСЬЕ</span>
+          <h1 aria-label="Resume">
+            <Typer client:load text="Resume" duration={600} />
+          </h1>
+          <p class="lede">Career record · electronic edition · printable below.</p>
+        </div>
+        <a
+          href="/docs/resume.pdf"
+          title="PDF Version"
+          class="pdf"
+          aria-label="Download PDF Version"
+        >
+          <i class="fa-sharp fa-solid fa-file-pdf fa-2x"></i>
+          <span>PDF</span>
+        </a>
+      </header>
 
-      <h1 aria-label="Resume">
-        <Typer client:load text="Resume" duration={600} />
-      </h1>
+      <div class="hatch-divider"></div>
 
       <ResumeHighlighter client:load>
         <Collapser client:load title={profileEntry?.data.title}>
@@ -84,8 +93,47 @@ const CertsContent = certsRendered?.Content;
   </main>
 </Layout>
 
-<style>
-  :global(a) {
-    font-weight: bold;
+<style lang="scss">
+  .page-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .page-head h1 { margin: 10px 0 6px; }
+  .lede {
+    margin: 0;
+    color: var(--color-text-muted);
+    font-size: 0.95em;
+    max-width: 600px;
+  }
+
+  .pdf {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 14px;
+    background: var(--con-orange);
+    color: var(--con-cream);
+    text-decoration: none;
+    border: 2px solid var(--color-card-border);
+    box-shadow: 4px 4px 0 var(--color-card-border);
+    font-family: "Oswald", sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    font-size: 0.85em;
+    transition: all 0.15s ease;
+  }
+  .pdf:hover {
+    background: var(--con-black);
+    color: var(--con-cream) !important;
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0 var(--con-orange);
+  }
+  .pdf i { color: var(--con-cream); }
+
+  .resume-card :global(a) {
+    font-weight: 700;
   }
 </style>

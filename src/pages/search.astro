@@ -12,9 +12,16 @@ import SearchComponent from "astro-pagefind/components/Search";
 >
   <main>
     <div class="card">
-      <h1 aria-label="Search">
-        <Typer client:load text="Search" duration={600} />
-      </h1>
+      <header class="page-head">
+        <span class="big-mark" aria-hidden="true">А</span>
+        <span class="stencil red">ARCHIVE / АРХИВ</span>
+        <h1 aria-label="Search">
+          <Typer client:load text="Search" duration={600} />
+        </h1>
+        <p class="lede">Locate any record across the site.</p>
+      </header>
+
+      <div class="hatch-divider"></div>
 
       <SearchComponent
         id="search"
@@ -24,10 +31,28 @@ import SearchComponent from "astro-pagefind/components/Search";
   </main>
 </Layout>
 
-<style>
+<style lang="scss">
+  .page-head h1 { margin: 10px 0 6px; }
+  .lede { margin: 0; color: var(--color-text-muted); }
 
-main :global(.pagefind-ui__results li:last-child) {
-  border-bottom: 0 !important;
-}
-
+  main :global(.pagefind-ui__form) {
+    --pagefind-ui-border: var(--color-card-border);
+    --pagefind-ui-border-radius: 0;
+  }
+  main :global(.pagefind-ui__search-input) {
+    border: 2px solid var(--color-card-border) !important;
+    border-radius: 0 !important;
+    box-shadow: 4px 4px 0 var(--con-orange);
+    background: var(--color-card-background) !important;
+    font-family: "Oswald", sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  main :global(.pagefind-ui__results li:last-child) {
+    border-bottom: 0 !important;
+  }
+  main :global(.pagefind-ui__result-title) {
+    font-family: "Oswald", sans-serif;
+    text-transform: uppercase;
+  }
 </style>

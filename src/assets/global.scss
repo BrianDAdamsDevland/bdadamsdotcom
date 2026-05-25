@@ -1,81 +1,447 @@
+/* ════════════════════════════════════════════════════════════════════
+   Global styles — constructivist edition v2
+   Heavier slabs, crop marks, halftones, propaganda-poster type hierarchy.
+   ════════════════════════════════════════════════════════════════════ */
+
 html {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-family: "IBM Plex Sans", system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, sans-serif;
   background: var(--background);
   background-attachment: fixed;
   color: var(--color-text);
-}
-
-code,
-h1,
-h2,
-h3,
-h4 {
-  font-family: "IBM Plex Mono", monospace;
-}
-
-main {
-  margin: auto;
-  padding: 0.25rem;
-  font-size: 1em;
-  line-height: 1.6;
-  max-width: 900px;
-}
-
-.card {
-  background: var(--color-card-background);
-  padding: 10px;
-  margin: 20px 0;
-  transition: padding 0.3s;
-  box-shadow: 2px 2px 10px var(--color-card-shadow);
-  border-radius: 5px;
-  border: 1px solid var(--color-card-border);
-  color: var(--color-text);
-}
-
-a {
-  color: var(--color-link);
-}
-
-.float-right {
-  float: right;
+  -webkit-font-smoothing: antialiased;
 }
 
 body {
-  margin-top: 20px;
+  margin: 0;
+  padding-top: 0;
+}
+
+/* ---- Typography ---------------------------------------------------- */
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Big Shoulders Display", "Oswald", "Arial Narrow", "Helvetica Neue", sans-serif;
+  font-weight: 900;
+  letter-spacing: -0.005em;
+  text-transform: uppercase;
+  line-height: 0.9;
+  margin: 0 0 0.55em;
+  color: var(--color-text);
 }
 
 h1 {
-  margin-top: 0;
+  font-size: clamp(2.4rem, 7vw, 4.6rem);
+  font-weight: 900;
+  letter-spacing: -0.015em;
+  line-height: 0.85;
 }
 
+h2 { font-size: clamp(1.6rem, 4.5vw, 2.8rem); }
 h3 {
-  color: var(--color-primary);
+  font-size: 1.5rem;
+  color: var(--color-text);
+  font-family: "Oswald", sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.02em;
 }
-
 h4 {
+  font-size: 1.1rem;
   color: var(--color-secondary);
+  letter-spacing: 0.1em;
+  font-family: "Oswald", sans-serif;
+  font-weight: 700;
 }
 
-.cursor-pointer {
-  cursor: pointer;
+code, pre {
+  font-family: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
 }
 
+p { line-height: 1.65; }
+strong { font-weight: 700; }
+
+/* ---- Main container ----------------------------------------------- */
+main {
+  margin: 0 auto;
+  padding: 24px 16px 60px;
+  font-size: 1em;
+  line-height: 1.6;
+  max-width: 960px;
+  position: relative;
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   THE CARD — printed dossier sheet with crop marks
+   ════════════════════════════════════════════════════════════════════ */
+.card {
+  background: var(--color-card-background);
+  padding: 32px 26px;
+  margin: 28px 0;
+  color: var(--color-text);
+  border: 3px solid var(--color-card-border);
+  position: relative;
+  /* Stacked hard offset shadow — two layers of slop */
+  box-shadow:
+    6px 6px 0 var(--con-orange),
+    6px 6px 0 3px var(--color-card-border),
+    12px 12px 0 var(--color-card-border);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+/* Top-left red corner stamp (large, slabby) */
+.card::before {
+  content: "";
+  position: absolute;
+  top: -3px;
+  left: -3px;
+  width: 56px;
+  height: 18px;
+  background: var(--con-orange);
+  border-right: 3px solid var(--color-card-border);
+  border-bottom: 3px solid var(--color-card-border);
+  z-index: 1;
+}
+
+/* Hash-mark register at top-right */
+.card::after {
+  content: "";
+  position: absolute;
+  top: 14px;
+  right: 18px;
+  width: 64px;
+  height: 5px;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--color-text) 0 7px,
+    transparent 7px 12px
+  );
+  pointer-events: none;
+}
+
+.card:hover {
+  transform: translate(-2px, -2px);
+  box-shadow:
+    8px 8px 0 var(--con-orange),
+    8px 8px 0 3px var(--color-card-border),
+    14px 14px 0 var(--color-card-border);
+}
+
+/* ════════ Crop-marks helper (mix-in via class on any positioned element) */
+.crop-marks::before,
+.crop-marks::after,
+.crop-marks > .cm-tr,
+.crop-marks > .cm-bl,
+.crop-marks > .cm-br {
+  content: "";
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  pointer-events: none;
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   LINKS
+   ════════════════════════════════════════════════════════════════════ */
+a {
+  color: var(--color-link);
+  text-decoration-color: var(--con-orange);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 2px;
+  transition: color 0.15s ease, background 0.15s ease;
+}
+a:hover { color: var(--con-orange); }
+
+/* Inline content links inside cards: orange highlight on hover */
+.card a:not(.back):not(.badge):not(.fbadge):not(.tbadge):not(.primary-link):not(.external-link):hover {
+  background: var(--con-orange);
+  color: var(--con-cream);
+  text-decoration: none;
+}
+
+/* Back-to-list link */
+.back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: "Oswald", sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.85em;
+  font-weight: 700;
+  padding: 7px 16px;
+  background: var(--con-black);
+  color: var(--con-cream);
+  border: 3px solid var(--color-card-border);
+  text-decoration: none;
+  box-shadow: 5px 5px 0 var(--con-orange);
+  transition: all 0.15s ease;
+}
+.back:hover {
+  background: var(--con-orange);
+  color: var(--con-cream) !important;
+  transform: translate(-2px, -2px);
+  box-shadow: 7px 7px 0 var(--con-black);
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   UTILITY ELEMENTS
+   ════════════════════════════════════════════════════════════════════ */
+.float-right { float: right; }
+.cursor-pointer { cursor: pointer; }
+
+/* Stencil / propaganda label */
+.stencil {
+  display: inline-block;
+  font-family: "Oswald", sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  padding: 5px 14px;
+  background: var(--con-black);
+  color: var(--con-cream);
+  font-size: 0.8em;
+  border: 2px solid var(--color-card-border);
+  box-shadow: 3px 3px 0 var(--color-card-border);
+}
+.stencil.red { background: var(--con-orange); color: var(--con-cream); }
+.stencil.yellow { background: var(--con-yellow); color: var(--con-black); }
+
+/* Slab number — for ordered lists / rankings */
+.slab-num {
+  display: inline-block;
+  background: var(--con-orange);
+  color: var(--con-cream);
+  font-family: "Big Shoulders Display", "Oswald", sans-serif;
+  font-weight: 900;
+  padding: 2px 10px;
+  border: 2px solid var(--color-card-border);
+  font-size: 1.2em;
+  line-height: 1.1;
+  letter-spacing: 0.04em;
+}
+
+/* Diagonal hatch divider */
+.hatch-divider {
+  height: 14px;
+  background: repeating-linear-gradient(
+    45deg,
+    var(--color-text) 0 3px,
+    transparent 3px 10px
+  );
+  margin: 28px 0;
+  border-top: 2px solid var(--color-text);
+  border-bottom: 2px solid var(--color-text);
+}
+
+/* Slim hash rule */
+.dash-rule {
+  height: 6px;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--color-text) 0 10px,
+    transparent 10px 16px
+  );
+  margin: 20px 0;
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   PAGE-HEAD — with giant rotated background numeral
+   ════════════════════════════════════════════════════════════════════ */
+.page-head {
+  position: relative;
+  z-index: 1;
+}
+
+/* Big rotated section character — sits behind page heading */
+.page-head .big-mark {
+  position: absolute;
+  top: -36px;
+  right: -8px;
+  font-family: "Big Shoulders Display", "Oswald", sans-serif;
+  font-weight: 900;
+  font-size: clamp(8rem, 18vw, 14rem);
+  line-height: 0.8;
+  color: var(--con-orange);
+  opacity: 0.16;
+  transform: rotate(-8deg);
+  pointer-events: none;
+  z-index: -1;
+  letter-spacing: -0.08em;
+  user-select: none;
+}
+
+/* Big section heading with diagonal slab underline */
+.page-head h1 {
+  position: relative;
+  display: inline-block;
+  padding-bottom: 4px;
+}
+.page-head h1::after {
+  content: "";
+  position: absolute;
+  left: -4px;
+  right: -4px;
+  bottom: -8px;
+  height: 6px;
+  background: var(--con-orange);
+  z-index: -1;
+  transform: skewX(-12deg);
+}
+
+/* Lede paragraph styling */
+.page-head .lede {
+  font-family: "IBM Plex Sans", sans-serif;
+  font-size: 0.95em;
+  color: var(--color-text-muted);
+  margin: 14px 0 0;
+  max-width: 640px;
+  border-left: 4px solid var(--con-orange);
+  padding-left: 12px;
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   PHOTOMONTAGE — duotone image filter (orange + black)
+   Default: soft enough to keep portraits/photos legible.
+   Modifier .duotone--heavy: high-contrast poster mode.
+   ════════════════════════════════════════════════════════════════════ */
+.duotone {
+  position: relative;
+  overflow: hidden;
+  background: var(--con-cream);
+  isolation: isolate;
+}
+.duotone img {
+  filter: grayscale(1) contrast(1.25) brightness(0.95);
+  display: block;
+}
+.duotone::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, var(--con-orange) 0%, transparent 60%, var(--con-black) 100%);
+  mix-blend-mode: multiply;
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+.duotone--heavy::after {
+  opacity: 0.8;
+  background: linear-gradient(135deg, var(--con-orange) 0%, var(--con-black) 100%);
+}
+
+/* On hover, intensify */
+.duotone:hover::after {
+  opacity: 0.4;
+  transition: opacity 0.3s ease;
+}
+
+/* Halftone — dot pattern overlay */
+.halftone {
+  background-image:
+    radial-gradient(var(--con-black) 1.2px, transparent 1.4px);
+  background-size: 8px 8px;
+  background-position: 0 0;
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   NEWSPRINT — photo treated like a halftoned newspaper image
+   Combines high-contrast B&W, dot screen, and horizontal grain lines.
+   ════════════════════════════════════════════════════════════════════ */
+.newsprint {
+  position: relative;
+  isolation: isolate;
+  background: var(--con-cream);
+}
+.newsprint img {
+  filter:
+    grayscale(1)
+    contrast(1.45)
+    brightness(1.08)
+    saturate(0);
+  display: block;
+}
+/* Dot screen — uniform pattern, multiplied onto the image */
+.newsprint::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle, var(--con-black) 0.9px, transparent 1.2px);
+  background-size: 3px 3px;
+  background-position: 0 0;
+  mix-blend-mode: screen;
+  opacity: 0.55;
+  pointer-events: none;
+  z-index: 2;
+}
+/* Horizontal print-bar register lines — barely-there scan lines */
+.newsprint::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      transparent 0 2px,
+      rgba(17, 17, 17, 0.08) 2px 3px
+    );
+  mix-blend-mode: multiply;
+  pointer-events: none;
+  z-index: 3;
+}
+
+/* Dark mode: invert dot color so screen ends up subtractive */
+:root.dark .newsprint,
+:global(:root.dark) .newsprint {
+  background: var(--con-cream);
+}
+:root.dark .newsprint img,
+:global(:root.dark) .newsprint img {
+  filter: grayscale(1) contrast(1.4) brightness(1.05) saturate(0);
+}
+
+/* Diagonal stripe ribbon */
+.ribbon {
+  display: inline-block;
+  padding: 6px 14px;
+  background: repeating-linear-gradient(
+    -45deg,
+    var(--con-orange) 0 8px,
+    var(--con-black) 8px 16px
+  );
+  color: var(--con-cream);
+  font-family: "Oswald", sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-size: 0.8em;
+  border: 2px solid var(--color-card-border);
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   RESPONSIVE
+   ════════════════════════════════════════════════════════════════════ */
 @media screen and (min-width: 500px) {
   main {
-    padding: 1rem;
+    padding: 32px 24px 80px;
   }
-
   .card {
-    padding: 20px;
+    padding: 40px 36px;
   }
 }
 
-/* Respect prefers-reduced-motion for view transitions */
 @media (prefers-reduced-motion: reduce) {
   ::view-transition-group(*),
   ::view-transition-old(*),
   ::view-transition-new(*) {
     animation-duration: 0.01ms !important;
   }
+  .card, .back {
+    transition: none;
+  }
+}
+
+/* Decorative wrapper for fixed shapes */
+.con-deco {
+  position: fixed;
+  pointer-events: none;
+  z-index: 0;
 }

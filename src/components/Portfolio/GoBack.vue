@@ -35,9 +35,9 @@ export default {
 </script>
 
 <style scoped>
-
-span {
-  text-decoration: underline;
+.back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
 }
-
 </style>

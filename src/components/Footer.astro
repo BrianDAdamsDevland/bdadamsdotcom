@@ -8,63 +8,195 @@ const { sourceLink, contentLink } = Astro.props;
 
 const fullSourceLink = `https://github.com/BrianDAdamsDevland/bdadamsdotcom/blob/main${sourceLink}`;
 const fullContentLink = `https://github.com/BrianDAdamsDevland/bdadamsdotcom/blob/main${contentLink}`;
+
+const year = new Date().getFullYear();
 ---
 
 <footer>
-  <div>
-    <p>Site by Brian D. Adams</p>
+  <div class="masthead">
+    <span class="block block--red"></span>
+    <span class="block block--black"></span>
+    <span class="block block--yellow"></span>
+    <span class="block block--red"></span>
+    <span class="block block--black"></span>
   </div>
 
-  <div>
-    <p>
-      Built with
-      <a href="https://astro.build"> {Astro.generator}</a>
-    </p>
+  <div class="content">
+    <div class="left">
+      <div class="brand">
+        <span class="stamp">BDA</span>
+        <span class="brand-text">
+          <strong>BRIAN·D·ADAMS</strong>
+          <small>SITE BY ITS AUTHOR · MMXX–{year}</small>
+        </span>
+      </div>
+    </div>
 
-    <p>
-      <small>
-        <i class="fa-brands fa-github" />
-        <a href={fullSourceLink}> View Page Source</a>
-        {
-          contentLink && (
-            <Fragment>
-              &middot;
-              <a href={fullContentLink}>View Content Source</a>
-            </Fragment>
-          )
-        }
-      </small>
-    </p>
+    <div class="right">
+      <p class="line">
+        <span class="key">BUILT</span>
+        <span class="val">
+          <a href="https://astro.build">{Astro.generator}</a>
+        </span>
+      </p>
+      <p class="line">
+        <span class="key">SOURCE</span>
+        <span class="val">
+          <i class="fa-brands fa-github" />
+          <a href={fullSourceLink}>View Page</a>
+          {
+            contentLink && (
+              <Fragment>
+                <span class="sep">/</span>
+                <a href={fullContentLink}>View Content</a>
+              </Fragment>
+            )
+          }
+        </span>
+      </p>
+    </div>
+  </div>
+
+  <div class="hash-register" aria-hidden="true">
+    <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
   </div>
 </footer>
 
 <style lang="scss">
   footer {
-    max-width: 900px;
-    margin: 0 auto;
+    max-width: 1200px;
+    margin: 60px auto 0;
+    padding: 0 16px 30px;
+    font-family: "Oswald", "Arial Narrow", sans-serif;
+    color: var(--color-text);
+  }
+
+  .masthead {
     display: flex;
-    padding: 35px 15px;
-    flex-direction: column;
-    gap: 20px;
+    height: 14px;
+    margin-bottom: 18px;
+    border-top: 2px solid var(--color-card-border);
+    border-bottom: 2px solid var(--color-card-border);
+
+    .block {
+      flex: 1;
+      &--red { background: var(--con-orange); }
+      &--black { background: var(--con-black); }
+      &--yellow { background: var(--con-yellow); }
+    }
+    .block--yellow { flex: 0.4; }
+    .block:nth-child(2) { flex: 0.6; }
+    .block:nth-child(5) { flex: 0.5; }
+  }
+
+  .content {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 18px;
+    padding: 14px 16px;
+    background: var(--color-card-background);
+    border: 2px solid var(--color-card-border);
+    box-shadow: 6px 6px 0 var(--con-orange);
+  }
+
+  .brand {
+    display: flex;
     align-items: center;
-    font-size: 0.9em;
+    gap: 12px;
+  }
 
+  .stamp {
+    background: var(--con-orange);
+    color: var(--con-cream);
+    padding: 6px 10px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    font-size: 1em;
+    border: 2px solid var(--color-card-border);
+  }
+
+  .brand-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.15;
+
+    strong {
+      letter-spacing: 0.15em;
+      font-weight: 700;
+      font-size: 0.95em;
+    }
+    small {
+      font-size: 0.7em;
+      letter-spacing: 0.2em;
+      color: var(--color-text-muted);
+    }
+  }
+
+  .right {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-family: "IBM Plex Mono", monospace;
+  }
+
+  .line {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 0.82em;
+  }
+
+  .key {
+    display: inline-block;
+    background: var(--con-black);
+    color: var(--con-cream);
+    padding: 2px 8px;
+    letter-spacing: 0.15em;
+    font-family: "Oswald", sans-serif;
+    font-size: 0.95em;
+    min-width: 70px;
+    text-align: center;
+  }
+
+  .val {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+
+    i { color: var(--con-orange); }
     a {
+      color: var(--color-text);
       text-decoration: none;
-      font-weight: 600;
-
-      &:hover {
-        text-decoration: underline;
-      }
+      border-bottom: 2px solid var(--con-orange);
     }
-
-    p {
-      margin-top: 0;
-      margin-bottom: 5px;
-      text-align: center;
+    a:hover {
+      background: var(--con-orange);
+      color: var(--con-cream);
     }
-    p:last-child {
-      margin-bottom: 0;
+    .sep { color: var(--con-orange); }
+  }
+
+  .hash-register {
+    display: flex;
+    margin-top: 14px;
+    gap: 4px;
+
+    span {
+      flex: 1;
+      height: 6px;
+      background: var(--color-text);
+    }
+    span:nth-child(3n) { background: var(--con-orange); }
+    span:nth-child(5n) { background: var(--con-yellow); }
+  }
+
+  @media screen and (min-width: 700px) {
+    .content {
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 30px;
+      padding: 18px 26px;
     }
   }
 </style>
