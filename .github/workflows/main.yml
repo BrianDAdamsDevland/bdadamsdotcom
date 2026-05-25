@@ -18,13 +18,18 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: setup
+      - name: setup bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: build
         env:
           IFRAMELY_API_KEY: ${{ secrets.IFRAMELY_API_KEY }}
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
         run: |
-          npm install
-          npm run build
+          bun install --frozen-lockfile
+          bun run build
 
       - name: configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
