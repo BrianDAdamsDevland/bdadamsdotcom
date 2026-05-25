@@ -2,7 +2,7 @@
 import Layout from "@layouts/Layout.astro";
 
 import Typer from "@components/Typer.vue";
-import SearchComponent from "astro-pagefind/components/Search";
+import PagefindConfig from "astro-pagefind/components/PagefindConfig.astro";
 ---
 
 <Layout
@@ -16,18 +16,47 @@ import SearchComponent from "astro-pagefind/components/Search";
         <Typer client:load text="Search" duration={600} />
       </h1>
 
-      <SearchComponent
-        id="search"
-        uiOptions={{ showImages: false, autofocus: true, showSubResults: true }}
-      />
+      <PagefindConfig />
+      <pagefind-input autofocus placeholder="Search BDADAMS.com…"></pagefind-input>
+      <pagefind-summary></pagefind-summary>
+      <pagefind-results show-sub-results></pagefind-results>
     </div>
   </main>
 </Layout>
 
-<style>
+<script>
+  // Deep-link support: pre-fill and run a search from the `?q=` query string,
+  // e.g. /search?q=astro. The v2 Pagefind components don't read the URL on
+  // their own, so we drive <pagefind-input> once it has upgraded.
+  function applySearchQuery() {
+    const term = new URLSearchParams(location.search).get("q");
+    if (!term) return;
 
-main :global(.pagefind-ui__results li:last-child) {
-  border-bottom: 0 !important;
-}
+    customElements.whenDefined("pagefind-input").then(() => {
+      const el = document.querySelector<HTMLElement & { inputEl?: HTMLInputElement | null }>(
+        "pagefind-input",
+      );
+      if (!el) return;
 
-</style>
+      const fill = (attempts = 0) => {
+        const input = el.inputEl ?? el.querySelector("input");
+        if (input) {
+          if (input.value === term) return;
+          input.value = term;
+          input.dispatchEvent(new Event("input", { bubbles: true }));
+        } else if (attempts < 50) {
+          requestAnimationFrame(() => fill(attempts + 1));
+        }
+      };
+      fill();
+    });
+  }
+
+  document.addEventListener("astro:page-load", applySearchQuery);
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", applySearchQuery);
+  } else {
+    applySearchQuery();
+  }
+</script>
+
