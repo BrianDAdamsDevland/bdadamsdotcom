@@ -1,0 +1,4 @@
+[install]
+# Pin all dependencies to exact versions (no caret/tilde ranges).
+# `bun add` and `bun update --latest` write exact versions.
+exact = true

@@ -9,7 +9,7 @@
     "build": "astro check && astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "package update": "bunx npm-check-updates -u && bun install"
+    "package update": "bun update --latest"
   },
   "dependencies": {
     "@astrojs/alpinejs": "0.5.0",
