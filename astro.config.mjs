@@ -4,12 +4,6 @@ import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
 import sentry from "@sentry/astro";
 import { loadEnv } from "vite";
-import react from "@astrojs/react";
-import alpinejs from "@astrojs/alpinejs";
-import lit from "@astrojs/lit";
-import preact from "@astrojs/preact";
-import solidJs from "@astrojs/solid-js";
-import svelte from "@astrojs/svelte";
 import pagefind from "astro-pagefind";
 import netlify from "@astrojs/netlify";
 
@@ -31,13 +25,7 @@ export default defineConfig({
       authToken: SENTRY_AUTH_TOKEN,
       org: "brian-d-adams"
     }
-  }), react({
-    include: ["**/react/*"]
-  }), alpinejs(), lit(), preact({
-    include: ["**/preact/*"]
-  }), solidJs({
-    include: ["**/solid/*"]
-  }), svelte(), pagefind()],
+  }), pagefind()],
   markdown: {
     shikiConfig: {
       wrap: true
@@ -46,8 +34,10 @@ export default defineConfig({
   redirects: {
     "/cv": "/resume",
     "/gallery": "/portfolio",
-    "/gallery/[...slug]": "/portfolio/[...slug]"
+    "/gallery/[...slug]": "/portfolio/[...slug]",
+    "/blog/islands/": "/blog"
   },
+  compressHTML: true,
   output: "static",
   adapter: netlify(),
 });
