@@ -19,6 +19,7 @@
 [build.environment]
   NETLIFY_ANALYTICS = "true"
   NODE_VERSION = "22"
+  BUN_VERSION = "1.3.14"
 
 # Cache static assets aggressively
 [[headers]]
